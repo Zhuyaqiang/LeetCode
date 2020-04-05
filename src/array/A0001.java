@@ -1,9 +1,9 @@
-package array.a0001;
+package array;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Main {
+public class A0001 {
     public static void main(String[] args) {
         int[] arr = {2, 7, 11, 15};
         int[] ints = TwoSum2(arr, 9);

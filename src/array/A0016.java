@@ -1,8 +1,8 @@
-package array.a0016;
+package array;
 
 import java.util.Arrays;
 
-public class Main {
+public class A0016 {
     public static void main(String[] args) {
         int nums[] = {-1,0,1,1,55};
         System.out.println(threeSumClosest(nums, 3));

@@ -1,4 +1,4 @@
-package array.a0018;
+package array;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * 四数之和
  */
-public class Main {
+public class A0017 {
     public static List<List<Integer>> fourSum(int[] nums, int target) {
         List<List<Integer>> ans = new ArrayList<>();
         while (nums.length < 4)

@@ -1,6 +1,6 @@
-package array.a0011;
+package array;
 
-public class Main {
+public class A0011 {
     public static void main(String[] args) {
 
     }

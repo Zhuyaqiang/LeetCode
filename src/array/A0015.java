@@ -1,11 +1,11 @@
-package array.a0015;
+package array;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Main {
+public class A0015 {
     public static void main(String[] args) {
         int[] nums = {0};
         List<List<Integer>> lists = threeSum(nums);
