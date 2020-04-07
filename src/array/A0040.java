@@ -28,8 +28,8 @@ public class A0040 {
             return;
         else {
             for (int i = start; i < candidates.length; i++) {
-//                if (i > start && candidates[i] == candidates[i-1])
-//                    continue;
+                if (i > start && candidates[i] == candidates[i-1])
+                    continue;
                 list.add(candidates[i]);
                 backtrace(i + 1, candidates, target - candidates[i], list);
                 list.remove(list.size()-1);
