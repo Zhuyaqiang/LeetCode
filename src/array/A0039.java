@@ -15,10 +15,10 @@ public class A0039 {
     public static List<List<Integer>> combinationSum(int[] candidates, int target) {
         if (candidates == null || candidates.length == 0)
             return res;
-        backtrace(0, candidates, target, new ArrayList<>());
+        backtrack(0, candidates, target, new ArrayList<>());
         return res;
     }
-    public static void backtrace(int start, int[] candidates, int target, List<Integer> list) {
+    public static void backtrack(int start, int[] candidates, int target, List<Integer> list) {
         if (target == 0)
             res.add(new ArrayList<>(list));
         else if (target < 0)
@@ -26,7 +26,7 @@ public class A0039 {
         else {
             for (int i = start; i < candidates.length; i++) {
                 list.add(candidates[i]);
-                backtrace(i, candidates, target - candidates[i], list);
+                backtrack(i, candidates, target - candidates[i], list);
                 list.remove(list.size()-1);
             }
         }

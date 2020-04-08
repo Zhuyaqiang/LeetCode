@@ -18,10 +18,10 @@ public class A0040 {
         if (candidates.length == 0 || candidates == null || target < 0)
             return result;
         Arrays.sort(candidates);
-        backtrace(0, candidates, target, new ArrayList<>());
+        backtrack(0, candidates, target, new ArrayList<>());
         return result;
     }
-    public static void backtrace(int start, int[] candidates, int target, List<Integer> list) {
+    public static void backtrack(int start, int[] candidates, int target, List<Integer> list) {
         if(target == 0)
             result.add(new ArrayList<>(list));
         else if (target < 0)
@@ -31,7 +31,7 @@ public class A0040 {
                 if (i > start && candidates[i] == candidates[i-1])
                     continue;
                 list.add(candidates[i]);
-                backtrace(i + 1, candidates, target - candidates[i], list);
+                backtrack(i + 1, candidates, target - candidates[i], list);
                 list.remove(list.size()-1);
             }
         }
