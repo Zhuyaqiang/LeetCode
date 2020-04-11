@@ -18,8 +18,8 @@ package array;
  */
 public class A0045 {
     public static void main(String[] args) {
-        int[] nums = {2,3,1,1,4};
-        System.out.println(jump2(nums));
+        int[] nums = {3,2,1,0,4};
+        System.out.println(jump3(nums));
     }
     // 超时, 动态规划
     public static int jump(int[] nums) {
