@@ -18,6 +18,7 @@ public class A0026 {
         int[] nums = {1,1,2};
         System.out.println("count: " + removeDuplicates(nums));
     }
+    // 暴力法
     public static int removeDuplicates(int[] nums) {
         int len = nums.length, dup = 0;
         for (int i = 1; i < len-dup; i++) {
@@ -31,6 +32,7 @@ public class A0026 {
         }
         return len-dup;
     }
+    // 双指针, i慢指针, j快指针
     public static int removeDuplicates1(int[] nums) {
         if (nums.length < 1)
             return 0;

@@ -24,6 +24,8 @@ public class A0027 {
             System.out.print(nums[i]);
         }
     }
+
+    // 暴力法
     public static int removeElement(int[] nums, int val) {
         if (nums.length == 0)
             return 0;
@@ -44,6 +46,7 @@ public class A0027 {
         return ans;
     }
 
+    // 从前往后, 相等即跳过, 不等即交换
     public static int removeElement2(int[] nums, int val) {
         int ans = 0;
         for (int i = 0; i < nums.length; i++) {

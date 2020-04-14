@@ -15,7 +15,7 @@ import java.util.Arrays;
 public class A0031 {
     public static void main(String[] args) {
         int[] nums = {1,3,2};
-        rNextPermutation2(nums);
+        nextPermutation2(nums);
         for (int num : nums) {
             System.out.print(num + " ");
         }
@@ -48,6 +48,7 @@ public class A0031 {
         }
     }
 
+    // 从后往前找找到小于后一个数的第一个数A, 从后往前找, 找到第一个大于等于A的数B, 交换AB, 逆序B之后的所有数
     public static void nextPermutation2(int[] nums) {
         int len = nums.length;
         int i = len-1;
@@ -71,25 +72,4 @@ public class A0031 {
         }
     }
 
-    public static void rNextPermutation2(int[] nums) {
-        int len = nums.length;
-        int i = len-1;
-        while (i > 0 && nums[i] <= nums[i-1])
-            i--;
-        if (i > 0) {
-            int j = len - 1;
-            while(nums[j] <= nums[i-1]) j--;
-            int temp = nums[j];
-            nums[j] = nums[i-1];
-            nums[i-1] = temp;
-        }
-        int start = i, end = len-1;
-        while (start < end) {
-            int temp = nums[start];
-            nums[start] = nums[end];
-            nums[end] = temp;
-            start++;
-            end--;
-        }
-    }
 }

@@ -13,11 +13,12 @@ public class A0011 {
         int[] nums = {1,8,6,2,5,4,8,3,7};
         System.out.println(Solution1(nums));
     }
+    // 暴力法
     public static int Solution1(int[] height) {
         int res = Integer.MIN_VALUE;
         for (int i = 0; i < height.length; i++) {
             for (int j = i + 1; j < height.length; j++) {
-                int h = height[i] > height[j] ? height[j] : height[i];
+                int h = Math.min(height[i], height[j]);
                 int area = h * (j-i);
                 if (area > res)
                     res = area;
@@ -25,6 +26,7 @@ public class A0011 {
         }
         return res;
     }
+    // 双指针
     public static int Solution2(int[] height) {
         int start = 0, end = height.length-1;
         int res = Integer.MIN_VALUE;
