@@ -2,12 +2,20 @@ package array;
 
 import java.util.Stack;
 
+/**
+ * 接雨水
+ * 给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。
+ * 上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。 感谢 Marcos 贡献此图。
+ * 示例:
+ * 输入: [0,1,0,2,1,0,1,3,2,1,2,1]
+ * 输出: 6
+ */
 public class A0042 {
     public static void main(String[] args) {
-        int[] height = {0,1,0,2,1,0,1,3,2,1,2,1};
+        int[] height = {2,0,2};
         System.out.println(trap5(height));
     }
-    // 按行求
+    // 按行求 超时
     public static int trap(int[] height) {
         int res = 0;
         int len = height.length;
@@ -30,6 +38,7 @@ public class A0042 {
         }
         return res;
     }
+    // 按列找, 找到左边最高和右边最高, 取两者最小值
     public static int trap2(int[] height) {
         int sum = 0;
         int len = height.length;
@@ -71,6 +80,7 @@ public class A0042 {
         int rightMax = 0, leftMax = 0;
         int left = 1, right = len-2;
         for (int i = 1; i < height.length-1; i ++) {
+            // 在right+1 >= left-1之前, 左边的最高一定小于右边的最高
             // 更新height[left], 因为对于height[left]来说, 其左边最高的边一定比右边最高的边低
             if (height[left-1] < height[right+1]) {
                 leftMax = Math.max(leftMax, height[left-1]);
@@ -79,6 +89,7 @@ public class A0042 {
                     sum += min - height[left];
                 left++;
             }
+            // 在right+1 < left-1之前, 右边的最高一定小于等于左边的最高
             // 更新height[right], 因为对于height[right]来说, 其右边最高的边一定小于等于左边最高的边
             else {
                 rightMax = Math.max(rightMax, height[right + 1]);
