@@ -1,5 +1,7 @@
 package array;
 
+import java.util.Arrays;
+
 /**
  * 跳跃游戏
  * 给定一个非负整数数组，你最初位于数组的第一个位置。
@@ -17,7 +19,7 @@ package array;
 public class A0055 {
     public static void main(String[] args) {
         int[] nums = {3,2,1,0,4};
-        System.out.println(canJump4(nums));
+        System.out.println(canJump2(nums));
     }
     public static boolean canJump(int[] nums) {
         int len = nums.length;
@@ -65,7 +67,7 @@ public class A0055 {
     }
     public static boolean can(int start, int[] nums) {
         if (ans[start] != 2)
-            return ans[start] == 1 ? true : false;
+            return ans[start] == 1;
         int max = nums[start] + start;
         for (int i = start + 1; i < nums.length && i <= max; i++) {
             if (can(i, nums)) {
@@ -86,5 +88,20 @@ public class A0055 {
                 lastPos = i;
         }
         return lastPos == 0;
+    }
+
+    // 从前往后, 设置边界和最大值
+    public static boolean rCanjump(int[] nums) {
+        int end = 0, max = 0, start;
+        int len = nums.length;
+        for (start = 0; start < len; start++) {
+            max = Math.max(max, start + nums[start]);
+            if (end == start) {
+                if (end == max && start < len-1)
+                    return false;
+                end = max;
+            }
+        }
+        return true;
     }
 }

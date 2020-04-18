@@ -25,7 +25,9 @@ import java.util.List;
  */
 public class A0054 {
     public static void main(String[] args) {
-
+        int[][] matrix = {{1,2,3},{4,5,6},{7,8,9}};
+        List<Integer> integers = spiralOrder(matrix);
+        System.out.println(integers);
     }
     public static List<Integer> spiralOrder(int[][] matrix) {
         List<Integer> ans = new ArrayList<>();
