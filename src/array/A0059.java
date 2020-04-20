@@ -14,7 +14,7 @@ package array;
  */
 public class A0059 {
     public static void main(String[] args) {
-        int[][] ints = generateMatrix(5);
+        int[][] ints = rGenerateMatrix(5);
         for (int[] anInt : ints) {
             for (int i : anInt) {
                 System.out.print(i + " ");
@@ -39,6 +39,27 @@ public class A0059 {
                 change = (change + 1) % 4;
                 x = x + dx[change];
                 y = y + dy[change];
+            }
+        }
+        return res;
+    }
+    public static int[][] rGenerateMatrix(int n) {
+        int[][] res = new int[n][n];
+        int[][] direction = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        int k = 0, x = 0, y = 0;
+        boolean[][] seen = new boolean[n][n];
+        for (int i = 0; i < n * n; i++){
+            seen[x][y] = true;
+            res[x][y] = i + 1;
+            int newX = x + direction[k][0];
+            int newY = y + direction[k][1];
+            if (newX >= 0 && newX < n && newY >= 0 && newY < n && !seen[newX][newY]) {
+                x = newX;
+                y = newY;
+            } else {
+                k = (k + 1) % 4;
+                x = x + direction[k][0];
+                y = y + direction[k][1];
             }
         }
         return res;

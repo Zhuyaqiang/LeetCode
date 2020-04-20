@@ -20,12 +20,14 @@ import java.util.List;
 public class A0057 {
     public static void main(String[] args) {
 //        int[][] intevrals = {{1,5}};
-        int[][] intevrals = {{1,2},{3,5},{6,7},{8,10},{12,16}};
+//        int[][] intevrals = {};
 //        int[][] intevrals = {{1,5}};
 //        int[] newInterval = {1,7};
-        int[] newInterval = {4, 8};
+//        int[] newInterval = {4, 8};
 //        int[] newInterval = {0, 3};
-        int[][] insert = insert(intevrals, newInterval);
+        int[][] intervals = {{1, 2}, {3, 5}, {6, 7}, {8, 10}, {12, 16}};
+        int[] newInterval = {4, 8};
+        int[][] insert = rInsert2(intervals, newInterval);
         for (int[] ints : insert) {
             for (int anInt : ints) {
                 System.out.print(anInt + " ");
@@ -112,5 +114,36 @@ public class A0057 {
             }
         }
         return output.toArray(new int[output.size()][2]);
+    }
+
+    public static int[][] rInsert2(int[][] intervals, int[] newInterval) {
+        LinkedList<int[]> res = new LinkedList<>();
+        int start = 0;
+        int newStart = newInterval [0], newEnd = newInterval[1];
+        while (start < intervals.length && intervals[start][0] < newInterval[0]) {
+            res.add(intervals[start]);
+            start++;
+        }
+
+        if (res.isEmpty() || res.getLast()[1] < newStart)
+            res.add(newInterval);
+        else {
+            int[] curr = res.removeLast();
+            curr[1] = Math.max(curr[1], newEnd);
+            res.add(curr);
+        }
+        boolean flag = false;
+        while (start < intervals.length) {
+            if (flag || res.getLast()[1] < intervals[start][0]) {
+                res.add(intervals[start]);
+                flag = true;
+            } else {
+                int[] curr = res.removeLast();
+                curr[1] = Math.max(curr[1], intervals[start][1]);
+                res.add(curr);
+            }
+            start ++;
+        }
+        return res.toArray(new int[res.size()][]);
     }
 }
