@@ -21,7 +21,12 @@ package array;
  */
 public class A0063 {
     public static void main(String[] args) {
-        int[][] nums = {{0,0}};
+//        int[][] nums = {{0,0}};
+        int[][] nums = {
+                {0, 0, 0},
+                {0, 1, 0},
+                {0, 0, 0}
+        };
         System.out.println(uniquePathsWithObstacles3(nums));
     }
 
@@ -84,8 +89,9 @@ public class A0063 {
             for (int j = 0; j < n; j++)
                 pre[j] = cur[j];
         }
-        return pre[n-1];
+        return pre[n - 1];
     }
+
     public static int uniquePathsWithObstacles3(int[][] obstacleGrid) {
         int m = obstacleGrid.length;
         int n = obstacleGrid[0].length;
@@ -104,10 +110,10 @@ public class A0063 {
                     res[j] = 0;
                 else {
                     if (j != 0)
-                        res[j] = res[j-1] + res[j];
+                        res[j] = res[j - 1] + res[j];
                 }
             }
         }
-        return res[n-1];
+        return res[n - 1];
     }
 }
