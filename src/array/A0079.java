@@ -24,11 +24,9 @@ public class A0079 {
     public static void main(String[] args) {
         char[][] board =
                 {
-                        {'A', 'B', 'C', 'E'},
-                        {'S', 'F', 'C', 'S'},
-                        {'A', 'D', 'E', 'E'}
+                        {'A'},
                 };
-        System.out.println(exist(board, "ABCCED"));
+        System.out.println(exist(board, "A"));
 
     }
 
@@ -56,6 +54,7 @@ public class A0079 {
     }
 
     public static boolean dfs(int i, int j, int start) {
+        // 返回条件需要注意-----应在剩最后一个字母时判断是否返回
         if (start == words.length() - 1) {
             return boards[i][j] == words.charAt(start);
         }
