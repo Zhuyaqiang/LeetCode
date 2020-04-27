@@ -13,7 +13,7 @@ import java.util.Deque;
  */
 public class A0084 {
     public static void main(String[] args) {
-        int[] heights = {6, 4, 5, 2, 4, 3, 9};
+        int[] heights = {2,1,5,6,2,3};
         System.out.println(largestRectangleArea4(heights));
     }
     // 暴力法, 超时
