@@ -80,11 +80,6 @@ public class A0085 {
             }
             res = Math.max(res, largestRectangleArea4(dp));
         }
-
-        for (int i = 0; i < m; i++) {
-
-        }
-
         return res;
     }
 
