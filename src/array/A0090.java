@@ -48,5 +48,4 @@ public class A0090 {
             temp.remove(temp.size() - 1);
         }
     }
-
 }

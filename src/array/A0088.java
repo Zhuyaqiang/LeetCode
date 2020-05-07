@@ -14,9 +14,9 @@ package array;
  */
 public class A0088 {
     public static void main(String[] args) {
-        int[] nums1 = {3,2,1,0,0,0};
-        int[] nums2 = {6,5,2};
-        merge(nums1,3,nums2,3);
+        int[] nums1 = {0};
+        int[] nums2 = {1};
+        rMerge(nums1,0,nums2,1);
         for (int i : nums1) {
             System.out.print(i + " ");
         }
@@ -33,6 +33,36 @@ public class A0088 {
             else if (x < 0 || y >=0 && nums1[x] >= nums2[y]) {
                 nums1[start] = nums2[y];
                 y--;
+            }
+        }
+    }
+    public static void rMerge(int[] nums1, int m, int[] nums2, int n) {
+        int oneIndex = m - 1, twoIndex = n - 1;
+        if (m == 0) {
+            for (int i = 0; i < n; i++) {
+                nums1[i] = nums2[i];
+            }
+            return;
+        }
+        if (nums1[m - 1] < nums1[0]) {
+            for (int start = m + n - 1; start >= 0; start--) {
+                if (twoIndex < 0 || oneIndex >= 0 && nums1[oneIndex] < nums2[twoIndex]) {
+                    nums1[start] = nums1[oneIndex];
+                    oneIndex--;
+                } else if (oneIndex < 0 || twoIndex >= 0 && nums1[oneIndex] >= nums1[twoIndex]) {
+                    nums1[start] = nums2[twoIndex];
+                    twoIndex--;
+                }
+            }
+        } else {
+            for (int start = m + n - 1; start >= 0; start--) {
+                if (twoIndex < 0 || oneIndex >= 0 && nums1[oneIndex] >= nums2[twoIndex]) {
+                    nums1[start] = nums1[oneIndex];
+                    oneIndex--;
+                } else if (oneIndex < 0 || twoIndex >= 0 && nums1[oneIndex] < nums2[twoIndex]) {
+                    nums1[start] = nums2[twoIndex];
+                    twoIndex--;
+                }
             }
         }
     }

@@ -27,7 +27,7 @@ public class A0085 {
         System.out.println(maximalRectangle2(area));
     }
     // 把每一行当做柱状图处理, 动态规划
-    // dp[i][j]表示第i行第j列的数字是改行连续的第几个1
+    // dp[i][j]表示第i行第j列的数字是该行连续的第几个1
     public static int maximalRectangle(char[][] matrix) {
         if (matrix == null || matrix.length == 0)
             return 0;
@@ -51,6 +51,7 @@ public class A0085 {
         }
         return res;
     }
+
     // 当做柱状图处理, 单调栈
     public static int maximalRectangle2(char[][] matrix) {
         int res = 0;
