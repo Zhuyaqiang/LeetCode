@@ -29,6 +29,8 @@ public class A0106 {
         int[] inorder = {9,3,15,20,7};
         int[] postorder = {9,15,7,20,3};
         TreeNode treeNode = buildTree(inorder, postorder);
+        System.out.println();
+        rBuildTree(inorder, postorder);
         display(treeNode);
     }
 
@@ -52,8 +54,30 @@ public class A0106 {
 
         postIndex--;
 
+        System.out.println(left + " " + right + " " + index);
         root.right = backtrack(index + 1, right);
         root.left = backtrack(left, index - 1);
+        return root;
+    }
+
+    public static TreeNode rBuildTree(int[] inorder, int[] postorder) {
+        inorders = inorder;
+        postorders = postorder;
+        postIndex = postorder.length-1;
+        for (int i = 0; i < inorder.length; i++)
+            map.put(inorder[i], i);
+        return rBacktrack(0, postorder.length-1);
+    }
+    public static TreeNode rBacktrack(int left, int right) {
+        if (left > right)
+            return null;
+        int val = postorders[postIndex];
+        int inIndex = map.get(val);
+        postIndex--;
+        TreeNode root = new TreeNode(val);
+        System.out.println(left + " " + right + " " + inIndex);
+        root.right = rBacktrack(inIndex + 1, right);
+        root.left = rBacktrack(left, inIndex - 1);
         return root;
     }
 
