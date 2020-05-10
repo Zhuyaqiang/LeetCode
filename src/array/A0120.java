@@ -30,7 +30,6 @@ public class A0120 {
         triangle.add(Arrays.asList(4,1,8,3));
 //        triangle.add(Arrays.asList(-10));
         System.out.println(minimumTotal3(triangle));
-
     }
 
     // 递归, 超时

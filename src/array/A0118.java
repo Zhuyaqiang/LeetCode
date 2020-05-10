@@ -10,14 +10,19 @@ import java.util.List;
  * 输入: 5
  * 输出:
  * [
- *      [1],
- *     [1,1],
- *    [1,2,1],
- *   [1,3,3,1],
+ *  [1],
+ *  [1,1],
+ *  [1,2,1],
+ *  [1,3,3,1],
  *  [1,4,6,4,1]
  * ]
  */
 public class A0118 {
+    public static void main(String[] args) {
+        List<List<Integer>> lists = generate(5);
+        System.out.println(lists);
+    }
+
     public static List<List<Integer>> generate(int numRows) {
         List<Integer> pre = new ArrayList<>();
         List<List<Integer>> res = new ArrayList<>();

@@ -13,6 +13,13 @@ import java.util.stream.Collectors;
  * 输出: [1,3,3,1]
  * 进阶：
  * 你可以优化你的算法到 O(k) 空间复杂度吗？
+ *  * [
+ *  *  [1],
+ *  *  [1,1],
+ *  *  [1,2,1],
+ *  *  [1,3,3,1],
+ *  *  [1,4,6,4,1]
+ *  * ]
  */
 public class A0119 {
     public static List<Integer> getRow(int rowIndex) {
