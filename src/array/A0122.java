@@ -26,6 +26,18 @@ package array;
  * 0 <= prices[i] <= 10 ^ 4
  */
 public class A0122 {
+    public static int rMaxProfit(int[] prices) {
+        if (prices == null || prices.length == 0)
+            return 0;
+        int len = prices.length;
+        int res = 0, profit, index = 0;
+        for (index = 0; index < len-1; index++) {
+            if (prices[index] < prices[index+1])
+                res += (prices[index+1]-prices[index]);
+        }
+        return res;
+    }
+    // 先找谷, 再找峰
     // 找到谷之后找连续的第一个峰
     public static int maxProfit(int[] prices) {
         if (prices == null || prices.length == 0)

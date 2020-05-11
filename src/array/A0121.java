@@ -16,6 +16,11 @@ package array;
  * 解释: 在这种情况下, 没有交易完成, 所以最大利润为 0。
  */
 public class A0121 {
+    public static void main(String[] args) {
+        int[] nums = {7,1,5,3,6,4};
+//        int[] nums = {7,6,4,3,1};
+        System.out.println(rMaxProfit(nums));
+    }
     public static int maxProfit(int[] prices) {
         if (prices == null || prices.length == 0)
             return 0;
@@ -25,6 +30,20 @@ public class A0121 {
                 res = Math.max(res, prices[i] - min);
             }
             min = Math.min(prices[i], min);
+        }
+        return res;
+    }
+    public static int rMaxProfit(int[] prices) {
+        if (prices == null || prices.length == 0)
+            return 0;
+        int len = prices.length;
+        int[] min = new int[len]; // min[i]表示从0-i中最小的数字
+        min[0] = prices[0];
+        int res = 0;
+        for (int i = 1; i < len; i++) {
+            if (min[i-1] < prices[i])
+                res = Math.max(res, prices[i] - min[i-1]);
+            min[i] = Math.min(min[i-1], prices[i]);
         }
         return res;
     }
