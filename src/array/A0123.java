@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
 public class A0123 {
     public static void main(String[] args) {
         int[] prices = {3,3,5,0,0,3,1,4};
+        System.out.println(maxProift(prices));
     }
     /*
         dp[i][j]表示[0,i]天 状态j 的利润

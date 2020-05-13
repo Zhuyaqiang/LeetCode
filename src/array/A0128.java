@@ -60,7 +60,7 @@ public class A0128 {
         }
     }
 
-    // 哈希表, 如果当前数字-1在哈希表内, 则说明肯定会被查找到, 跳过
+    // 哈希集合, 如果当前数字-1在哈希表内, 则说明肯定会被查找到, 跳过
     //        如果当前数字-1不在哈希表内, 则当前数字作为起点往后循环查找最长序列
     public static int longestConsecutive2(int[] nums) {
         if (nums.length == 0)
