@@ -16,7 +16,23 @@ package array;
 public class A0153 {
     public static void main(String[] args) {
         int nums[] = {4,5,1,2,3};
-        System.out.println(findMin(nums));
+//        int nums[] = {1};
+//        int nums[] = {3,4,5,1,2};
+        System.out.println(rFineMin(nums));
+    }
+    public static int rFineMin(int[] nums) {
+        int len = nums.length;
+        int l = 0, r = len - 1;
+        while (l < r) {
+            // mid永远不会等于r
+            int mid = l + (r - l) / 2;
+            // 如果判断左值和中值的大小的话可能会出现l = mid = r-1, 所以应判断右值和中值
+            if (nums[r] > nums[mid]) {
+                r = mid;
+            } else // 只可能是r != mid && nums[r] < nums[mid]
+                l = mid + 1;
+        }
+        return nums[l];
     }
     public static int findMin(int[] nums) {
         int len = nums.length;
