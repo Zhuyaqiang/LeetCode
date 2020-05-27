@@ -16,9 +16,48 @@ import java.util.List;
  */
 public class A0229 {
     public static void main(String[] args) {
-        int[] nums = {1,1,1,2,3,4,5,6};
-        List<Integer> integers = majorityElement(nums);
+        int[] nums = {1,2};
+        List<Integer> integers = rMajorityElement(nums);
         System.out.println(integers);
+    }
+    public static List<Integer> rMajorityElement(int[] nums) {
+        int count1 = 0, count2 = 0;
+        int candidate1 = nums[0], candidate2 = nums[0];
+        List<Integer> res = new ArrayList<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == candidate1) {
+                count1 ++;
+                continue;
+            }
+            if (nums[i] == candidate2) {
+                count2 ++;
+                continue;
+            }
+            if (count1 == 0) {
+                candidate1 = nums[i];
+                count1++;
+                continue;
+            }
+            if (count2 == 0) {
+                candidate2 = nums[i];
+                count2++;
+                continue;
+            }
+            count1--;
+            count2--;
+        }
+        count1 = count2 = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == candidate1)
+                count1++;
+            else if (nums[i] == candidate2)
+                count2++;
+        }
+        if (count1 > nums.length / 3)
+            res.add(candidate1);
+        if (count2 > nums.length / 3)
+            res.add(candidate2);
+        return res;
     }
     // 摩尔投票, 因为大于n/k的数至多k-1个, 所以需要两个count
     public static List<Integer> majorityElement(int[] nums) {

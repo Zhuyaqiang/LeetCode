@@ -1,7 +1,6 @@
 package array;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 存在重复元素2
@@ -18,8 +17,21 @@ import java.util.Set;
  */
 public class A0219 {
     public static void main(String[] args) {
-        int[] nums = {1,2,1};
-        System.out.println(containsNearbyDuplicate2(nums, 0));
+        int[] nums = {1,2,3,1};
+        System.out.println(rContainsNearbyDuplicate(nums, 3));
+    }
+    // 哈希表
+    public static boolean rContainsNearbyDuplicate(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (map.containsKey(nums[i])) {
+                int index = map.get(nums[i]);
+                if (i - index <= k)
+                    return true;
+            }
+            map.put(nums[i], i);
+        }
+        return false;
     }
     // 暴力法
     public static boolean containsNearbyDuplicate(int[] nums, int k) {
@@ -35,7 +47,7 @@ public class A0219 {
         }
         return false;
     }
-    // 哈希表
+    // 哈希集合
     public static boolean containsNearbyDuplicate2(int[] nums, int k) {
         int len = nums.length;
         if (k == 0)
