@@ -15,7 +15,7 @@ package array;
 public class A0268 {
     public static void main(String[] args) {
         int[] nums = {9,6,4,2,3,5,7,0,1};
-        System.out.println(missingNumber(nums));
+        System.out.println(rMissingNumber(nums));
     }
     public static int missingNumber(int[] nums) {
         int len = nums.length;
@@ -50,5 +50,36 @@ public class A0268 {
         int actualSum = 0;
         for (int num : nums) actualSum += num;
         return expectedSum - actualSum;
+    }
+
+    public static int rMissingNumber(int[] nums) {
+        int len = nums.length;
+        int count = 0;
+        for (int i = 0; i < len; i++) {
+            if (nums[i] != 0)
+                count ++;
+            else
+                nums[i] = len + 1;
+        }
+        if (count == len)
+            return 0;
+        boolean flag = false; // 判断n
+        for (int i = 0; i < len; i++) {
+            int val = Math.abs(nums[i]);
+            if (val == len)
+                flag = true;
+            else if (val == len + 1)
+                nums[0] = -Math.abs(nums[0]);
+            else
+                nums[val] = -Math.abs(nums[val]);
+        }
+        if (!flag)
+            return len;
+        int index;
+        for (index = 0; index < len; index++) {
+            if (nums[index] > 0)
+                break;
+        }
+        return index;
     }
 }

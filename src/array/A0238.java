@@ -16,10 +16,6 @@ public class A0238 {
     public static void main(String[] args) {
         int[] nums = {1,2,3,4};
         int[] ints = productExceptSelf2(nums);
-        for (int anInt : ints) {
-            System.out.print(anInt + " ");
-        }
-        System.out.println();
     }
     public static int[] productExceptSelf(int[] nums) {
         int len = nums.length;
