@@ -13,8 +13,8 @@ package array;
  */
 public class A0643 {
     public static void main(String[] args) {
-        int[] nums = {1,12,-5,-6,50,3};
-        System.out.println(findMaxAverage3(nums, 4));
+        int[] nums = {5};
+        System.out.println(findMaxAverage3(nums, 1));
     }
     // 暴力法, 超时
     public static double findMaxAverage(int[] nums, int k) {

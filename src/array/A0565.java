@@ -19,6 +19,10 @@ import java.util.*;
  * A中的元素大小在[0, N-1]之间。
  */
 public class A0565 {
+    /**
+     * 所有思想都是只要出现在别的遍历循环里的数字都可以不用再判断了
+     * @param args
+     */
     public static void main(String[] args) {
         int[] nums = {0, 2, 1};
         System.out.println(arrayNesting4(nums));

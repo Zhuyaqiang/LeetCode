@@ -57,6 +57,7 @@ public class A0611 {
         return count;
     }
 
+    // 找大于x的第一个数
     public static int binarySearch(int[] nums, int start, int end, int x) {
         int l = start, r = end;
         while (l <= r) {
