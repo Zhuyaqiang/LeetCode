@@ -1,5 +1,7 @@
 package array;
 
+import java.util.Arrays;
+
 /**
  * 最大交换
  * 给定一个非负整数，你至多可以交换一次数字中的任意两位。返回你能得到的最大值。
@@ -16,7 +18,36 @@ package array;
  */
 public class A0670 {
     public static void main(String[] args) {
-        System.out.println(maximumSwap(1993));
+        System.out.println(rMaximumSwap(1993));
+    }
+
+    // 和排序好的对比, 找到第一个不同的数字, 再从后往前找那个数字, 交换
+    public static int rMaximumSwap(int num) {
+        char[] numChar = (num + "").toCharArray();
+        int len = numChar.length;
+        int index;
+        for (index = 0; index < len-1; index++) {
+            if (numChar[index] < numChar[index + 1])
+                break;
+        }
+        if (index == len-1)
+            return num;
+        char[] copy = (num + "").toCharArray();
+        Arrays.sort(copy);
+        for (int i = 0; i < len; i++) {
+            if (numChar[i] != copy[len-1-i]) {
+                char val = copy[len-1-i];
+                for (index = len-1; index > i; index--) {
+                    if (numChar[index] == val)
+                        break;
+                }
+                char temp = numChar[i];
+                numChar[i] = numChar[index];
+                numChar[index] = temp;
+                break;
+            }
+        }
+        return Integer.parseInt(String.valueOf(numChar));
     }
 
     // 先找到非降序的第一个数字, 再找到非降序后面序列中最大的值, 交换该最大值和前面降序排列中第一个小于它的值
@@ -46,6 +77,7 @@ public class A0670 {
         }
         return Integer.parseInt(String.valueOf(numChars));
     }
+    // 找到降序的最后一个数字
     public static int check(char[] nums) {
         for (int i = 0; i < nums.length-1; i++) {
             if (nums[i] < nums[i + 1])

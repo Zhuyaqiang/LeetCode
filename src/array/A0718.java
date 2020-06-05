@@ -20,7 +20,23 @@ public class A0718 {
     public static void main(String[] args) {
         int[] A = {1,2,3,2,1};
         int[] B = {3,2,1,4,7};
-        System.out.println(findLength2(A, B));
+        System.out.println(rFindLength(A, B));
+    }
+    public static int rFindLength(int[] A, int[] B) {
+        int aLen = A.length, bLen = B.length;
+        int[][] dp = new int[aLen][bLen];
+        int ans = 0;
+        for (int i = 0; i < aLen; i++) {
+            for (int j = 0; j < bLen; j++) {
+                if (i == 0 || j == 0) {
+                    dp[i][j] = A[i] == B[j] ? 1 : 0;
+                } else {
+                    dp[i][j] = A[i] == B[j] ? dp[i - 1][j - 1] + 1 : 0;
+                }
+                ans = Math.max(ans, dp[i][j]);
+            }
+        }
+        return ans;
     }
     // 超时
     public static int findLength(int[] A, int[] B) {

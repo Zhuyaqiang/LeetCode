@@ -26,6 +26,7 @@ public class A0769 {
         int[] arr = {1,0,2,3,4};
         System.out.println(maxChunksToSorted(arr));
     }
+    // 当前块的最大值小于剩下的最小值
     public static int maxChunksToSorted(int[] arr) {
         int len = arr.length;
         if (len == 1)
@@ -55,6 +56,7 @@ public class A0769 {
         return min;
     }
 
+    // 生序排序后索引对应的值就是索引
     public static int maxChunksToSorted2(int[] arr) {
         int max = 0;
         int ans = 0;

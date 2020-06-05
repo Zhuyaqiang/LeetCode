@@ -21,6 +21,7 @@ public class A0746 {
         int[] costs = {1, 100, 1, 1, 1, 100, 1, 1, 100, 1};
         System.out.println(minCostClimbingStairs2(costs));
     }
+
     // 动态规划
     public static int minCostClimbingStairs(int[] cost) {
         int len = cost.length;

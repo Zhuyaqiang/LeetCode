@@ -20,9 +20,8 @@ import java.util.ArrayList;
 public class A0792 {
     public static void main(String[] args) {
         String S = "abcde";
-        String an = S;
-        S = new String();
-        System.out.println(an);
+        String[] words = {"a", "bb", "acd", "ace"};
+        System.out.println(numMatchingSubseq2(S, words));
     }
 
     // 暴力法, 超时

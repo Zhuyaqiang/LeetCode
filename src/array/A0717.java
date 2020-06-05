@@ -38,7 +38,7 @@ public class A0717 {
     }
 
     // 三种字符, 0, 10, 11
-    // 可以得出一定是字符的结尾, 因此只需要判断从len-2至0中第一次出现0之前是否出现过以及出现过几次1
+    // 可以得出0一定是字符的结尾, 因此只需要判断从len-2至0中第一次出现0之前是否出现过以及出现过几次1
     public static boolean isOneBitCharacter2(int[] bits) {
         int len = bits.length;
         int index = len - 2;

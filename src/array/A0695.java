@@ -43,6 +43,7 @@ public class A0695 {
     public static int n;
     public static int count = 0;
     public static int[][] direction = {{1,0},{0,1},{-1,0},{0,-1}};
+
     public static int maxAreaOfIsland(int[][] grid) {
         m = grid.length;
         if (m == 0)

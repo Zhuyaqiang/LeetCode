@@ -24,8 +24,25 @@ package array;
  */
 public class A0724 {
     public static void main(String[] args) {
-        int[] nums = {-1,-1,0,0,-1,0};
-        System.out.println(pivotIndex3(nums));
+        int[] nums = {1, 7, 3, 6, 5, 6};
+        System.out.println(pivotIndex2(nums));
+    }
+
+    public static int rPivotIndex(int[] nums) {
+        int len = nums.length;
+        int sumTotal = 0;
+        for (int num : nums) {
+            sumTotal += num;
+        }
+        int sumLeft = 0;
+        for (int i = 0; i < len; i++) {
+            if (i != 0) {
+                sumLeft += nums[i-1];
+            }
+            if (sumTotal - sumLeft - nums[i] == sumLeft)
+                return i;
+        }
+        return -1;
     }
 
     public static int pivotIndex(int[] nums) {

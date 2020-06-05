@@ -62,12 +62,14 @@ public class A0697 {
                         break;
                 }
                 minLen = Math.min(minLen, (r-l+1));
+                break;
             }
         }
 
         return minLen;
     }
 
+    // 三个map一个记录出现次数, 一个记录左边界, 一个记录右边界
     public static int findShortestSubArray2(int[] nums) {
         int len = nums.length;
         Map<Integer, Integer> left = new HashMap<>(), right = new HashMap<>(), count = new HashMap<>();

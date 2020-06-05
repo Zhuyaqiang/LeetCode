@@ -17,8 +17,8 @@ package array;
  */
 public class A0713 {
     public static void main(String[] args) {
-        int[] nums = {10,5,2,6};
-        System.out.println(numSubarrayProductLessThanK2(nums, 100));
+        int[] nums = {1,1,1};
+        System.out.println(numSubarrayProductLessThanK2(nums, 1));
     }
 
     // 超时

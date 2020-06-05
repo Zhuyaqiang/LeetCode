@@ -26,6 +26,7 @@ public class A0714 {
         int[] prices = {1, 3, 2, 8, 4, 9};
         System.out.println(maxProfit(prices, 2));
     }
+
     // dp[i][0]: 第i天没持有股票的利润
     // dp[i][1]: 第i天持有股票的利润
     // dp[0][0] = 0
