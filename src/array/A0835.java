@@ -32,27 +32,24 @@ public class A0835 {
     // 在两层遍历中判断每一次的偏移量能产生多少个A和B的重叠(时间复杂度O(N6))
     public int largestOverlap(int[][] A, int[][] B) {
         int m = A.length;
-        List<Point> aList = new ArrayList<>(), bList = new ArrayList<>();
+        int[][] count = new int[2 * m + 1][2 * m + 1];
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < m; j++) {
-                if (A[i][j] == 1) aList.add(new Point(i, j));
-                if (B[i][j] == 1) bList.add(new Point(i, j));
+                if (A[i][j] == 1) {
+                    for (int k = 0; k < m; k++) {
+                        for (int l = 0; l < m; l++) {
+                            if (B[k][l] == 1) {
+                                count[k - i + m][l - j + m]++;
+                            }
+                        }
+                    }
+                }
             }
         }
         int ans = 0;
-        Set<Point> seen = new HashSet<>();
-        for (Point aPoint : aList) {
-            for (Point bPoint : bList) {
-                Point delta = new Point(bPoint.x - aPoint.x, bPoint.y - aPoint.y);
-                if (!seen.contains(delta)) {
-                    seen.add(delta);
-                    int cand = 0;
-                    for (Point point : aList) {
-                        if (bList.contains(new Point(point.x + delta.x, point.y + delta.y)))
-                            cand ++;
-                    }
-                    ans = Math.max(ans, cand);
-                }
+        for (int i = 0; i < count.length; i++) {
+            for (int j = 0; j < count[0].length; j++) {
+                ans = Math.max(ans, count[i][j]);
             }
         }
         return ans;
