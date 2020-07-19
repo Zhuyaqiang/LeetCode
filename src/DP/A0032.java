@@ -16,7 +16,7 @@ import java.util.Stack;
  */
 public class A0032 {
     public static void main(String[] args) {
-        String s = "(()())))";
+        String s = "(()";
 //        String s = "()(()";
         System.out.println(longestValidParentheses2(s));
     }

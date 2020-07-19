@@ -12,7 +12,7 @@ package DP;
  */
 public class A0005 {
     public static void main(String[] args) {
-        String a = "babad";
+        String a = "cbbd";
         System.out.println(longestPalindrome3(a));
     }
     // 暴力法
