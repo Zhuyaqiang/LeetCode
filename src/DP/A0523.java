@@ -18,8 +18,9 @@ package DP;
  */
 public class A0523 {
     public static void main(String[] args) {
-        System.out.println(checkSubarraySum(new int[]{0,0,0}, 0));
+        System.out.println(checkSubarraySum2(new int[]{0,0,0}, 0));
     }
+    // 暴力法
     public static boolean checkSubarraySum(int[] nums, int k) {
         int len = nums.length;
         for (int i = 0; i < len; i++) {
@@ -33,6 +34,7 @@ public class A0523 {
         }
         return false;
     }
+    // 优化暴力
     public static boolean checkSubarraySum2(int[] nums, int k) {
         int len = nums.length;
         int[] sum = new int[len];
@@ -41,7 +43,9 @@ public class A0523 {
             sum[i] = sum[i-1] + nums[i];
         for (int i = 0; i < len; i++) {
             for (int j = i + 1; j < len; j++) {
-
+                int val = sum[j] - sum[i] + nums[i];
+                if(val == k || (k != 0 && val % k == 0))
+                    return true;
             }
         }
         return false;
