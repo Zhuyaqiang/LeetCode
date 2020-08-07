@@ -1,5 +1,6 @@
 package DP;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,6 +27,31 @@ import java.util.List;
  *    2     1         2                 3
  */
 public class A0095 {
+    public List<TreeNode> rGenerateTrees(int n) {
+        if (n == 0)
+            return new ArrayList<>();
+        return rBacktrack(1, n);
+    }
+    public List<TreeNode> rBacktrack(int start, int end) {
+        List<TreeNode> ans = new ArrayList<>();
+        if (start > end) {
+            ans.add(null);
+            return ans;
+        }
+        for (int i = start; i <= end; i++) {
+            List<TreeNode> lefts = rBacktrack(start, i-1);
+            List<TreeNode> rights = rBacktrack(i+1, end);
+            for (TreeNode left : lefts) {
+                for (TreeNode right : rights) {
+                    TreeNode root = new TreeNode(i);
+                    root.left = left;
+                    root.right = right;
+                    ans.add(root);
+                }
+            }
+        }
+        return ans;
+    }
     // 递归
     // 对于1,2,....,n
     // 每个节点都可做根节点, 1做根节点, 左子树null, 右子树是以(2,3,...,n)任意节点做根节点的结果

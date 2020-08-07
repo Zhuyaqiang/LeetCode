@@ -26,10 +26,29 @@ public class A0120 {
         triangle.add(new ArrayList<>(Arrays.asList(3, 4)));
         triangle.add(new ArrayList<>(Arrays.asList(6, 5, 7)));
         triangle.add(new ArrayList<>(Arrays.asList(4, 1, 8, 3)));
-        int i = minimumTotal2(triangle);
+        int i = rMinimumTotal(triangle);
         System.out.println(i);
     }
 
+    public static int rMinimumTotal(List<List<Integer>> triangle) {
+        int m = triangle.size();
+        if (m == 0)
+            return 0;
+        int[] dp = new int[triangle.get(m-1).size()];
+        dp[0] = triangle.get(0).get(0);
+        for (int i = 1; i < m; i ++) {
+            List<Integer> integers = triangle.get(i);
+            dp[i] = dp[i-1] + integers.get(i);
+            for (int j = i-1; j > 0; j--)
+                dp[j] = Math.min(dp[j], dp[j-1]) + integers.get(j);
+            dp[0] = dp[0] + integers.get(0);
+        }
+        int ans = Integer.MAX_VALUE;
+        for (int i = 0; i < triangle.get(m-1).size(); i++) {
+            ans = Math.min(dp[i], ans);
+        }
+        return ans;
+    }
     public static int minimumTotal(List<List<Integer>> triangle) {
         int m = triangle.size();
         int n = triangle.get(m - 1).size();
