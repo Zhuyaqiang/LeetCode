@@ -16,6 +16,22 @@ package DP;
  * 解释: 在这种情况下, 没有交易完成, 所以最大利润为 0。
  */
 public class A0121 {
+    public static void main(String[] args) {
+        int[] prices = {7,6,4,3,1};
+        System.out.println(rMaxProfit(prices));
+    }
+    public static int rMaxProfit(int[] prices) {
+        if (prices == null || prices.length < 2)
+            return 0;
+        int min = prices[0];
+        int res = 0;
+        for (int i = 1; i < prices.length; i++) {
+            if (prices[i] > min)
+                res = Math.max(res, prices[i] - min);
+            min = Math.min(min, prices[i]);
+        }
+        return res;
+    }
     public int maxProfit(int[] prices) {
         if (prices == null || prices.length <= 1)
             return 0;

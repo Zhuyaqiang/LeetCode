@@ -22,6 +22,31 @@ package DP;
  * 解释: 在这个情况下, 没有交易完成, 所以最大利润为 0。
  */
 public class A0123 {
+    public static void main(String[] args) {
+        int[] price = {7,6,4,3,1};
+        System.out.println(rMaxProfit(price));
+    }
+    public static int rMaxProfit(int[] prices) {
+        if (prices == null || prices.length < 2)
+            return 0;
+        int[][] dp = new int[prices.length][5];
+        // 0第一次买入, 1第一次卖出, 2第二次买入, 3第二次卖出, 4没买入没卖出过
+        dp[0][0] = -prices[0];
+        dp[0][1] = Integer.MIN_VALUE;
+        dp[0][2] = Integer.MIN_VALUE;
+        dp[0][3] = Integer.MIN_VALUE;
+        dp[0][4] = 0;
+        for (int i = 1; i < prices.length; i++) {
+            dp[i][4] = 0;
+            dp[i][0] = Math.max(dp[i-1][0], dp[i-1][4] == Integer.MIN_VALUE ? Integer.MIN_VALUE : dp[i-1][4] - prices[i]);
+            dp[i][1] = Math.max(dp[i-1][1], dp[i-1][0] + prices[i]);
+            dp[i][2] = Math.max(dp[i-1][2], dp[i-1][1] == Integer.MIN_VALUE ? Integer.MIN_VALUE : dp[i-1][1] - prices[i]);
+            dp[i][3] = Math.max(dp[i-1][3], dp[i-1][2] + prices[i]);
+        }
+        return Math.max(0, Math.max(dp[prices.length-1][1], dp[prices.length-1][3]));
+    }
+
+
     // dp[i][j]表示第i天j状态的最大利润
     // j=0:没买入没卖出过  j=1:第一次买入  j=2:第一次卖出  j=3:第二次买入  j=4:第二次卖出
     // dp[0][0] = 0,  dp[0][1] = -prices[0],  dp[0][2] = -Integer.MIN_VALUE, dp[0][3] = -Integer.MIN_VALUE, dp[0][4] = -Integer.MIN_VALUE
