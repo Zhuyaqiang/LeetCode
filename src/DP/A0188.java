@@ -18,8 +18,48 @@ package DP;
 public class A0188 {
     public static void main(String[] args) {
         int[] prices = {3,2,6,5,0,3};
-        System.out.println(maxProfit(2, prices));
+        System.out.println(rMaxProfit(2, prices));
     }
+    public static int rMaxProfit(int k, int[] prices) {
+        int len = prices.length;
+        if (len <= 1)
+            return 0;
+        // 退化成不限制交易次数的
+        if (len <= 2 * k) {
+            int res = 0;
+            for(int i = 1; i < len; i++) {
+                if (prices[i] > prices[i-1]) {
+                    res += prices[i] - prices[i-1];
+                }
+            }
+            return res;
+        }
+        int res = 0;
+        int[][][] dp = new int[len][k + 1][2];
+        for (int i = 0; i < len; i++) {
+            dp[i][0][0] = 0;
+            dp[i][0][1] = Integer.MIN_VALUE;
+        }
+        for (int j = 0; j <= k; j++) {
+            dp[0][j][0] = 0;
+            dp[0][j][1] = -prices[0];
+        }
+        for (int i = 1; i < len; i++) {
+            for (int j = 1; j <= k; j++) {
+                // 按买入算交易次数
+                // 买入 & 卖出是一次完整的交易
+                // 因为按卖出算的话可能会出现卖最后一次之后买入新的卖不出去
+                dp[i][j][0] = Math.max(dp[i-1][j][0], dp[i-1][j][1] + prices[i]);
+                dp[i][j][1] = Math.max(dp[i-1][j][1], dp[i-1][j-1][0] - prices[i]);
+            }
+        }
+        return dp[len-1][k][0];
+    }
+
+
+
+
+
     // dp[i][0][k]第i天，已经进行过k次交易，买入
     public static int maxProfit(int k, int[] prices) {
         int len = prices.length;

@@ -13,6 +13,27 @@ package DP;
  * 解释: 结果不能为 2, 因为 [-2,-1] 不是子数组。
  */
 public class A0152 {
+    public static void main(String[] args) {
+        int[] nums = {-2,0,-1};
+        System.out.println(rMaxProduct(nums));
+    }
+    public static int rMaxProduct(int[] nums) {
+        int len = nums.length;
+        if (len == 0)
+            return 0;
+        int[] min = new int[len];
+        int[] max = new int[len];
+        int res;
+        min[0] = max[0] = res = nums[0];
+        for (int i = 1; i < len; i++) {
+            min[i] = Math.min(nums[i], Math.min(nums[i] * min[i-1], nums[i] * max[i-1]));
+            max[i] = Math.max(nums[i], Math.max(nums[i] * min[i-1], nums[i] * max[i-1]));
+            res = Math.max(res, max[i]);
+        }
+        return res;
+    }
+
+
     public int maxProduct(int[] nums) {
         int len = nums.length;
         if (len == 0)

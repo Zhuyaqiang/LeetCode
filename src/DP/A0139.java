@@ -23,13 +23,29 @@ import java.util.*;
  */
 public class A0139 {
     public static void main(String[] args) {
-        String s = "catsanddog";
-        List<String> wordDict = new ArrayList<>(Arrays.asList("cat", "cats", "and", "sand", "dog"));
-//        String s = "catsandog";
-//        List<String> wordDict = new ArrayList<>(Arrays.asList("cats", "dog", "sand", "and", "cat"));
-        System.out.println(wordBreak(s, wordDict));
+//        String s = "catsanddog";
+//        List<String> wordDict = new ArrayList<>(Arrays.asList("cat", "cats", "and", "sand", "dog"));
+        String s = "catsandog";
+        List<String> wordDict = new ArrayList<>(Arrays.asList("cats", "dog", "sand", "and", "cat"));
+        System.out.println(rWordBreak(s, wordDict));
     }
 
+    public static boolean rWordBreak(String s, List<String> wordDict) {
+        int len = s.length();
+        // dp[i]表示 s 是否可以在 i 处拆分
+        int[] dp = new int[len + 1];
+        Arrays.fill(dp, -1);
+        dp[0] = 0;
+        for (int i = 1; i <= len; i++) {
+            for (int j = 0; j < i; j++) {
+                if (dp[j] != -1 && wordDict.contains(s.substring(j, i))) {
+                    dp[i] = j;
+                    break;
+                }
+            }
+        }
+        return dp[len] >= 0;
+    }
     // 暴力递归， 超时
     public static boolean wordBreak2(String s, List<String> wordDict) {
         return backtrack2(s, wordDict);
