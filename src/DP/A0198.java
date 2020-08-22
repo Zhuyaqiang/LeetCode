@@ -16,6 +16,20 @@ package DP;
  *      偷窃到的最高金额 = 2 + 9 + 1 = 12 。
  */
 public class A0198 {
+    public int rRob(int[] nums) {
+        return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
     public int rob(int[] nums) {
         int len = nums.length;
         if (len == 0)
