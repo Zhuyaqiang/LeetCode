@@ -24,6 +24,7 @@ public class A0221 {
     }
 
     // 暴力法
+    // 从上到下遍历每行, 获取每行的列高度, 再根据每行的列高度遍历获得每行向上的最大正方形面积
     public static int maximalSquare(char[][] matrix) {
         int m = matrix.length;
         if (m == 0)
