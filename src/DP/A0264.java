@@ -14,7 +14,22 @@ package DP;
  */
 public class A0264 {
     public static void main(String[] args) {
-        System.out.println(nthUglyNumber(10));
+        System.out.println(rNthUglyNumber(10));
+    }
+    public static int rNthUglyNumber(int n) {
+        int[] ugly = new int[1690];
+        ugly[0] = 1;
+        int i2 = 0, i3 = 0, i5 = 0;
+        for (int i = 1; i < 1690; i++) {
+            int val = Math.min(Math.min(ugly[i2] * 2, ugly[i3] * 3), ugly[i5] * 5);
+            if (val == ugly[i2] * 2) i2 ++;
+            if (val == ugly[i3] * 3) i3 ++;
+            if (val == ugly[i5] * 5) i5 ++;
+            ugly[i] = val;
+            if (i == n-1)
+                return ugly[i];
+        }
+        return ugly[n-1];
     }
     public static int nthUglyNumber(int n) {
         int[] ugly = new int[1690];
