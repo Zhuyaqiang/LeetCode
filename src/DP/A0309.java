@@ -13,6 +13,31 @@ package DP;
  * 解释: 对应的交易状态为: [买入, 卖出, 冷冻期, 买入, 卖出]
  */
 public class A0309 {
+    public static void main(String[] args) {
+        int[] prices = {1,2,3,0,2};
+        System.out.println(rMaxProfit(prices));
+    }
+    public static int rMaxProfit(int[] prices) {
+        int len = prices.length;
+        if (len <= 0)
+            return 0;
+        // dp[i][0]: 第i+1天不持有股票
+        // dp[i][1]: 第i+1天持有股票
+        int preHold, preNoHold, prePreNoHold;
+        preHold = - prices[0];
+        preNoHold = prePreNoHold = 0;
+        for (int i = 1; i < len; i++) {
+            int tempNoHold = preNoHold;
+            preNoHold = Math.max(preNoHold, preHold + prices[i]);
+            preHold = Math.max(preHold, prePreNoHold - prices[i]);
+            prePreNoHold = tempNoHold;
+        }
+        return preNoHold;
+    }
+
+
+
+
     public int maxProfit(int[] prices) {
         int len = prices.length;
         if (len < 2)
