@@ -15,6 +15,39 @@ package DP;
  *      coins =  3*1*5      +  3*5*8    +  1*3*8      + 1*8*1   = 167
  */
 public class A0312 {
+
+    public int rMaxCoins(int[] nums) {
+        int len = nums.length;
+        if (len == 0)
+            return 0;
+        len = len + 2;
+        int[] newNums = new int[len];
+        for (int i = 1; i < len-1; i++) {
+            newNums[i] = nums[i-1];
+        }
+        newNums[0] = newNums[len-1] = 1;
+        int[][] dp = new int[len][len];
+        // 从左到右, 从下到上
+        for (int i = len-1; i >= 0; i--) {
+            for (int j = i + 2; j < len; j++) {
+                for (int k = i + 1; k < j; k++) {
+                    dp[i][j] = Math.max(dp[i][j], dp[i][k] + dp[k][j] + newNums[i] * newNums[j] * newNums[k]);
+                }
+            }
+        }
+        return dp[0][len-1];
+    }
+
+
+
+
+
+
+
+
+
+
+
     public int maxCoins(int[] nums) {
         int len = nums.length;
         int[] newNums = new int[len + 2];

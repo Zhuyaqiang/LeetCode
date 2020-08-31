@@ -34,4 +34,36 @@ public class A0459 {
         }
         return false;
     }
+
+    public static void main(String[] args) {
+        System.out.println(repeatedSubstringPattern2("abc12345678abc"));
+    }
+    // kmp, 最长公共前后缀
+    // https://leetcode-cn.com/problems/repeated-substring-pattern/solution/459-zhong-fu-de-zi-zi-fu-chuan-kmpjing-dian-wen-ti/
+    public static boolean repeatedSubstringPattern2(String s) {
+        int len = s.length();
+        if (len <= 1)
+            return false;
+        int[] next = new int[len];
+        next[0] = -1;
+        for (int i = 1; i < len; i++) {
+            int a = next[i - 1];
+            while (a != -1) {
+                if (s.charAt(i-1) == s.charAt(a)) {
+                    next[i] = a + 1;
+                    break;
+                } else {
+                    a = next[a];
+                }
+            }
+            if (a == -1)
+                next[i] = 0;
+        }
+        if (s.charAt(len-1) != s.charAt(next[len-1]))
+            return false;
+        int res = next[len-1] + 1;
+        if (len % (len - res) == 0)
+            return true;
+        return false;
+    }
 }

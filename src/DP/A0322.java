@@ -17,9 +17,52 @@ import java.util.Arrays;
  */
 public class A0322 {
     public static void main(String[] args) {
-        int[] coins = {1,2,5};
-        System.out.println(coinChange3(coins, 100));
+        int[] coins = {1, 2, 5};
+        System.out.println(rCoinChange(coins, 100));
     }
+
+    public static int rCoinChange(int[] coins, int amount) {
+//        int[] memo = new int[amount + 1];
+//        Arrays.fill(memo, -1);
+//        return rBacktrack(coins, amount, memo);
+        if (amount == 0)
+            return 0;
+        if (coins.length == 0)
+            return -1;
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, -1);
+        dp[0] = 0;
+        for (int i = 1; i < dp.length; i++) {
+            for (int k = 0; k < coins.length; k++) {
+                if (i - coins[k] >= 0 && dp[i - coins[k]] != -1) {
+                    dp[i] = dp[i] == -1 ? dp[i-coins[k]] + 1 : Math.min(dp[i], dp[i-coins[k]] + 1);
+                }
+            }
+        }
+        return dp[amount];
+    }
+
+    public static int rBacktrack(int[] coins, int remain, int[] memo) {
+        if (remain == 0)
+            return 0;
+        if (remain < 0)
+            return -1;
+        if (memo[remain] != -1)
+            return memo[remain];
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i < coins.length; i++) {
+            if (remain - coins[i] >= 0) {
+                int res = rBacktrack(coins, remain - coins[i], memo);
+                if (res != -1) {
+                    min = Math.min(min, res + 1);
+                    memo[remain] = min;
+                }
+            }
+        }
+        return min == Integer.MAX_VALUE ? -1 : min;
+    }
+
+
     // 回溯, 超时
     public static int coinChange(int[] coins, int amount) {
         if (amount == 0)
@@ -28,12 +71,14 @@ public class A0322 {
         backtrack(coins, 0, amount);
         return ans == Integer.MAX_VALUE ? -1 : ans;
     }
+
     static int ans = Integer.MAX_VALUE;
+
     public static void backtrack(int[] coins, int count, int target) {
         for (int i = coins.length - 1; i >= 0; i--) {
             if (count + 1 >= ans)
                 return;
-            count ++;
+            count++;
             int newTarget = target - coins[i];
             if (newTarget == 0) {
                 ans = Math.min(count, ans);
@@ -42,7 +87,7 @@ public class A0322 {
             } else {
                 backtrack(coins, count, newTarget);
             }
-            count --;
+            count--;
         }
     }
 
@@ -54,6 +99,7 @@ public class A0322 {
             return -1;
         return backtrack(coins, new int[amount], amount);
     }
+
     // memo储存的是对应对应面额的remain需要的最少硬币数量
     public static int backtrack(int[] coins, int[] memo, int remain) {
         if (remain == 0) {
@@ -70,7 +116,7 @@ public class A0322 {
                 min = res + 1;
         }
         memo[remain - 1] = (min == Integer.MAX_VALUE) ? -1 : min;
-        return memo[remain-1];
+        return memo[remain - 1];
     }
 
     // 动态规划, 自下而上
@@ -83,8 +129,8 @@ public class A0322 {
         for (int i = 1; i <= amount; i++) {
             int min = Integer.MAX_VALUE;
             for (int j = 0; j < coins.length; j++) {
-                if (i - coins[j] >= 0 && memo[i-coins[j]] < min)
-                    min = memo[i-coins[j]] + 1;
+                if (i - coins[j] >= 0 && memo[i - coins[j]] < min)
+                    min = memo[i - coins[j]] + 1;
             }
             memo[i] = min;
         }
