@@ -2,7 +2,7 @@ package DP;
 
 /**
  * 计算各个位数不同的数字个数
- * 给定一个非负整数 n，计算各位数字都不同的数字 x 的个数，其中 0 ≤ x < 10n 。
+ * 给定一个非负整数 n，计算各位数字都不同的数字 x 的个数，其中 0 ≤ x < 10的n次方 。
  * 示例:
  * 输入: 2
  * 输出: 91
@@ -10,8 +10,31 @@ package DP;
  */
 public class A0357 {
     public static void main(String[] args) {
-        System.out.println(countNumbersWithUniqueDigits(3));
+        System.out.println(rCountNumbersWithUniqueDigits(3));
     }
+
+    public static int rCountNumbersWithUniqueDigits(int n) {
+        if (n == 0)
+            return 0;
+        if (n == 1)
+            return 10;
+        int[] dp = new int[n + 1];
+        dp[1] = 10;
+        int sum = 10;
+        for (int i = 2; i <= n; i++) {
+            dp[i] = 9;
+            for (int j = 0; j < i-1; j++) {
+                dp[i] *= (9-j);
+            }
+            sum += dp[i];
+        }
+        System.out.println(dp[2]);
+        return sum;
+    }
+
+
+
+
     public static int countNumbersWithUniqueDigits(int n) {
         if (n == 0)
             return 1;

@@ -15,8 +15,10 @@ package DP;
  */
 public class A0343 {
     public static void main(String[] args) {
-        System.out.println(integerBreak2(10));
+        System.out.println(integerBreak(10));
     }
+
+
     // 暴力法
     public static int integerBreak(int n) {
         if (n == 2)
