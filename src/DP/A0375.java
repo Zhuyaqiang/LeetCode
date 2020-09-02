@@ -19,8 +19,42 @@ import java.util.Arrays;
  */
 public class A0375 {
     public static void main(String[] args) {
-        System.out.println(getMoneyAmount3(7));
+        System.out.println(rGetMoneyAmount(7));
     }
+
+    public static int rGetMoneyAmount(int n) {
+        int[][] memo = new int[n][n];
+        for (int i = n-1; i >= 0; i--) {
+            for (int j = i + 1; j < n; j++) {
+                int res = Integer.MAX_VALUE;
+                for (int k = i; k <= j; k++) {
+                    int right = k + 1 >= n-1 ? 0 : memo[k+1][j];
+                    int left = k - 1 < 0 ? 0 : memo[i][k-1];
+                    int max = k + 1 + Math.max(left, right);
+                    res = Math.min(res, max);
+                    memo[i][j] = res;
+                }
+                memo[i][j] = memo[i][j] == 0 ? res : Math.min(res, memo[i][j]);
+            }
+        }
+        return memo[0][n-1];
+    }
+
+    public static int rBacktrack(int l, int r, int[][] memo) {
+        if (l >= r)
+            return 0;
+        if (memo[l-1][r-1] != -1)
+            return memo[l-1][r-1];
+        int res = Integer.MAX_VALUE;
+        for (int i = l; i <= r; i++) {
+            int max = 0;
+            max = i + Math.max(rBacktrack(l, i-1, memo), rBacktrack(i+1, r, memo));
+            res = Math.min(res, max);
+            memo[l-1][r-1] = res;
+        }
+        return res;
+    }
+
     public static int getMoneyAmount(int n) {
         return backtrack(1, n);
     }

@@ -15,8 +15,9 @@ public class A0363 {
     public static void main(String[] args) {
 //        int[][] matrix = {{2,2,-1}};
         int[][] matrix = {{2,2,-1}};
-        System.out.println(maxSumSubmatrix3(matrix,0));
+        System.out.println(maxSumSubmatrix(matrix,0));
     }
+
     // 动态规划, 超出内存限制,记录左上角和右下角
     public static int maxSumSubmatrix(int[][] matrix, int k) {
         int m = matrix.length;
@@ -43,6 +44,7 @@ public class A0363 {
     }
 
     // 动态规划, 只记录右下角
+    // dp[i][j]表示以(i,j)为右下角的矩形最大数值
     public static int maxSumSubmatrix2(int[][] matrix, int k) {
         int m = matrix.length;
         if (m == 0)
@@ -67,7 +69,8 @@ public class A0363 {
         return ans;
     }
 
-    // 固定左右边界, 计算行累加和
+    // 固定左右边界, 计算每行累加的和
+    // 通过每行累加和计算符合的值
     public static int maxSumSubmatrix3(int[][] matrix, int k) {
         int m = matrix.length;
         if (m == 0)
