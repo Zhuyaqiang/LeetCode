@@ -22,6 +22,18 @@ package DP;
  * 我们需要在题目中添加什么限制来允许负数的出现？
  */
 public class A0377 {
+    public int rCombinationSum4(int[] nums, int target) {
+        int len = nums.length;
+        int[] dp = new int[target + 1];
+        dp[0] = 1;
+        for (int i = 1; i < len; i++) {
+            for (int j = 0; j < len; j++) {
+                if (i - nums[j] >= 0)
+                    dp[i] += dp[i - nums[j]];
+            }
+        }
+        return dp[target];
+    }
     public int combinationSum4(int[] nums, int target) {
         int[] dp = new int[target + 1];
         // dp[i] 表示nums能组成的和为i的组合的个数
