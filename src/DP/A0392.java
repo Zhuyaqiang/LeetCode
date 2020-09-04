@@ -16,8 +16,36 @@ package DP;
  */
 public class A0392 {
     public static void main(String[] args) {
-        System.out.println(isSubsequence("", "ahbgdc"));
+        System.out.println(isSubsequence("abc", "ahbgdc"));
     }
+
+    // 动态规划
+    public static boolean rIsSubsequence(String s, String t) {
+        int sLen = s.length();
+        int tLen = t.length();
+        if (sLen > tLen)
+            return false;
+        boolean[][] dp = new boolean[sLen + 1][tLen + 1];
+        dp[0][0] = true;
+        for (int i = 1; i <= sLen; i++) {
+            dp[i][0] = false;
+        }
+        for (int j = 1; j <= tLen; j++) {
+            dp[0][j] = true;
+        }
+        for (int i = 1; i <= sLen; i++) {
+            for (int j = 1; j <= tLen; j++) {
+                if (s.charAt(i-1) != t.charAt(j-1))
+                    dp[i][j] = dp[i][j-1];
+                else
+                    dp[i][j] = dp[i-1][j-1];
+            }
+        }
+        return dp[sLen][tLen];
+    }
+
+
+    // 双指针
     public static boolean isSubsequence(String s, String t) {
         int sLen = s.length(), tLen = t.length();
         if (tLen < sLen)
