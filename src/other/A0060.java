@@ -97,6 +97,6 @@ public class A0060 {
             return curr;
         seen[index] = 1;
         curr += (char) (index + '0');
-        int kk =
+        return "";
     }
 }
