@@ -17,13 +17,16 @@ import java.util.Arrays;
  * 函数要返回数组 A 中所有为等差数组的子数组个数。
  * 示例:
  * A = [1, 2, 3, 4]
+ * 返回: 3, A 中有三个子等差数组: [1, 2, 3], [2, 3, 4] 以及自身 [1, 2, 3, 4]。
  */
 public class A0413 {
     public static void main(String[] args) {
+//        int[] nums = {2,1,3,4,2,3};
         int[] nums = {1, 2, 3, 4};
-        System.out.println(numberOfArithmeticSlices4(nums));
+        System.out.println(numberOfArithmeticSlices(nums));
     }
-    // 暴力
+
+        // 暴力
     public static int numberOfArithmeticSlices(int[] A) {
         int len = A.length;
         if (len < 3)
