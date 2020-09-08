@@ -20,6 +20,10 @@ import java.util.Arrays;
  * 解释: 你可以拼出 "10"，但之后就没有剩余数字了。更好的选择是拼出 "0" 和 "1" 。
  */
 public class A0474 {
+    public static void main(String[] args) {
+        System.out.println(findMaxForm2(new String[]{"10", "0001", "111001", "1", "0"},5,3));
+        System.out.println(findMaxForm2(new String[]{"10", "0", "1"},1,1));
+    }
     // 递归
     public int findMaxForm(String[] strs, int m, int n) {
         if (strs.length == 0 || (m == 0 && n == 0))
@@ -44,10 +48,6 @@ public class A0474 {
             return backtrack(strs, index - 1, m, n);
     }
 
-    public static void main(String[] args) {
-        String[] strs = {"11111","100","1101","1101","11000"};
-        System.out.println(findMaxForm2(strs,5,7));
-    }
     // 递归, 记忆化搜索
     public static int findMaxForm2(String[] strs, int m, int n) {
         if (strs.length == 0 || (m == 0 && n == 0))

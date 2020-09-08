@@ -7,8 +7,10 @@ import java.util.Set;
 
 /**
  * 环绕字符串中唯一的子字符串
- * 把字符串 s 看作是“abcdefghijklmnopqrstuvwxyz”的无限环绕字符串，所以 s 看起来是这样的："...zabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcd....". 
- * 现在我们有了另一个字符串 p 。你需要的是找出 s 中有多少个唯一的 p 的非空子串，尤其是当你的输入是字符串 p ，你需要输出字符串 s 中 p 的不同的非空子串的数目。 
+ * 把字符串 s 看作是“abcdefghijklmnopqrstuvwxyz”的无限环绕字符串，所以 s 看起来是这样的：
+ * "...zabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcd....". 
+ * 现在我们有了另一个字符串 p 。你需要的是找出 s 中有多少个唯一的 p 的非空子串，尤其是当你的输入
+ * 是字符串 p ，你需要输出字符串 s 中 p 的不同的非空子串的数目。 
  * 注意: p 仅由小写的英文字母组成，p 的大小可能超过 10000。
  * 示例 1:
  * 输入: "a"
@@ -25,9 +27,28 @@ import java.util.Set;
  */
 public class A0467 {
     public static void main(String[] args) {
-        System.out.println(findSubstringInWraproundString2("zab"));
+        System.out.println(rFindSubstringInWraproundString("a"));
     }
-    // 超时
+    public static int rFindSubstringInWraproundString(String p) {
+        int len = p.length();
+        int[] dp = new int[26];
+        int k = 0;
+        for (int i = 0; i < len; i++) {
+            if (i > 0 && (p.charAt(i-1) + 1 == p.charAt(i) || p.charAt(i-1) == 'z' && p.charAt(i) == 'a'))
+                k++;
+            else
+                k = 1;
+            dp[p.charAt(i) - 'a'] = Math.max(dp[p.charAt(i) - 'a'], k);
+        }
+        int res = 0;
+        for (int i : dp) {
+            res += i;
+        }
+        return res;
+    }
+
+
+        // 超时
     public static int findSubstringInWraproundString(String p) {
         int len = p.length();
         int res = 0;
@@ -50,7 +71,7 @@ public class A0467 {
         System.out.println(set);
         return res;
     }
-    // dp[i]保存的是以i + 'a'字母结尾的自字符串的长度
+    // dp[i]保存的是以i + 'a'字母结尾的子字符串的最大长度, 因此不会有重复
     // 最后统计dp数组
     public static int findSubstringInWraproundString2(String p) {
         int len = p.length();

@@ -19,9 +19,10 @@ import java.util.Arrays;
  */
 public class A0416 {
     public static void main(String[] args) {
-        int[] nums = {1, 2, 3, 5};
-        System.out.println(canPartition2(nums));
+        int[] nums = {1, 5, 11, 5};
+        System.out.println(canPartition(nums));
     }
+
     // 递归, 合理剪枝
     public static boolean canPartition(int[] nums) {
         Arrays.sort(nums);
@@ -39,6 +40,7 @@ public class A0416 {
         if (target == 0)
             return true;
         for (int i = index; i < nums.length; i++) {
+            // 如果有重复, 第一次以i开头找不到结果, 之后肯定都找不到
             if (i > index && nums[i] == nums[i-1])
                 continue;
             if (target - nums[i] < 0)

@@ -32,7 +32,31 @@ import java.util.*;
 public class A0403 {
     public static void main(String[] args) {
         int[] stones = {0,1,2,3,4,8,9,11};
-        System.out.println(canCross(stones));
+        System.out.println(rCanCross(stones));
+    }
+
+    public static boolean rCanCross(int[] stones) {
+        int len = stones.length;
+        if (len == 0)
+            return true;
+        // map的key是石头, value是可以跳到这块石头上的jumpsize
+        Map<Integer, Set<Integer>> map = new HashMap<>();
+        for (int stone : stones) {
+            map.put(stone, new HashSet<>());
+        }
+        map.get(0).add(0);
+        for (int i = 0; i < len; i++) {
+            Set<Integer> set = map.get(stones[i]);
+            for (Integer integer : set) {
+                for (int j = integer - 1; j <= integer + 1; j++) {
+                    if ((stones[i] + j > stones[i]) && map.containsKey(stones[i] + j)) {
+                        map.get(stones[i] + j).add(j);
+                    }
+                }
+            }
+        }
+        System.out.println(map);
+        return map.get(stones[len-1]).size() > 0;
     }
 
 

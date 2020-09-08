@@ -27,7 +27,8 @@ import java.util.Map;
 public class A0464 {
     public static void main(String[] args) {
     }
-    public boolean canIWin(int maxChoosableInteger, int desiredTotal) {
+
+    public static boolean canIWin(int maxChoosableInteger, int desiredTotal) {
         if (maxChoosableInteger >= desiredTotal)
             return true;
         // 如果所有可选择的数的和小于希望的, 则必输
@@ -36,7 +37,7 @@ public class A0464 {
 
         return backtrack(desiredTotal, memo, new HashMap<>());
     }
-    public boolean backtrack(int remainTotal, int[] memo, Map<String, Boolean> map) {
+    public static boolean backtrack(int remainTotal, int[] memo, Map<String, Boolean> map) {
         // 记忆矩阵
         // 转换成string后则可以判断(A选了3, B选了2)和(A选了2, B选了3)是相同的情况
         String key = Arrays.toString(memo);
