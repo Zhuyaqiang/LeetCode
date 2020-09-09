@@ -18,7 +18,7 @@ package DP;
  */
 public class A0523 {
     public static void main(String[] args) {
-        System.out.println(checkSubarraySum2(new int[]{0,0,0}, 0));
+        System.out.println(checkSubarraySum(new int[]{0,1,0}, 0));
     }
     // 暴力法
     public static boolean checkSubarraySum(int[] nums, int k) {

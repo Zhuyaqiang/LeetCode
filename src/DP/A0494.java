@@ -23,7 +23,7 @@ import java.util.*;
  */
 public class A0494 {
     public static void main(String[] args) {
-        System.out.println(findTargetSumWays2(new int[]{1, 1, 1, 1, 1}, 3));
+        System.out.println(findTargetSumWays2(new int[]{0,0,0,0,0,0,0,0,1}, 1));
     }
 
     // 递归

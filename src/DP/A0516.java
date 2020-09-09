@@ -21,7 +21,7 @@ package DP;
  */
 public class A0516 {
     public static void main(String[] args) {
-        System.out.println(longestPalindromeSubseq("abcdef"));
+        System.out.println(longestPalindromeSubseq("bbbab"));
     }
     public static int longestPalindromeSubseq(String s) {
         int len = s.length();
