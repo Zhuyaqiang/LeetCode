@@ -21,7 +21,7 @@ package DP;
  * 输入的字符串长度范围是 [1, 105]。
  * 输入的字符串只会包含字符 '*' 和 数字'0' - '9'。
  */
-public class A639 {
+public class A0639 {
     public static void main(String[] args) {
 //        System.out.println(numDecodings("22**0"));
 //        System.out.println(numDecodings("2*")); // 15
