@@ -23,7 +23,7 @@ import java.util.Map;
  */
 public class A0650 {
     public static void main(String[] args) {
-        System.out.println(minStep3(1));
+        System.out.println(minStep3(18));
     }
     public static int res = Integer.MAX_VALUE;
     // 递归
@@ -59,7 +59,6 @@ public class A0650 {
         return backtrack2(n, n-1, 1, -1);
     }
     public static int backtrack2(int n, int remain, int count, int flag) {
-        c++;
         if (remain < 0)
             return Integer.MAX_VALUE;
         if (remain == 0) {
