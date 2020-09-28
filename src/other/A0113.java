@@ -1,6 +1,8 @@
 package other;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 /**
@@ -23,28 +25,41 @@ import java.util.List;
  * ]
  */
 public class A0113 {
-    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(5);
+        root.left = new TreeNode(4);
+        root.left.left = new TreeNode(11);
+        root.left.left.left = new TreeNode(7);
+        root.left.left.right = new TreeNode(2);
+        root.right = new TreeNode(8);
+        root.right.left = new TreeNode(13);
+        root.right.right = new TreeNode(4);
+        root.right.right.left = new TreeNode(5);
+        root.right.right.right = new TreeNode(1);
+        System.out.println(pathSum(root, 22));
+    }
+    // 深度优先搜索
+    public static List<List<Integer>> pathSum(TreeNode root, int sum) {
         if (root == null)
             return new ArrayList<>();
         List<List<Integer>> res = new ArrayList<>();
         backtrack(root, new ArrayList<>(), res, 0, sum);
         return res;
     }
-    public void backtrack(TreeNode root, List<Integer> curr, List<List<Integer>> res, int currSum, int sum) {
+    public static void backtrack(TreeNode root, List<Integer> curr, List<List<Integer>> res, int currSum, int sum) {
         currSum += root.val;
-        if (currSum > sum)
-            return;
         curr.add(root.val);
         if (root.left == null && root.right == null) {
             if (currSum == sum) {
                 res.add(new ArrayList<>(curr));
+                curr.remove(curr.size() - 1);
                 return;
             }
         }
-        if (root.left == null)
-            backtrack(root.right, curr, res, currSum, sum);
-        if (root.right == null)
+        if (root.left != null)
             backtrack(root.left, curr, res, currSum, sum);
+        if (root.right != null)
+            backtrack(root.right, curr, res, currSum, sum);
         curr.remove(curr.size() - 1);
     }
 }
