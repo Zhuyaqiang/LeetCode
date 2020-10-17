@@ -12,7 +12,7 @@ package other;
  * 限制：
  * 1 <= n <= 10000
  */
-public class A0064 {
+public class O64 {
     // 递归
     public int sumNums(int n) {
         boolean flag = n > 0 && (n += sumNums(n-1)) > 0;

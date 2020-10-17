@@ -20,6 +20,7 @@ public class A0394 {
         String s = "3[a]2[bc]";
         System.out.println(decodeString(s));
     }
+
     public static String decodeString(String s) {
         char[] chs = s.toCharArray();
         Stack<Object> stack = new Stack<>();

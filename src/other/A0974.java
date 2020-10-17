@@ -22,6 +22,7 @@ public class A0974 {
         int[] A = {4,5,0,-2,-3,1};
         System.out.println(subarraysDivByK3(A, 5));
     }
+
     // 超时, 递归
     public static int res = 0;
     public static int subarraysDivByK(int[] A, int K) {

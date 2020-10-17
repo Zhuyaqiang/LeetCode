@@ -132,7 +132,9 @@ public class A0051 {
         for (int i = 0; i < n; i++ ) {
             if (col.contains(i))
                 continue;
+            // 位于同一条左上向右下直线的点的行坐标-列坐标和相等
             int leftUp = row - i;
+            // 位于同一条右上向左下的直线的点的行坐标+列坐标和相等
             int rightUp = row + i;
             if (rightUps.contains(rightUp))
                 continue;
