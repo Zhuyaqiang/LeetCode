@@ -22,7 +22,7 @@ package other;
  0 <= matrix.length <= 100
  0 <= matrix[i].length <= 100
  */
-public class A0029 {
+public class O29 {
     public static void main(String[] args) {
         int[][] matrix = {{1,2,3},{4,5,6},{7,8,9}};
         int[] ints = spiralOrder(matrix);
@@ -49,7 +49,7 @@ public class A0029 {
             count ++;
             int newX = i + direction[dirCount][0];
             int newY = j + direction[dirCount][1];
-            if (newX < 0 || newX >= m || newY < 0  || newY >= n || seen[newX][newY] == true) {
+            if (newX < 0 || newX >= m || newY < 0  || newY >= n || seen[newX][newY]) {
                 dirCount = (dirCount + 1) % 4;
                 newX = i + direction[dirCount][0];
                 newY = j + direction[dirCount][1];
