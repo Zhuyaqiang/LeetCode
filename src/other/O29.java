@@ -25,11 +25,42 @@ package other;
 public class O29 {
     public static void main(String[] args) {
         int[][] matrix = {{1,2,3},{4,5,6},{7,8,9}};
-        int[] ints = spiralOrder(matrix);
+        int[] ints = rSpiralOrder(matrix);
         for (int anInt : ints) {
             System.out.print(anInt + " ");
         }
     }
+    public static int[] rSpiralOrder(int[][] matrix) {
+        int m = matrix.length;
+        if (m == 0)
+            return null;
+        int n = matrix[0].length;
+        if (n == 0)
+            return null;
+        int N = m * n;
+        int[] res = new int[N];
+        int[][] dir = {{0,1}, {1,0}, {0,-1}, {-1, 0}};
+        boolean[][] seen = new boolean[m][n];
+        int index = 0;
+        int x = 0, y = 0;
+        int currDir = 0;
+        while (index < N) {
+            seen[x][y] = true;
+            res[index] = matrix[x][y];
+            int newX = dir[currDir][0] + x;
+            int newY = dir[currDir][1] + y;
+            if (newX < 0 || newX >= m || newY < 0 || newY >= n || seen[newX][newY]) {
+                currDir = (currDir + 1) % 4;
+                newX = dir[currDir][0] + x;
+                newY = dir[currDir][1] + y;
+            }
+            x = newX;
+            y = newY;
+            index ++;
+        }
+        return res;
+    }
+
     public static int[] spiralOrder(int[][] matrix) {
         int m = matrix.length;
                 if (m == 0)
