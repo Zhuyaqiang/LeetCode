@@ -12,10 +12,33 @@ package other;
  */
 public class M0046 {
     public static void main(String[] args) {
-        int num = 12258;
-        System.out.println(translateNum2(num));
+        int num = 26;
+        System.out.println(rTranslateNum(num));
     }
 
+
+    // 1: 1和1X, 2: 2和20,21,22,23,24,25, r: 3
+    public static int rTranslateNum(int num) {
+        String str = String.valueOf(num);
+        int len = str.length();
+        int[] dp = new int[len];
+        dp[0] = 1;
+        for (int i = 1; i < len; i++) {
+            dp[i] = dp[i-1];
+            if (i > 1) {
+                if (str.charAt(i - 1) == '1')
+                    dp[i] += dp[i - 2];
+                else if (str.charAt(i - 1) == '2' && str.charAt(i) >= '0' && str.charAt(i) <= '5')
+                    dp[i] += dp[i - 2];
+            } else {
+                if (str.charAt(i - 1) == '1')
+                    dp[i] += 1;
+                else if (str.charAt(i - 1) == '2' && str.charAt(i) >= '0' && str.charAt(i) <= '5')
+                    dp[i] += 1;
+            }
+        }
+        return dp[len-1];
+    }
     // 递归
     public static char[] str;
     public static int res = 0;

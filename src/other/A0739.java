@@ -19,6 +19,7 @@ public class A0739 {
             System.out.print(anInt + " ");
         }
     }
+
     // 暴力法
     public int[] dailyTemperatures(int[] T) {
         int len = T.length;
@@ -36,7 +37,7 @@ public class A0739 {
         }
         return T;
     }
-    // 单调栈
+    // 单调递减栈
     public static int[] dailyTemperatures2(int[] T) {
         Stack<Integer> stack = new Stack<>();
         int[] res = new int[T.length];

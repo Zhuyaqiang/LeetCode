@@ -1,5 +1,6 @@
 package other;
 
+import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -36,13 +37,15 @@ public class A0297 {
 //        root.right = new TreeNode(3);
 //        root.right.left = new TreeNode(4);
 //        root.right.right = new TreeNode(5);
-//        System.out.println(serialize(root));
+//        System.out.println(rSerialize(root));
         String serialize = serialize(deserialize("[5,2,3,null,null,2,4,3,1]"));
         System.out.println(serialize);
     }
+
     // Encodes a tree to a single string.
     public static String serialize(TreeNode root) {
         StringBuilder ans = new StringBuilder();
+        // ArrayDeque不能存null值
         Deque<TreeNode> deque = new LinkedList<>();
         deque.offer(root);
         while (!deque.isEmpty()) {

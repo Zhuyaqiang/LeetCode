@@ -17,9 +17,36 @@ package other;
  */
 public class A0014 {
     public static void main(String[] args) {
-        String[] s = {""};
-        System.out.println(longestCommonPrefix2(s));
+        String[] s = {"dog","racecar","car"};
+        System.out.println(rLongestCommonPrefix(s));
     }
+
+
+    public static String rLongestCommonPrefix(String[] strs) {
+        if (strs.length == 0)
+            return "";
+        int index = 0, minLen = Integer.MAX_VALUE;
+        for (String str : strs) {
+            minLen = Math.min(str.length(), minLen);
+        }
+        while (index < minLen) {
+            char ch = strs[0].charAt(index);
+            boolean flag = false;
+            for (int i = 1; i < strs.length; i++) {
+                if (strs[i].charAt(index) != ch) {
+                    flag = true;
+                    break;
+                }
+            }
+            if (flag)
+                break;
+            index ++;
+        }
+        return strs[0].substring(0, index);
+    }
+
+
+
     public static String longestCommonPrefix(String[] strs) {
         if (strs.length == 0)
             return "";
