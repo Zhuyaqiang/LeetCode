@@ -1,9 +1,6 @@
 package DP;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * 最长数对链
@@ -19,9 +16,15 @@ import java.util.List;
  */
 public class A0646 {
     public static void main(String[] args) {
-        int[][] pairs = {{1,2}, {2,3}, {3,4}};
-        int longestChain = findLongestChain(pairs);
-        System.out.println(longestChain);
+//        int[][] pairs = {{1,2}, {2,3}, {3,4}};
+//        int longestChain = findLongestChain(pairs);
+//        System.out.println(longestChain);
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(1,2);
+        map.put(3,4);
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
     }
 
     // 递归, 超时
