@@ -34,6 +34,32 @@ import java.util.Arrays;
  * 图是无向的: 如果j 在 graph[i]里边, 那么 i 也会在 graph[j]里边。
  */
 public class A0785 {
+    public static boolean rRes = true;
+    public static boolean rIsBipartite(int[][] graph) {
+        int[] colored = new int[graph.length];
+        for (int i = 0; i < graph.length && rRes; i++) {
+            if (colored[i] == 0) {
+                rBacktrakc(graph, colored, i, 1);
+            }
+        }
+        return rRes;
+    }
+
+    private static void rBacktrakc(int[][] graph, int[] colored, int i, int color) {
+        colored[i] = color;
+        int neiColor = color == 1 ? 2 : 1;
+        for (int j = 0; j < graph[i].length; j++) {
+            if (colored[graph[i][j]] == 0)
+                rBacktrakc(graph, colored, graph[i][j], neiColor);
+            else if (colored[graph[i][j]] != neiColor) {
+                rRes = false;
+                return;
+            }
+        }
+    }
+
+
+    // 0是没上色
     public static boolean res = true;
     public static boolean isBipartite(int[][] graph) {
         int[] colored = new int[graph.length];
@@ -44,6 +70,7 @@ public class A0785 {
         }
         return res;
     }
+
     public static void backtrack(int[][] graph, int[] colored, int node, int color) {
         colored[node] = color;
         int neiColor = color == 1 ? 2 : 1;

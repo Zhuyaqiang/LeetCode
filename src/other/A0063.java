@@ -23,7 +23,7 @@ package other;
  */
 public class A0063 {
     public static void main(String[] args) {
-        int[][] ob = {{0, 0, 0}, {0, 1, 0}, {0, 0, 0}};
+        int[][] ob = {{0,0,0,0},{0,1,0,0},{0,0,0,0},{0,0,1,0},{0,0,0,0}};
         System.out.println(uniquePathsWithObstacles(ob));
     }
 

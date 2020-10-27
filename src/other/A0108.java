@@ -15,6 +15,22 @@ package other;
  *  -10  5
  */
 public class A0108 {
+    public TreeNode rSortedArrayToBST(int[] nums) {
+        return backtrack(nums, 0, nums.length - 1);
+    }
+    public TreeNode backtrack(int[] nums, int l, int r) {
+        if (l == r)
+            return new TreeNode(nums[l]);
+        if (l > r)
+            return null;
+        int mid = l + (r - l) / 2;
+        TreeNode root = new TreeNode(nums[mid]);
+        root.left = backtrack(nums, l, mid - 1);
+        root.right = backtrack(nums, mid + 1, r);
+        return root;
+    }
+
+
     public TreeNode sortedArrayToBST(int[] nums) {
         if (nums.length == 0)
             return null;
