@@ -17,8 +17,8 @@ import java.util.Arrays;
  * 输出: -1
  * 解释: 4没有超过3的两倍大, 所以我们返回 -1.
  * 提示:
- * nums 的长度范围在[1, 50].
- * 每个 nums[i] 的整数范围在 [0, 100].
+ * nums 的长度范围在[1, 50].
+ * 每个 nums[i] 的整数范围在 [0, 100].
  */
 public class A0747 {
     public int dominantIndex(int[] nums) {

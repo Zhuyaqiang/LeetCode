@@ -25,9 +25,9 @@ import java.util.List;
  * 输出：false
  * 解释：我们不能进入 2 号房间。
  * 提示：
- * 1 <= rooms.length <= 1000
+ * 1 <= rooms.length <= 1000
  * 0 <= rooms[i].length <= 1000
- * 所有房间中的钥匙数量总计不超过 3000。
+ * 所有房间中的钥匙数量总计不超过 3000。
  */
 public class A0841 {
     public static void main(String[] args) {

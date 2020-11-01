@@ -2,7 +2,7 @@ package other;
 
 /**
  * 交错字符串
- * 给定三个字符串 s1、s2、s3，请你帮忙验证 s3 是否是由 s1 和 s2 交错 组成的。
+ * 给定三个字符串 s1、s2、s3，请你帮忙验证 s3 是否是由 s1 和 s2 交错 组成的。
  * 两个字符串 s 和 t 交错 的定义与过程如下，其中每个字符串都会被分割成若干 非空 子字符串：
  * s = s1 + s2 + ... + sn
  * t = t1 + t2 + ... + tm
@@ -49,8 +49,7 @@ public class A0097 {
                 dp[i][0] = true;
             else
                 break;
-        }
-        for (int j = 1; j <= len2; j++) {
+        }     for (int j = 1; j <= len2; j++) {
             if (s2.charAt(j-1) == s3.charAt(j-1))
                 dp[0][j] = true;
             else

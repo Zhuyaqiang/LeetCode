@@ -14,7 +14,7 @@ import java.util.LinkedList;
  * Node *next;
  * }
  * 填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设置为 NULL。
- * 初始状态下，所有 next 指针都被设置为 NULL。
+ * 初始状态下，所有 next 指针都被设置为 NULL。
  */
 public class A0116 {
     // 广度优先搜索
