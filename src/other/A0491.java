@@ -15,9 +15,11 @@ import java.util.*;
  */
 public class A0491 {
     public static void main(String[] args) {
-        System.out.println(findSubsequences(new int[]{1,3,5,7}));
+        System.out.println(findSubsequences(new int[]{4,6,7,7}));
     }
 
+
+    public static Set<String> set = new HashSet<>();
     public static List<List<Integer>> res = new ArrayList<>();
 
     public static List<List<Integer>> findSubsequences(int[] nums) {
@@ -26,7 +28,6 @@ public class A0491 {
         return res;
     }
     // 递归, 回溯
-    public static Set<String> set = new HashSet<>();
     public static void backtrack(int[] nums, int index, List<Integer> list) {
         if (index >= nums.length)
             return;
