@@ -12,7 +12,7 @@ package other;
  */
 public class A0214 {
     public static void main(String[] args) {
-        System.out.println(shortestPalindrome("abcdef"));
+        System.out.println(rShortestPalindrome1("eeabcdcba"));
     }
     // 原字符串 abbacd
     //先判断 abbacd 是不是回文串, 发现不是, 执行下一步

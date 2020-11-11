@@ -24,9 +24,29 @@ import java.util.Map;
  */
 public class A0486 {
     public static void main(String[] args) {
-        int[] nums = {1, 5, 2};
-        System.out.println(PredictTheWinner2(nums));
+        int[] nums = {1, 5, 2}; // f
+//        int[] nums = {1, 5, 233, 7}; // t
+        System.out.println(rPredictTheWinner(nums));
     }
+
+    public static boolean rPredictTheWinner(int[] nums) {
+        int len = nums.length;
+        // dp[i][j]表示先手玩家从i拿到j比后手玩家领先的分数
+        // 前一个情况一定是dp[i+1][j]或者dp[i][j-1]
+        int[][] dp = new int[len][len];
+        for (int i = 0; i < len; i++)
+            dp[i][i] = nums[i];
+        for (int i = len-1; i >= 0; i--) {
+            for (int j = i+1; j < len; j++) {
+                dp[i][j] = Math.max(nums[i] - dp[i+1][j], nums[j] - dp[i][j-1]);
+            }
+        }
+        return dp[0][len-1] > 0;
+    }
+
+
+
+
     // 递归
     public static boolean PredictTheWinner(int[] nums) {
         int res = backtrack(0, nums.length - 1, nums, 0, 1);

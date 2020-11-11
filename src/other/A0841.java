@@ -1,8 +1,6 @@
 package other;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * 钥匙和房间
@@ -30,13 +28,40 @@ import java.util.List;
  * 所有房间中的钥匙数量总计不超过 3000。
  */
 public class A0841 {
+    public static boolean rCanVisitAllRooms(List<List<Integer>> rooms) {
+        int len = rooms.size();
+        boolean[] seen = new boolean[len];
+
+        Queue<Integer> queue = new LinkedList<>();
+        queue.offer(0);
+        seen[0] = true;
+        while (!queue.isEmpty()) {
+            int n = queue.size();
+            for (int i = 0; i < n; i++) {
+                int currRoom = queue.poll();
+                List<Integer> keys = rooms.get(currRoom);
+                for (int key : keys) {
+                    if (!seen[key]) {
+                        seen[key] = true;
+                        queue.offer(key);
+                    }
+                }
+            }
+        }
+
+        for (boolean b : seen) {
+            if (!b)
+                return false;
+        }
+        return true;
+    }
     public static void main(String[] args) {
         List<List<Integer>> rooms = new ArrayList<>();
         rooms.add(new ArrayList<>(Arrays.asList(1)));
         rooms.add(new ArrayList<>(Arrays.asList(2)));
         rooms.add(new ArrayList<>(Arrays.asList(2)));
         rooms.add(new ArrayList<>(Arrays.asList()));
-        System.out.println(canVisitAllRooms(rooms));
+        System.out.println(rCanVisitAllRooms(rooms));
     }
     public static boolean[] seen;
     public static boolean canVisitAllRooms(List<List<Integer>> rooms) {
