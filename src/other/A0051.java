@@ -13,7 +13,7 @@ import java.util.*;
  * "...Q",
  * "Q...",
  * "..Q."],
- * <p>
+ *
  * ["..Q.",  // 解法 2
  * "Q...",
  * "...Q",
@@ -57,13 +57,53 @@ import java.util.*;
  */
 public class A0051 {
     public static void main(String[] args) {
-        List<List<String>> lists = solveNQueens2(5);
+        List<List<String>> lists = rSolveNQueens(4);
         for (List<String> list : lists) {
             System.out.println(list);
         }
     }
 
     public static List<List<String>> ans = new ArrayList<>();
+
+
+    public static List<List<String>> rSolveNQueens(int n) {
+        Set<Integer> col = new HashSet<>();
+        Set<Integer> leftUp = new HashSet<>();
+        Set<Integer> rightUp = new HashSet<>();
+        List<List<String>> ans = new ArrayList<>();
+        int[] queue = new int[n];
+        Arrays.fill(queue, -1);
+        rBacktrack(col, leftUp, rightUp, ans, queue, 0, n);
+        return ans;
+    }
+
+    private static void rBacktrack(Set<Integer> col, Set<Integer> leftUp, Set<Integer> rightUp, List<List<String>> ans, int[] queue, int row, int n) {
+        if (row == n) {
+            List<String> list = new ArrayList<>();
+            char[] chars = new char[n];
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++)
+                    chars[j] = '.';
+                chars[queue[i]] = 'Q';
+                list.add(new String(chars));
+            }
+            ans.add(list);
+            return;
+        }
+        for (int i = 0; i < n; i++) {
+            if (col.contains(i) || leftUp.contains(i + row) || rightUp.contains(i - row))
+                continue;
+            queue[row] = i;
+            col.add(i);
+            leftUp.add(i+row);
+            rightUp.add(i-row);
+            rBacktrack(col, leftUp, rightUp, ans, queue, row+1, n);
+            queue[row] = -1;
+            col.remove(i);
+            leftUp.remove(i+row);
+            rightUp.remove(i-row);
+        }
+    }
 
     public static List<List<String>> solveNQueens(int n) {
         StringBuilder sb = new StringBuilder();
