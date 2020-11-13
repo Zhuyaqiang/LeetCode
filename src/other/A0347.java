@@ -1,9 +1,6 @@
 package other;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 前K个高频元素
@@ -22,11 +19,31 @@ import java.util.Map;
  */
 public class A0347 {
     public static void main(String[] args) {
-        int[] nums = {1};
-        int[] ints = topKFrequent(nums, 1);
+        int[] nums = {4,1,-1,2,-1,2,3};
+        int[] ints = rTopKFrequent(nums, 2);
         for (int anInt : ints) {
             System.out.print(anInt + " ");
         }
+    }
+    public static int[] rTopKFrequent(int[] nums, int k) {
+        int len = nums.length;
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < len; i++)
+            map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
+        int[][] res = new int[map.size()][2];
+        int index = 0;
+        for (Map.Entry entry : map.entrySet()) {
+            res[index][0] = (int)entry.getKey();
+            res[index][1] = (int)entry.getValue();
+            index ++;
+        }
+        Arrays.sort(res, (o1, o2) -> {
+            return o2[1] - o1[1];
+        });
+        int[] ans = new int[k];
+        for (int i = 0; i < k; i++)
+            ans[i] = res[i][0];
+        return ans;
     }
     static class Model {
         int key;

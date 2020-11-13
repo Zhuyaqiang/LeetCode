@@ -30,14 +30,10 @@ import java.util.List;
  *
  * 输入: n = 4, k = 9
  * 输出: "2314"
- *
- * 来源：力扣（LeetCode）
- * 链接：https://leetcode-cn.com/problems/permutation-sequence
- * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 public class A0060 {
     public static void main(String[] args) {
-        System.out.println(getPermutation2(4,9));
+        System.out.println(getPermutation(4,9));
     }
     public static int[] seen;
     public static boolean flag = false;
