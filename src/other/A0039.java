@@ -33,9 +33,30 @@ import java.util.List;
  */
 public class A0039 {
     public static void main(String[] args) {
-        System.out.println(combinationSum(new int[]{2, 3, 6, 7}, 7));
+        System.out.println(rCombinationSum(new int[]{2, 3, 6, 7}, 7));
     }
 
+    public static List<List<Integer>> rCombinationSum(int[] candidates, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        for (int i = 0; i < candidates.length; i++)
+            rBacktrack(i, candidates, target, new ArrayList<>(), res);
+        return res;
+    }
+    public static void rBacktrack(int index, int[] candidates, int target, List<Integer> list, List<List<Integer>> res) {
+        if (index >= candidates.length)
+            return;
+        target -= candidates[index];
+        if (target < 0)
+            return;
+        list.add(candidates[index]);
+        if (target == 0) {
+            res.add(new ArrayList<>(list));
+        } else {
+            for (int i = index; i < candidates.length; i++)
+                rBacktrack(i, candidates, target, list, res);
+        }
+        list.remove(list.size() - 1);
+    }
     public static List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> res = new ArrayList<>();
         backtrack(candidates, 0, target, res, new ArrayList<>());
