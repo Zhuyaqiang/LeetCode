@@ -2,17 +2,17 @@ package DP;
 
 /**
  * 交错字符串
- * 给定三个字符串 s1, s2, s3, 验证 s3 是否是由 s1 和 s2 交错组成的。
+ * 给定三个字符串 s1, s2, s3, 验证 s3 是否是由 s1 和 s2 交错组成的。
  * 示例 1:
  * 输入: s1 = "aabcc", s2 = "dbbca", s3 = "aadbbcbcac"
  * 输出: true
- * 示例 2:
+ * 示例 2:
  * 输入: s1 = "aabcc", s2 = "dbbca", s3 = "aadbbbaccc"
  * 输出: false
  */
 public class A0097 {
     public static void main(String[] args) {
-        String s1 = "aabcc", s2 = "dbbca", s3 = "aadbbbaccc";
+        String s1 = "aa", s2 = "ab", s3 = "abaa";
 //        String s1 = "aabcc", s2 = "dbbca", s3 = "aadbbcbcac";
         System.out.println(rIsInterleave(s1,s2,s3));
     }

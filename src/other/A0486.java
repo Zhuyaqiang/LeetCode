@@ -24,9 +24,11 @@ import java.util.Map;
  */
 public class A0486 {
     public static void main(String[] args) {
-        int[] nums = {1, 5, 2};
-        System.out.println(PredictTheWinner2(nums));
+        int[] nums = {1, 5, 2}; // f
+//        int[] nums = {1, 5, 233, 7}; // t
+        System.out.println(PredictTheWinner(nums));
     }
+
     // 递归
     public static boolean PredictTheWinner(int[] nums) {
         int res = backtrack(0, nums.length - 1, nums, 0, 1);

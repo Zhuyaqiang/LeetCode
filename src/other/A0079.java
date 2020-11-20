@@ -30,6 +30,8 @@ public class A0079 {
         System.out.println(exist(board, "ABCCED"));
         System.out.println(exist(board, "SEE"));
         System.out.println(exist(board, "ABCB"));
+//        char[][] board = {{'a'}};
+//        System.out.println(rExist(board, "a"));
     }
 
     public static boolean exist(char[][] board, String word) {

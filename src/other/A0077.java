@@ -7,7 +7,7 @@ import java.util.List;
  * 组合
  * 给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合。
  * 示例:
- * 输入: n = 4, k = 2
+ * 输入: n = 4, k = 2
  * 输出:
  * [
  *   [2,4],
@@ -20,7 +20,24 @@ import java.util.List;
  */
 public class A0077 {
     public static void main(String[] args) {
-        System.out.println(combine(4,2));
+        System.out.println(rCombine(4,2));
+    }
+    public static List<List<Integer>> rCombine(int n, int k) {
+        List<List<Integer>> res = new ArrayList<>();
+        rBacktrack(res, new ArrayList<>(), k, n, 1);
+        return res;
+    }
+    public static void rBacktrack(List<List<Integer>> res, List<Integer> list, int k, int n, int index) {
+        if (list.size() == k) {
+            res.add(new ArrayList<>(list));
+            return;
+        }
+        if (index > n)
+            return;
+        list.add(index);
+        rBacktrack(res, list, k, n, index + 1);
+        list.remove(list.size() - 1);
+        rBacktrack(res, list, k, n, index + 1);
     }
     public static List<List<Integer>> combine(int n, int k) {
         List<List<Integer>> res = new ArrayList<>();

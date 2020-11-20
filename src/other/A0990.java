@@ -36,9 +36,14 @@ import java.util.Set;
  */
 public class A0990 {
     public static void main(String[] args) {
-        String[] eq = {"a==b","b!=a"};
+//        String[] eq = {"a==b","b!=a"};
+//        String[] eq = {"b==a","a==b"};
+//        String[] eq = {"a==b","b==c","a==c"};
+//        String[] eq = {"a==b","b!=c","c==a"};
+        String[] eq = {"c==c","b==d","x!=z"};
         System.out.println(equationsPossible(eq));
     }
+
     public static boolean equationsPossible(String[] equations) {
         int[] parent = new int[26];
         for (int i = 0; i < 26; i++) {

@@ -14,7 +14,7 @@ import java.util.Arrays;
  * 输出: 9973
  * 解释: 不需要交换。
  * 注意:
- * 给定数字的范围是 [0, 10的八次方]
+ * 给定数字的范围是 [0, 10的八次方]
  */
 public class A0670 {
     public static void main(String[] args) {

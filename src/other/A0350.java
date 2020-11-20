@@ -29,24 +29,49 @@ import java.util.HashMap;
 **/
 public class A0350 {
     public static void main(String[] args) {
-    	List<Integer> list = new ArrayList<>();
     }
-    public static int minimumTotal(List<List<Integer>> triangle) {
-    	int m = triangle.size();
-    	if (m == 0)
-    		return 0;
-    	int n = triangle.get(m-1).size();
-    	if (n == 0)
-    		return 0;
-    	int[] dp = new int[n + 1];
-    	int res = Integer.MAX_VALUE;
-    	for (int i = 1; i <= m; i++) {
-    		for (int j = 1; j <= i; j++) {
-    			dp[j] = Math.min(dp[j], dp[j-1]) + triangle.get(i-1).get(j-1);
-    			if (i == m)
-    				res = Math.min(res, dp[j]);
-    		}
-    	}
-    	return res;
-    }
+    // 哈希表
+	public int[] intersect(int[] nums1, int[] nums2) {
+		List<Integer> list = new ArrayList<>();
+		Map<Integer, Integer> map = new HashMap<>();
+    	List<Integer> res = new ArrayList<>();
+		for (int i : nums1) {
+			map.put(i, map.getOrDefault(i, 0) + 1);
+		}
+
+		for (int i : nums2) {
+			if (map.containsKey(i)) {
+				list.add(i);
+				int count = map.get(i);
+				count --;
+				if (count == 0)
+					map.remove(i);
+				else
+					map.put(i, count);
+			}
+		}
+		int[] ret = new int[list.size()];
+		for (int i = 0; i < list.size(); i++)
+			ret[i] = list.get(i);
+		return ret;
+	}
+	// 排序
+	public int[] intersect2(int[] nums1, int[] nums2) {
+    	Arrays.sort(nums1);
+    	Arrays.sort(nums2);
+    	int len1 = nums1.length, len2 = nums2.length;
+    	int[] res = new int[len1];
+    	int index = 0, oneIndex = 0, twoIndex = 0;
+    	while (oneIndex < len1 && twoIndex < len2) {
+    		if (nums1[oneIndex] == nums2[twoIndex]) {
+    			res[index ++] = nums1[oneIndex];
+    			oneIndex ++;
+    			twoIndex ++;
+			} else if (nums1[oneIndex] < nums2[twoIndex]) {
+    			oneIndex ++;
+			} else
+				twoIndex ++;
+		}
+    	return Arrays.copyOfRange(res, 0, index);
+	}
 }

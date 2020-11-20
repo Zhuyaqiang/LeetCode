@@ -5,10 +5,10 @@ import java.util.List;
 
 /**
  * 组合总和3
- * 找出所有相加之和为 n 的 k 个数的组合。组合中只允许含有 1 - 9 的正整数，并且每种组合中不存在重复的数字。
+ * 找出所有相加之和为 n 的 k 个数的组合。组合中只允许含有 1 - 9 的正整数，并且每种组合中不存在重复的数字。
  * 说明：
  * 所有数字都是正整数。
- * 解集不能包含重复的组合。 
+ * 解集不能包含重复的组合。 
  * 示例 1:
  * 输入: k = 3, n = 7
  * 输出: [[1,2,4]]
@@ -19,7 +19,30 @@ import java.util.List;
 public class A0216 {
     public static void main(String[] args) {
         System.out.println(combinationSum3(3, 15));
+        System.out.println(rCombinationSum3(3, 15));
     }
+
+    public static List<List<Integer>> rCombinationSum3(int k, int n) {
+        List<List<Integer>> res = new ArrayList<>();
+        rBacktrack(1, res, new ArrayList<>(), k, n);
+        return res;
+    }
+    public static void rBacktrack(int index, List<List<Integer>> res, List<Integer> curr, int k, int target) {
+        if (target < 0 || curr.size() > k)
+            return;
+        if (target == 0) {
+            if (curr.size() == k) {
+                res.add(new ArrayList<>(curr));
+            }
+            return;
+        }
+        for (int i = index; i <= 9; i ++) {
+            curr.add(i);
+            rBacktrack(i + 1, res, curr, k, target - i);
+            curr.remove(curr.size() - 1);
+        }
+    }
+
     public static List<List<Integer>> combinationSum3(int k, int n) {
         List<List<Integer>> res = new ArrayList<>();
         backtrack(res, new ArrayList<>(), k, n, 1);

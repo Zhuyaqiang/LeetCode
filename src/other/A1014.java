@@ -20,6 +20,21 @@ public class A1014 {
         int i = maxScoreSightseeingPair3(A);
         System.out.println(i);
     }
+    public int rMaxScoreSightseeingPair(int[] A) {
+        int len = A.length;
+        if (len <= 1)
+            return 0;
+        int[] dp = new int[len];
+        dp[0] = A[0];
+        for (int i = 0; i < len; i++)
+            dp[i] = A[i] + i;
+        int max = Integer.MIN_VALUE, res = Integer.MIN_VALUE;
+        for (int i = 1; i < len; i++) {
+            max = Math.max(dp[i-1], max); // 第i个景点前价值最高的景点(评分+距离)
+            res = Math.max(res, A[i] + max - i);
+        }
+        return res;
+    }
     // 暴力法, 超时
     public int maxScoreSightseeingPair(int[] A) {
         int len = A.length;
