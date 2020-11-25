@@ -20,7 +20,8 @@ public class A0148 {
         head.next = new ListNode(2);
         head.next.next = new ListNode(1);
         head.next.next.next = new ListNode(3);
-        sortList(head);
+        ListNode listNode = sortList2(head);
+        System.out.println(listNode);
     }
     public static ListNode sortList(ListNode head) {
         if (head == null || head.next == null)
@@ -45,6 +46,49 @@ public class A0148 {
         return dummyHead.next;
     }
 
+    // 归并排序
     public static ListNode sortList2(ListNode head) {
+        return mergeSort(head, null);
+    }
+    public static ListNode mergeSort(ListNode head, ListNode tail) {
+        if (head == null)
+            return head;
+        if (head.next == tail) {
+            head.next = null;
+            return head;
+        }
+        ListNode slow = head, fast = head;
+        while (fast != tail) {
+            slow = slow.next;
+            fast = fast.next;
+            if (fast != tail) {
+                fast = fast.next;
+            }
+        }
+        ListNode mid = slow;
+        ListNode head1 = mergeSort(head, mid);
+        ListNode head2 = mergeSort(mid, tail);
+        ListNode sorted = merge(head1, head2);
+        return sorted;
+    }
+
+    private static ListNode merge(ListNode head1, ListNode head2) {
+        ListNode dummyHead = new ListNode(0);
+        ListNode temp = dummyHead, temp1 = head1, temp2 = head2;
+        while (temp1 != null && temp2 != null) {
+            if (temp1.val < temp2.val) {
+                temp.next = temp1;
+                temp1 = temp1.next;
+            } else {
+                temp.next = temp2;
+                temp2 = temp2.next;
+            }
+            temp = temp.next;
+        }
+        if (temp1 != null)
+            temp.next = temp1;
+        if (temp2 != null)
+            temp.next = temp2;
+        return dummyHead.next;
     }
 }
