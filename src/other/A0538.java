@@ -22,7 +22,7 @@ public class A0538 {
         root.right = new TreeNode(3);
         root.left.left = new TreeNode(-4);
         root.left.right = new TreeNode(1);
-        backtrack(root);
+        convertBST(root);
     }
     public static TreeNode convertBST(TreeNode root) {
         backtrack(root);
