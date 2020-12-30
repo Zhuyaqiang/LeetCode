@@ -1,9 +1,7 @@
 package other;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * 二叉搜索树中的众数
@@ -27,9 +25,45 @@ public class A0501 {
     public static void main(String[] args) {
         TreeNode root = new TreeNode(1);
         root.right = new TreeNode(2);
-        int[] mode = findMode(root);
+        int[] mode = rFindMode(root);
         System.out.println(Arrays.toString(mode));
     }
+
+    public static int[] rFindMode(TreeNode root) {
+        flag = false;
+        rBacktrack(root);
+        return set.stream().mapToInt(Integer::intValue).toArray();
+    }
+    public static void rBacktrack(TreeNode root) {
+        if (root == null)
+            return;
+        rBacktrack(root.left);
+        if (!flag) {
+            flag = true;
+            curr = root.val;
+            count = 1;
+            set.add(curr);
+            max = 1;
+        } else {
+            if (curr == root.val) {
+                count ++;
+                if (count == max)
+                    set.add(root.val);
+                else if (count > max) {
+                    set.clear();
+                    set.add(root.val);
+                    max = count;
+                }
+            } else {
+                count = 1;
+                curr = root.val;
+                if (max == 1)
+                    set.add(curr);
+            }
+        }
+        rBacktrack(root.right);
+    }
+    public static Set<Integer> set = new HashSet<>();
     public static int count = 0;
     public static int curr = 0;
     public static int max = 0;
