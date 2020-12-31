@@ -19,6 +19,7 @@ import java.util.Stack;
  *
  */
 public class A0145 {
+
     // 递归
     public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> ans = new ArrayList<>();
@@ -63,8 +64,8 @@ public class A0145 {
                 root = root.left;
             }
             root = stack.pop();
-            // 如果左子树为空或者左子树刚被访问过, 则应该访问该结点
-            // 否则将左子树加入到栈中
+            // 如果右子树为空或者右子树刚被访问过, 则应该访问该结点
+            // 否则将该节点树加入到栈中, 继续访问右子树
             if (root.right == null || pre == root.right) {
                 ans.add(root.val);
                 pre = root;

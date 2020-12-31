@@ -33,6 +33,32 @@ package other;
  * 新值和原始二叉搜索树中的任意节点值都不同
  */
 public class A0701 {
+    public TreeNode rInsertIntoBST(TreeNode root, int val) {
+        TreeNode node = new TreeNode(val);
+        if (root == null)
+            return node;
+        TreeNode temp = root;
+        TreeNode pre = null;
+        while (temp != null) {
+            pre = temp;
+            if (val > temp.val) {
+                temp = temp.right;
+            } else {
+                temp = temp.left;
+            }
+        }
+        if (val > pre.val)
+            pre.right = node;
+        else
+            pre.left = node;
+        return root;
+    }
+
+
+
+
+
+
     public TreeNode insertIntoBST(TreeNode root, int val) {
         if (root == null)
             return new TreeNode(val);
