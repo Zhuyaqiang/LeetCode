@@ -22,18 +22,64 @@ package other;
  */
 public class A0079 {
     public static void main(String[] args) {
-        char[][] board = {
-                {'A', 'B', 'C', 'E'},
-                {'S', 'F', 'C', 'S'},
-                {'A', 'D', 'E', 'E'}
-        };
-        System.out.println(exist(board, "ABCCED"));
-        System.out.println(exist(board, "SEE"));
-        System.out.println(exist(board, "ABCB"));
+//        char[][] board = {
+//                {'A', 'B', 'C', 'E'},
+//                {'S', 'F', 'C', 'S'},
+//                {'A', 'D', 'E', 'E'}
+//        };
+//        System.out.println(exist(board, "ABCCED"));
+//        System.out.println(exist(board, "SEE"));
+//        System.out.println(exist(board, "ABCB"));
 //        char[][] board = {{'a'}};
 //        System.out.println(rExist(board, "a"));
+        char[][] board = {{'a'}};
+        System.out.println(rExist(board, "a"));
     }
 
+    public static boolean rExist(char[][] board, String word) {
+        int[][] dir = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        int m = board.length;
+        if (m == 0) {
+            return false;
+        }
+        int n = board[0].length;
+        if (n == 0) {
+            return false;
+        }
+        boolean[][] seen = new boolean[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (rBacktrack(board, word, 0, seen, dir, m, n, i, j)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean rBacktrack(char[][] board, String word, int index, boolean[][] seen, int[][] dir, int m, int n, int i, int j) {
+        if (index == word.length()) {
+            return true;
+        }
+        if (word.charAt(index) != board[i][j]) {
+            return false;
+        }
+        if (index == word.length() - 1) {
+            return true;
+        }
+        seen[i][j] = true;
+        for (int k = 0; k < 4; k++) {
+            int newX = i + dir[k][0];
+            int newY = j + dir[k][1];
+            if (newX >= 0 && newX < m && newY >= 0 && newY < n && !seen[newX][newY]) {
+                if (rBacktrack(board, word, index + 1, seen, dir, m, n, newX, newY)) {
+                    return true;
+                }
+            }
+        }
+        seen[i][j] = false;
+        return false;
+    }
     public static boolean exist(char[][] board, String word) {
         int m = board.length;
         if (word.length() == 0)

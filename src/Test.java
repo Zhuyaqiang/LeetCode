@@ -14,9 +14,18 @@ import java.util.Map;
  */
 public class Test {
     public static void main(String[] args) {
-        LocalDateTime localTime = LocalDateTime.parse("2021-01-01 24:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        LocalDateTime localTime2 = LocalDateTime.parse("2021-01-01 00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        System.out.println(localTime);
-        System.out.println(localTime2);
+        int i = 1;
+        System.out.println(i);
+        i = i++;
+        System.out.println(i);
+        i = ++i;
+        System.out.println(i);
+        int j = i++;
+        System.out.println(j);
+        int k = ++j;
+        System.out.println(k);
+        int m = i++ * ++i;
+        System.out.println(i);
+        System.out.println("m: " + m);
     }
 }

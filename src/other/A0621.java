@@ -43,7 +43,25 @@ public class A0621 {
 //        System.out.println(leastInterval(tasks3, 2));
     }
 
-    // https://leetcode-cn.com/problems/task-scheduler/solution/jian-ming-yi-dong-de-javajie-da-by-lan-s-jfl9/
+    public static int rLeastInterval(char[] tasks, int n) {
+        int[] count = new int[26];
+        for (char task : tasks) {
+            count[task - 'A']++;
+        }
+        Arrays.sort(count);
+        int maxTimes = count[25];
+        int maxCount = 1;
+        for (int i = 25; i >= 1; i--) {
+            if (tasks[i] == tasks[i - 1]) {
+                maxCount++;
+            } else {
+                break;
+            }
+        }
+        return (maxTimes - 1) * (n + 1) + maxCount;
+    }
+
+        // https://leetcode-cn.com/problems/task-scheduler/solution/jian-ming-yi-dong-de-javajie-da-by-lan-s-jfl9/
     public static int leastInterval(char[] tasks, int n) {
         int[] count = new int[26];
         for (char task : tasks) {

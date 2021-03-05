@@ -18,13 +18,44 @@ import java.util.Arrays;
  */
 public class A0075 {
     public static void main(String[] args) {
-        int[] nums = {2,0,2,1,1,0};
-        sortColors3(nums);
+        int[] nums = {0, 1, 2};
+        rSortColors(nums);
         for (int num : nums) {
             System.out.print(num + " ");
         }
     }
-    // 第一遍遍历统计个数
+    public static void rSortColors(int[] nums) {
+        int index = 0, head = 0, len = nums.length, tail = len - 1;
+        while (head < len) {
+            if (nums[head] == 0) {
+                head++;
+                index++;
+            } else {
+                break;
+            }
+        }
+        if (head >= len - 1) {
+            return;
+        }
+        while (index <= tail) {
+            int val = nums[index];
+            if (val == 0) {
+                nums[index] = nums[head];
+                nums[head] = 0;
+                head++;
+                if (nums[index] == 0) {
+                    index++;
+                }
+            } else if (val == 2) {
+                nums[index] = nums[tail];
+                nums[tail] = 2;
+                tail--;
+            } else {
+                index++;
+            }
+        }
+    }
+        // 第一遍遍历统计个数
     // 第二遍遍历写入
     public static void sortColors(int[] nums) {
         int len = nums.length;

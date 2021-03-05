@@ -26,9 +26,22 @@ import java.util.stream.Collectors;
 public class A0078 {
     public static void main(String[] args) {
         int[] nums = {1,2,3};
-        subsets(nums);
+        rSubsets(nums);
         for (List<Integer> re : res) {
             System.out.println(re);
+        }
+    }
+
+    public static List<List<Integer>> rSubsets(int[] nums) {
+        rBacktrack(nums, new ArrayList<>(), 0);
+        return res;
+    }
+    public static void rBacktrack(int[] nums, List<Integer> list,  int index) {
+        res.add(new ArrayList<>(list));
+        for (int i = index; i < nums.length; i++) {
+            list.add(nums[i]);
+            rBacktrack(nums, list, i + 1);
+            list.remove(list.size() - 1);
         }
     }
 

@@ -28,22 +28,26 @@ public class A0347 {
     public static int[] rTopKFrequent(int[] nums, int k) {
         int len = nums.length;
         Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < len; i++)
+        for (int i = 0; i < len; i++) {
             map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
-        int[][] res = new int[map.size()][2];
-        int index = 0;
-        for (Map.Entry entry : map.entrySet()) {
-            res[index][0] = (int)entry.getKey();
-            res[index][1] = (int)entry.getValue();
-            index ++;
         }
-        Arrays.sort(res, (o1, o2) -> {
-            return o2[1] - o1[1];
-        });
-        int[] ans = new int[k];
-        for (int i = 0; i < k; i++)
-            ans[i] = res[i][0];
-        return ans;
+        PriorityQueue<int[]> queue = new PriorityQueue<>(Comparator.comparingInt(o -> o[1]));
+        for (Map.Entry entry : map.entrySet()) {
+            int val = (int) entry.getKey(), count = (int) entry.getValue();
+            if (queue.size() < k) {
+                queue.add(new int[] {val, count});
+            } else {
+                if (queue.peek()[1] < count) {
+                    queue.poll();
+                    queue.add(new int[] {val, count});
+                }
+            }
+        }
+        int[] res = new int[k];
+        for (int i = 0; i < k; i++) {
+            res[i] = queue.poll()[0];
+        }
+        return res;
     }
     static class Model {
         int key;

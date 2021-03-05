@@ -21,7 +21,17 @@ public class A0001 {
             System.out.println(anInt);
         }
     }
-    public static int[] TwoSum(int[] nums, int target) {
+    public int[] rTwoSum(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (map.containsKey(target - nums[i])) {
+                return new int[] {map.get(target - nums[i]), i};
+            }
+            map.put(nums[i], i);
+        }
+        throw new IllegalArgumentException();
+    }
+        public static int[] TwoSum(int[] nums, int target) {
         if (nums.length < 2)
             return null;
         for (int i = 0; i < nums.length; i++) {

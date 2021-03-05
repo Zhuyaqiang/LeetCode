@@ -1,5 +1,7 @@
 package array;
 
+import java.util.Arrays;
+
 /**
  * 除自身以外数组的乘积
  * 给你一个长度为 n 的整数数组 nums，其中 n > 1，返回输出数组 output ，其中 output[i] 等于 nums 中除 nums[i] 之外其余各元素的乘积。
@@ -12,10 +14,28 @@ package array;
  * 你可以在常数空间复杂度内完成这个题目吗？（ 出于对空间复杂度分析的目的，输出数组不被视为额外空间。）
  */
 public class A0238 {
-
+    public static int[] rProductExceptSelf(int[] nums) {
+        int len = nums.length;
+        if (len == 0) {
+            return new int[]{};
+        }
+        int left = 1;
+        int[] right = new int[len];
+        right[len - 1] = 1;
+        for (int i = len - 2; i >= 0; i--) {
+            right[i] = right[i + 1] * nums[i + 1];
+        }
+        int[] res = new int[len];
+        for (int i = 0; i < len; i++) {
+            res[i] = left * right[i];
+            left *= nums[i];
+        }
+        return res;
+    }
     public static void main(String[] args) {
         int[] nums = {1,2,3,4};
-        int[] ints = productExceptSelf2(nums);
+        int[] ints = rProductExceptSelf(nums);
+        System.out.println(Arrays.toString(ints));
     }
     public static int[] productExceptSelf(int[] nums) {
         int len = nums.length;

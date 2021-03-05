@@ -18,7 +18,22 @@ public class A0560 {
         int[] nums = {0,0,0,0,0,0,0,0,0,0};
         System.out.println(subarraySum2(nums, 0));
     }
-    // 暴力法
+    public static int rSubarraySum(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        int sum = 0, count = 0;
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            if (sum == k) {
+                count++;
+            }
+            if (map.containsKey(sum - k)) {
+                count += map.get(sum - k);
+            }
+            map.put(sum, map.getOrDefault(sum, 0) + 1);
+        }
+        return count;
+    }
+        // 暴力法
     public static int subarraySum(int[] nums, int k) {
         int len = nums.length;
         if (len == 0)

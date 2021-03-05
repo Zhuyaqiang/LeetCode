@@ -25,6 +25,22 @@ public class A0019 {
         head = removeNthFromEnd3(head,2);
         display(head);
     }
+    public static  ListNode rRemoveNthFromEnd(ListNode head, int n) {
+        ListNode quick = head;
+        for (int i = 0; i < n; i++) {
+            quick = quick.next;
+        }
+        if (quick == null) {
+            return head.next;
+        }
+        ListNode slow = head;
+        while (quick.next != null) {
+            quick = quick.next;
+            slow = slow.next;
+        }
+        slow.next = slow.next.next;
+        return head;
+    }
     // 两趟扫描
     public static  ListNode removeNthFromEnd(ListNode head, int n) {
         int count = 0;

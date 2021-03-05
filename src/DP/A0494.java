@@ -23,10 +23,29 @@ import java.util.*;
  */
 public class A0494 {
     public static void main(String[] args) {
-        System.out.println(findTargetSumWays2(new int[]{0,0,0,0,0,0,0,0,1}, 1));
+        System.out.println(rFindTargetSumWays(new int[]{0,0,0,0,0,0,0,0,1}, 1));
     }
 
-    // 递归
+    public static int rFindTargetSumWays(int[] nums, int S) {
+        if (nums == null || nums.length == 0) {
+            return S == 0 ? 1 : 0;
+        }
+        int len = nums.length;
+        rBacktrack(nums, S, 0, 0, len);
+        return res;
+    }
+    public static void rBacktrack(int[] nums, int target, int sum, int index, int len) {
+        if (index == len) {
+            if (target == sum) {
+                res++;
+            }
+            return;
+        }
+        rBacktrack(nums, target, sum + nums[index], index + 1, len);
+        rBacktrack(nums, target, sum - nums[index], index + 1, len);
+    }
+
+        // 递归
     public static int res = 0;
 
     public static int findTargetSumWays(int[] nums, int S) {

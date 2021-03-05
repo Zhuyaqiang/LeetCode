@@ -20,6 +20,23 @@ package other;
  * 你可以运用递归和迭代两种方法解决这个问题吗？
  */
 public class A0101 {
+    public boolean rIsSymmetric(TreeNode root) {
+        return rIsMirror(root, root);
+    }
+
+    private boolean rIsMirror(TreeNode left, TreeNode right) {
+        if (left == null && right == null) {
+            return true;
+        }
+        if (left == null || right == null) {
+            return false;
+        }
+        if (left.val != right.val) {
+            return false;
+        }
+        return rIsMirror(left.left, right.right) && rIsMirror(left.right, right.left);
+    }
+
     public boolean isSymmetric(TreeNode root) {
         return isMirror(root, root);
     }

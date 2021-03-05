@@ -1,8 +1,12 @@
 package other;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 /**
  * 297. 二叉树的序列化与反序列化
@@ -38,10 +42,75 @@ public class A0297 {
 //        root.right.left = new TreeNode(4);
 //        root.right.right = new TreeNode(5);
 //        System.out.println(rSerialize(root));
-        String serialize = serialize(deserialize("[5,2,3,null,null,2,4,3,1]"));
+        String serialize = rSerialize(rDeserialize("[5,2,3,null,null,2,4,3,1]"));
         System.out.println(serialize);
     }
 
+    public static String rSerialize(TreeNode root) {
+        if (root == null) {
+            return "[]";
+        }
+        StringBuilder sb = new StringBuilder();
+        Deque<TreeNode> queue = new LinkedList<>();
+        queue.addLast(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            while (size > 0) {
+                if (queue.getLast() == null) {
+                    queue.removeLast();
+                    size--;
+                } else {
+                    break;
+                }
+            }
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.pollFirst();
+                if (node == null) {
+                    sb.append("null,");
+                } else {
+                    sb.append(node.val).append(",");
+                    queue.addLast(node.left);
+                    queue.addLast(node.right);
+                }
+            }
+        }
+        sb.delete(sb.length() - 1, sb.length());
+        return "[" + sb.toString() + ']';
+    }
+
+    public static TreeNode rDeserialize(String data) {
+        if (data == null || data.length() == 0) {
+            return null;
+        }
+        data = data.substring(1, data.length() - 1);
+        if (data.length() == 0) {
+            return null;
+        }
+        String[] splits = data.split(",");
+        TreeNode root = new TreeNode(Integer.parseInt(splits[0]));
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        int i = 1;
+        while (!queue.isEmpty()) {
+            TreeNode treeNode = queue.poll();
+            if (i == splits.length) {
+                break;
+            }
+            if (!"null".equals(splits[i])) {
+                TreeNode left = new TreeNode(Integer.parseInt(splits[i]));
+                queue.offer(left);
+                treeNode.left = left;
+            }
+            i++;
+            if (!"null".equals(splits[i])) {
+                TreeNode right = new TreeNode(Integer.parseInt(splits[i]));
+                queue.offer(right);
+                treeNode.right = right;
+            }
+            i++;
+        }
+        return root;
+    }
     // Encodes a tree to a single string.
     public static String serialize(TreeNode root) {
         StringBuilder ans = new StringBuilder();

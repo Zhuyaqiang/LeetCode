@@ -15,6 +15,25 @@ public class A0042 {
         int[] height = {2,0,2};
         System.out.println(trap5(height));
     }
+    public int rTrap(int[] height) {
+        int len = height.length;
+        int res = 0;
+        if (len == 0) {
+            return 0;
+        }
+        int maxLeft = height[0];
+        int[] maxRight = new int[len];
+        for (int i = len - 2; i >= 1; i--) {
+            maxRight[i] = Math.max(maxRight[i + 1], height[i]);
+        }
+        for (int i = 1; i < len - 1; i++) {
+            if (maxRight[i] > height[i] && maxLeft > height[i]) {
+                res += Math.min(maxLeft, maxRight[i]) - height[i];
+            }
+            maxLeft = Math.max(maxLeft, height[i]);
+        }
+        return res;
+    }
     // 按行求 超时
     public static int trap(int[] height) {
         int res = 0;

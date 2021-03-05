@@ -17,7 +17,7 @@ import java.util.List;
  * [[5,0], [7,0], [5,2], [6,1], [4,4], [7,1]]
  */
 public class A0406 {
-    // 根据身高降序, k升序排, 因为k只与在它前方比他高的人有关, 从左往右插入, 不需要考虑后面比它矮的人
+        // 根据身高降序, k升序排, 因为k只与在它前方比他高的人有关, 从左往右插入, 不需要考虑后面比它矮的人, 插入时只需要考虑前面保证有k个人即可(person[1])
     public int[][] reconstructQueue(int[][] people) {
         int len = people.length;
         if (len <= 1)
