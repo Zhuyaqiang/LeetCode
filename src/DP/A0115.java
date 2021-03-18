@@ -36,20 +36,21 @@ package DP;
  */
 public class A0115 {
     public int rNumDistinct(String s, String t) {
-        int sLen = s.length(), tLen = t.length();
-        int[][] dp = new int[sLen + 1][tLen + 1];
-        dp[0][0] = 1;
-        for (int i = 1; i <= sLen; i++)
+        int sLen = s.length(), tlen = t.length();
+        int[][] dp = new int[sLen + 1][tlen + 1];
+        for (int i = 0; i <= sLen; i++) {
             dp[i][0] = 1;
+        }
         for (int i = 1; i <= sLen; i++) {
-            for (int j = 1; j <= tLen; j++) {
-                if (s.charAt(i) != t.charAt(j))
-                    dp[i][j] = dp[i-1][j];
-                else
-                    dp[i][j] = dp[i-1][j] + dp[i-1][j-1];
+            for (int j = 1; j <= tlen; j++) {
+                if (s.charAt(i - 1) != s.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j];
+                } else {
+                    dp[i][j] = dp[i - 1][j] + dp[i - 1][j - 1];
+                }
             }
         }
-        return dp[sLen][tLen];
+        return dp[sLen][tlen];
     }
     public int numDistinct(String s, String t) {
         int slen = s.length(), tLen = t.length();

@@ -1,6 +1,7 @@
 package array;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -29,12 +30,33 @@ import java.util.List;
 public class A0039 {
     public static void main(String[] args) {
         int[] candidates = {2,3,5};
-        List<List<Integer>> lists = combinationSum(candidates, 8);
+        List<List<Integer>> lists = rCombinationSum(candidates, 8);
         for (List<Integer> list : lists) {
             System.out.println(list);
         }
     }
-    // 回溯
+    public static List<List<Integer>> rCombinationSum(int[] candidates, int target) {
+        List<List<Integer>> ans = new ArrayList<>();
+        if (candidates == null || candidates.length == 0) {
+            return ans;
+        }
+        rBacktrack(candidates, target, 0, ans, new ArrayList<>());
+        return ans;
+    }
+    public static void rBacktrack(int[] candidates, int target, int index, List<List<Integer>> ans, List<Integer> curr) {
+        if (target == 0) {
+            ans.add(new ArrayList<>(curr));
+            return;
+        }
+        if (target < 0 || index == candidates.length) {
+            return;
+        }
+        rBacktrack(candidates, target, index + 1, ans, curr);
+        curr.add(candidates[index]);
+        rBacktrack(candidates, target - candidates[index], index, ans, curr);
+        curr.remove(curr.size() - 1);
+    }
+        // 回溯
     public static List<List<Integer>> res= new ArrayList<>();
     public static List<List<Integer>> combinationSum(int[] candidates, int target) {
         if (candidates == null || candidates.length == 0)

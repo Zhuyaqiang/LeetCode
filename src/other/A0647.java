@@ -17,7 +17,30 @@ package other;
  * 输入的字符串长度不会超过 1000 。
  */
 public class A0647 {
-    // 暴力法, 枚举所有子串, 判断是否是回文串
+    public static void main(String[] args) {
+        System.out.println(rCountSubstrings("aaa"));
+    }
+    public static int rCountSubstrings(String s) {
+        int len = s.length();
+        boolean[][] dp = new boolean[len][len];
+        int res = 0;
+        for (int i = 0; i < len; i++) {
+            for (int j = i; j >= 0; j--) {
+                if (i == j) {
+                    res++;
+                    dp[j][i] = true;
+                } else if (i == j + 1 && s.charAt(i) == s.charAt(j)) {
+                    res++;
+                    dp[j][i] = true;
+                } else if (s.charAt(i) == s.charAt(j) && dp[j + 1][i - 1]) {
+                    res++;
+                    dp[j][i] = true;
+                }
+            }
+        }
+        return res;
+    }
+        // 暴力法, 枚举所有子串, 判断是否是回文串
     public int countSubstrings(String s) {
         int res = 0;
         for (int i = 0; i < s.length(); i++) {

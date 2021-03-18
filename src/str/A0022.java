@@ -1,7 +1,9 @@
 package str;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * 括号生成
@@ -18,9 +20,31 @@ import java.util.List;
  */
 public class A0022 {
     public static void main(String[] args) {
-        System.out.println(generateParenthesis2(3));
+        System.out.println(rGenerateParenthesis(3));
     }
-    // 暴力法
+    public static List<String> rGenerateParenthesis(int n) {
+        if (n == 0) {
+            return new ArrayList<>(Collections.singleton(""));
+        }
+        List<String> res = new ArrayList<>();
+        rBacktrack(n, res, new StringBuilder(), 0, 0);
+        return res;
+    }
+    public static void rBacktrack(int n, List<String> res, StringBuilder sb, int l, int r) {
+        if (sb.length() == 2 * n) {
+            res.add(sb.toString());
+            return;
+        }
+        if (l < n) {
+            rBacktrack(n, res, sb.append('('), l + 1, r);
+            sb.delete(sb.length() - 1, sb.length());
+        }
+        if (r < l) {
+            rBacktrack(n, res, sb.append(')'), l, r + 1);
+            sb.delete(sb.length() - 1, sb.length());
+        }
+    }
+        // 暴力法
     public static List<String> generateParenthesis(int n) {
         List<String> res = new ArrayList<>();
         backtrack(res, "", n);

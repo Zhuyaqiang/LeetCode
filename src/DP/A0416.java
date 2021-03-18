@@ -20,9 +20,34 @@ import java.util.Arrays;
 public class A0416 {
     public static void main(String[] args) {
         int[] nums = {1, 5, 11, 5};
-        System.out.println(canPartition(nums));
+        System.out.println(rCanPartition(nums));
     }
-
+    public static boolean rCanPartition(int[] nums) {
+        int sum = 0;
+        for (int num : nums) {
+            sum += num;
+        }
+        if (sum % 2 != 0) {
+            return false;
+        }
+        int len = nums.length;
+        sum /= 2;
+        boolean[][] dp = new boolean[len][sum + 1];
+        for (int i = 0; i < len; i++) {
+            if (nums[i] <= sum) {
+                dp[i][nums[i]] = true;
+            }
+        }
+        for (int i = 1; i < len; i++) {
+            for (int j = 0; j <= sum; j++) {
+                dp[i][j] |= dp[i - 1][j];
+                if (j > nums[i]) {
+                    dp[i][j] |= dp[i - 1][j - nums[i]];
+                }
+            }
+        }
+        return dp[len - 1][sum];
+    }
     // 递归, 合理剪枝
     public static boolean canPartition(int[] nums) {
         Arrays.sort(nums);

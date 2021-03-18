@@ -12,32 +12,38 @@ package other;
  */
 public class M0046 {
     public static void main(String[] args) {
-        int num = 26;
+        int num = 12258;
         System.out.println(rTranslateNum(num));
     }
 
 
-    // 1: 1和1X, 2: 2和20,21,22,23,24,25, r: 3
     public static int rTranslateNum(int num) {
         String str = String.valueOf(num);
+        // 1: 1和10-19
+        // 2: 2和20-25
+        // 其他: 一个数字
         int len = str.length();
         int[] dp = new int[len];
         dp[0] = 1;
         for (int i = 1; i < len; i++) {
-            dp[i] = dp[i-1];
-            if (i > 1) {
-                if (str.charAt(i - 1) == '1')
-                    dp[i] += dp[i - 2];
-                else if (str.charAt(i - 1) == '2' && str.charAt(i) >= '0' && str.charAt(i) <= '5')
-                    dp[i] += dp[i - 2];
+            char ch = str.charAt(i);
+            if (ch >= '0' && ch <= '5') {
+                if (str.charAt(i - 1) == '1' || str.charAt(i - 1) == '2') {
+                    dp[i] = i > 1 ? dp[i - 2] + dp[i - 1] : dp[i - 1] + 1;
+                } else {
+                    dp[i] = dp[i - 1];
+                }
+            } else if (ch >= '6' && ch <= '9') {
+                if (str.charAt(i - 1) == '1') {
+                    dp[i] = i > 1 ? dp[i - 2] + dp[i - 1] : dp[i - 1] + 1;
+                } else {
+                    dp[i] = dp[i - 1];
+                }
             } else {
-                if (str.charAt(i - 1) == '1')
-                    dp[i] += 1;
-                else if (str.charAt(i - 1) == '2' && str.charAt(i) >= '0' && str.charAt(i) <= '5')
-                    dp[i] += 1;
+                dp[i] = dp[i - 1];
             }
         }
-        return dp[len-1];
+        return dp[len - 1];
     }
     // 递归
     public static char[] str;

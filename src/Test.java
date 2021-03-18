@@ -14,18 +14,34 @@ import java.util.Map;
  */
 public class Test {
     public static void main(String[] args) {
-        int i = 1;
-        System.out.println(i);
-        i = i++;
-        System.out.println(i);
-        i = ++i;
-        System.out.println(i);
-        int j = i++;
-        System.out.println(j);
-        int k = ++j;
-        System.out.println(k);
-        int m = i++ * ++i;
-        System.out.println(i);
-        System.out.println("m: " + m);
+        int[] nums = {2,2,51,3,6,7,12,7,2};
+        quickSort(nums);
+        System.out.println(Arrays.toString(nums));
+    }
+    public static void quickSort(int[] nums) {
+        qS(nums, 0, nums.length - 1);
+    }
+    public static void qS(int[] nums, int l, int r) {
+        if (l >= r) {
+            return;
+        }
+        int left = l, right = r, pivot = nums[l];
+        while (left < right) {
+            while (right > left && nums[right] >= pivot) {
+                right--;
+            }
+            if (right > left) {
+                nums[left++] = nums[right];
+            }
+            while (right > left && nums[left] <= pivot) {
+                left++;
+            }
+            if (right > left) {
+                nums[right--] = nums[left++];
+            }
+        }
+        nums[right] = pivot;
+        qS(nums, l, right - 1);
+        qS(nums, right + 1, r);
     }
 }

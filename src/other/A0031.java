@@ -20,8 +20,8 @@ public class A0031 {
 //        int[] nums1 = {1,1,5};
 //        nextPermutation(nums1);
 //        System.out.println(Arrays.toString((nums1)));
-        int[] nums2 = {3,2,1};
-        nextPermutation(nums2);
+        int[] nums2 = {1, 5, 1};
+        rNextPermutation(nums2);
         System.out.println(Arrays.toString((nums2)));
 //        int[] nums3 = {1,3,2};  // 213
 //        nextPermutation(nums3);
@@ -30,7 +30,33 @@ public class A0031 {
 //        nextPermutation(nums4);
 //        System.out.println(Arrays.toString(nums4));
     }
-    public static void nextPermutation(int[] nums) {
+
+    public static void rNextPermutation(int[] nums) {
+        int len = nums.length;
+        int index = len - 2;
+        while (index >= 0 && nums[index] >= nums[index + 1]) {
+            index--;
+        }
+        if (index >= 0) {
+            int i = len - 1;
+            while (nums[i] <= nums[index]) {
+                i--;
+            }
+            int temp = nums[i];
+            nums[i] = nums[index];
+            nums[index] = temp;
+        }
+        int l = index + 1, r = len - 1;
+        while (l < r) {
+            int temp = nums[l];
+            nums[l] = nums[r];
+            nums[r] = temp;
+            l++;
+            r--;
+        }
+    }
+
+        public static void nextPermutation(int[] nums) {
         // 找到相对靠右的大数和大数左边最靠近的比大数小的第一个数, 交换, 之后调换大数之后的所有数
         int len = nums.length;
         int i = len - 2;
