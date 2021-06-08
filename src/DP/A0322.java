@@ -1,6 +1,8 @@
 package DP;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 零钱兑换
@@ -17,26 +19,37 @@ import java.util.Arrays;
  */
 public class A0322 {
     public static void main(String[] args) {
-        int[] coins = {1, 2, 5};
-        System.out.println(rCoinChange(coins, 100));
+        int[] coins = {2};
+        System.out.println(rCoinChange(coins, 3));
+        System.out.println(rCoinChange(new int[] {1, 2, 5}, 11));
     }
 
     public static int rCoinChange(int[] coins, int amount) {
-//        int[] memo = new int[amount + 1];
-//        Arrays.fill(memo, -1);
-//        return rBacktrack(coins, amount, memo);
-        if (amount == 0)
+        if (amount == 0) {
             return 0;
-        if (coins.length == 0)
+        }
+        int len = coins.length;
+        if (len == 0) {
             return -1;
+        }
+
         int[] dp = new int[amount + 1];
         Arrays.fill(dp, -1);
         dp[0] = 0;
-        for (int i = 1; i < dp.length; i++) {
-            for (int k = 0; k < coins.length; k++) {
-                if (i - coins[k] >= 0 && dp[i - coins[k]] != -1) {
-                    dp[i] = dp[i] == -1 ? dp[i-coins[k]] + 1 : Math.min(dp[i], dp[i-coins[k]] + 1);
+        for (int i = 0; i < len; i++) {
+            if (coins[i] <= amount) {
+                dp[coins[i]] = 1;
+            }
+        }
+        for (int i = 1; i <= amount; i++) {
+            int min = Integer.MAX_VALUE;
+            for (int j = 0; j < len; j++) {
+                if (i - coins[j] >= 0 && dp[i - coins[j]] != -1) {
+                    min = Math.min(min, dp[i - coins[j]] + 1);
                 }
+            }
+            if (min != Integer.MAX_VALUE) {
+                dp[i] = min;
             }
         }
         return dp[amount];

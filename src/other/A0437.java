@@ -33,19 +33,33 @@ import java.util.*;
  */
 public class A0437 {
     public static void main(String[] args) {
-        TreeNode root = new TreeNode(10);
-        root.left = new TreeNode(5);
-        root.right = new TreeNode(-3);
-        root.left.left = new TreeNode(3);
-        root.left.right = new TreeNode(2);
-        root.right.right = new TreeNode(11);
-        root.left.left.left = new TreeNode(3);
-        root.left.left.right = new TreeNode(-1);
-        root.left.right.right = new TreeNode(1);
-        System.out.println(pathSum(root, 8));
+        TreeNode root = new TreeNode(0);
+        System.out.println(pathSum(root, 0));
     }
 
     public static int res = 0;
+
+    public static int rPathSum(TreeNode root, int sum) {
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0, 1);
+        rBacktrack(root, sum, 0, map);
+        return res;
+    }
+    public static void rBacktrack(TreeNode root, int sum, int curr, Map<Integer, Integer> map) {
+        if (root == null) {
+            return;
+        }
+        curr += root.val;
+        int diff = curr - sum;
+        if (map.containsKey(diff)) {
+            res += map.get(diff);
+        }
+        map.put(curr, map.getOrDefault(curr, 0) + 1);
+
+        rBacktrack(root.left, sum, curr, map);
+        rBacktrack(root.right, sum, curr, map);
+        map.put(curr, map.get(curr) - 1);
+    }
 
     public static int pathSum(TreeNode root, int sum) {
         Map<Integer, Integer> map = new HashMap<>();

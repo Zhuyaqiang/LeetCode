@@ -24,15 +24,38 @@ import java.util.Set;
  */
 public class A0003 {
     public static void main(String[] args) {
-        System.out.println(lengthOfLongestSubstring2("au"));
-        System.out.println(lengthOfLongestSubstring2(" "));
-        System.out.println(lengthOfLongestSubstring2(""));
-        System.out.println(lengthOfLongestSubstring2("pwwkew"));
-        System.out.println(lengthOfLongestSubstring2("bbbbb"));
-        System.out.println(lengthOfLongestSubstring2("abcabcbb"));
-        System.out.println(lengthOfLongestSubstring2("aab"));
-        System.out.println(lengthOfLongestSubstring2("abba"));
-        System.out.println(lengthOfLongestSubstring2("dvdf"));
+//        System.out.println(rLengthOfLongestSubstring("au"));
+//        System.out.println(rLengthOfLongestSubstring(" "));
+//        System.out.println(rLengthOfLongestSubstring(""));
+        System.out.println(rLengthOfLongestSubstring("pwwkew"));
+        System.out.println(rLengthOfLongestSubstring("bbbbb"));
+        System.out.println(rLengthOfLongestSubstring("abcabcbb"));
+        System.out.println(rLengthOfLongestSubstring("aab"));
+        System.out.println(rLengthOfLongestSubstring("abba"));
+        System.out.println(rLengthOfLongestSubstring("dvdf"));
+        System.out.println(rLengthOfLongestSubstring("tmmzuxt"));
+    }
+    public static int rLengthOfLongestSubstring(String s) {
+        int len = s.length();
+        if (len == 0) {
+            return 0;
+        }
+        int res = 1;
+        Set<Character> set = new HashSet<>();
+        int l = 0, r = 0;
+        while (r < len) {
+            char chR = s.charAt(r);
+            if (!set.contains(chR)) {
+                set.add(chR);
+                r++;
+                res = Math.max(res, r - l);
+            } else {
+                char chL = s.charAt(l);
+                set.remove(chL);
+                l++;
+            }
+        }
+        return res;
     }
     // 暴力法
     public static int lengthOfLongestSubstring(String s) {
@@ -78,4 +101,5 @@ public class A0003 {
         }
         return ans;
     }
+
 }

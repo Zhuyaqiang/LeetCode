@@ -27,10 +27,34 @@ public class A0139 {
 //        List<String> wordDict = new ArrayList<>(Arrays.asList("cat", "cats", "and", "sand", "dog"));
         String s = "catsandog";
         List<String> wordDict = new ArrayList<>(Arrays.asList("cats", "dog", "sand", "and", "cat"));
-        System.out.println(wordBreak2(s, wordDict));
+//        String s = "leetcode";
+//        List<String> wordDict = new ArrayList<>(Arrays.asList("leet", "code"));
+        System.out.println(rWordBreak(s, wordDict));
+    }
+    public static boolean rWordBreak(String s, List<String> wordDict) {
+        int len = s.length();
+        if (len == 0) {
+            return true;
+        }
+        Set<String> set = new HashSet<>(wordDict);
+        boolean[] dp = new boolean[len + 1];
+        dp[0] = true;
+        for (int i = 1; i <= len; i++) {
+            for (int j = 0; j < i; j++) {
+                String str = s.substring(j, i);
+                if (set.contains(str)) {
+                    dp[i] |= dp[j];
+                    if (dp[i]) {
+                        break;
+                    }
+                }
+            }
+        }
+        return dp[len];
     }
 
-    // 暴力递归， 超时
+
+        // 暴力递归， 超时
     public static boolean wordBreak2(String s, List<String> wordDict) {
         return backtrack2(s, wordDict);
     }

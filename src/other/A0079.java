@@ -22,22 +22,12 @@ package other;
  */
 public class A0079 {
     public static void main(String[] args) {
-//        char[][] board = {
-//                {'A', 'B', 'C', 'E'},
-//                {'S', 'F', 'C', 'S'},
-//                {'A', 'D', 'E', 'E'}
-//        };
-//        System.out.println(exist(board, "ABCCED"));
-//        System.out.println(exist(board, "SEE"));
-//        System.out.println(exist(board, "ABCB"));
-//        char[][] board = {{'a'}};
-//        System.out.println(rExist(board, "a"));
+
         char[][] board = {{'a'}};
         System.out.println(rExist(board, "a"));
     }
 
     public static boolean rExist(char[][] board, String word) {
-        int[][] dir = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
         int m = board.length;
         if (m == 0) {
             return false;
@@ -46,39 +36,39 @@ public class A0079 {
         if (n == 0) {
             return false;
         }
-        boolean[][] seen = new boolean[m][n];
+        int[][] dir = new int[][] {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (rBacktrack(board, word, 0, seen, dir, m, n, i, j)) {
+                boolean res = recursion(board, word, 0, i, j, dir, m, n);
+                if (res) {
                     return true;
                 }
             }
         }
         return false;
     }
-
-    public static boolean rBacktrack(char[][] board, String word, int index, boolean[][] seen, int[][] dir, int m, int n, int i, int j) {
-        if (index == word.length()) {
-            return true;
+    public static boolean recursion(char[][] board, String word, int index, int x, int y, int[][] dir,  int m, int n) {
+        if (index == word.length() - 1) {
+            return word.charAt(index) == board[x][y];
         }
-        if (word.charAt(index) != board[i][j]) {
+        if (word.charAt(index) != board[x][y]) {
             return false;
         }
-        if (index == word.length() - 1) {
-            return true;
-        }
-        seen[i][j] = true;
-        for (int k = 0; k < 4; k++) {
-            int newX = i + dir[k][0];
-            int newY = j + dir[k][1];
-            if (newX >= 0 && newX < m && newY >= 0 && newY < n && !seen[newX][newY]) {
-                if (rBacktrack(board, word, index + 1, seen, dir, m, n, newX, newY)) {
-                    return true;
+        char temp = board[x][y];
+        board[x][y] = '.';
+        boolean flag = false;
+        for (int i = 0; i < 4; i++) {
+            int newX = x + dir[i][0];
+            int newY = y + dir[i][1];
+            if (newX >= 0 && newX < m && newY >= 0 && newY < n && board[newX][newY] != '.') {
+                flag |= recursion(board, word, index + 1, newX, newY, dir, m, n);
+                if (flag) {
+                    break;
                 }
             }
         }
-        seen[i][j] = false;
-        return false;
+        board[x][y] = temp;
+        return flag;
     }
     public static boolean exist(char[][] board, String word) {
         int m = board.length;

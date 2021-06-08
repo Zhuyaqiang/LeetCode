@@ -23,21 +23,18 @@ import java.util.List;
 public class A0046 {
     public List<List<Integer>> rPermute(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
-        if (nums == null || nums.length == 0) {
-            return res;
-        }
-        rBacktrack(nums, new boolean[nums.length], new ArrayList<>(), res);
+        boolean[] seen = new boolean[nums.length];
+        rBacktrack(nums, seen, new ArrayList<>(), res);
         return res;
     }
     public void rBacktrack(int[] nums, boolean[] seen, List<Integer> curr, List<List<Integer>> ans) {
         if (curr.size() == nums.length) {
             ans.add(new ArrayList<>(curr));
-            return;
         }
         for (int i = 0; i < nums.length; i++) {
             if (!seen[i]) {
-                seen[i] = true;
                 curr.add(nums[i]);
+                seen[i] = true;
                 rBacktrack(nums, seen, curr, ans);
                 curr.remove(curr.size() - 1);
                 seen[i] = false;

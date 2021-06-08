@@ -42,9 +42,63 @@ import java.util.Set;
 public class A0200 {
     public static void main(String[] args) {
         char[][] grid = {{'1', '0', '1', '1', '0', '1', '1'}};
-        System.out.println(numIslands2(grid));
+        System.out.println(rNumIslands(grid));
+    }
+    public static int rNumIslands(char[][] grid) {
+        int m = grid.length;
+        if (m == 0) {
+            return 0;
+        }
+        int n = grid[0].length;
+        if (n == 0) {
+            return 0;
+        }
+        int[] parent = new int[m * n];
+        for (int i = 0; i < m * n; i++) {
+            parent[i] = i;
+        }
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == '1') {
+                    if (i > 0 && grid[i - 1][j] == '1') {
+                        merge(parent, n * i + j, n * (i - 1) + (j));
+                    }
+                    if (j < n - 1 && grid[i][j + 1] == '1') {
+                        merge(parent, n * i + j, n * (i) + j + 1);
+                    }
+                    if (i < m - 1 && grid[i + 1][j] == '1') {
+                        merge(parent, n * i + j, n * (i + 1) + j);
+                    }
+                    if (j > 0 && grid[i][j - 1] == '1') {
+                        merge(parent, n * i + j, n * (i) + j - 1);
+                    }
+                }
+            }
+        }
+        Set<Integer> set = new HashSet<>();
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == '1') {
+                    set.add(rfind(parent, i * n + j));
+                }
+            }
+        }
+        return set.size();
     }
 
+    public static int rfind(int[] parent, int val) {
+        if (parent[val] != val) {
+            parent[val] = rfind(parent, parent[val]);
+        }
+        return parent[val];
+    }
+    public static void merge(int[] parent, int x, int y) {
+        int rootX = rfind(parent, x);
+        int rootY = rfind(parent, y);
+        if (rootX != rootY) {
+            parent[rootX] = rootY;
+        }
+    }
     // 深度优先搜索
     public static int numIslands2(char[][] grid) {
         int m = grid.length;

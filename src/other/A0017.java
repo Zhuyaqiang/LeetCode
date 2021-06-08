@@ -15,17 +15,39 @@ import java.util.List;
  **/
 public class A0017 {
     public static void main(String[] args) {
-        List<String> strings = letterCombinations("23");
+        List<String> strings = rLetterCombinations("23");
         System.out.println(strings);
     }
+
+    public static List<String> rLetterCombinations(String digits) {
+        char[][] board = {{}, {}, {'a', 'b', 'c'}, {'d', 'e', 'f'}, {'g', 'h', 'i'}, {'j', 'k', 'l'}, {'m', 'n', 'o'}, {'p', 'q', 'r', 's'}, {'t', 'u', 'v'}, {'w', 'x', 'y', 'z'}};
+        List<String> res = new ArrayList<>();
+        rBacktrack(board, res, new StringBuilder(), digits, 0);
+        return res;
+    }
+    public static void rBacktrack(char[][] board, List<String> res, StringBuilder sb, String digits, int index) {
+        if (index == digits.length()) {
+            res.add(sb.toString());
+            return;
+        }
+        char ch = digits.charAt(index);
+        for (int i = 0; i < board[ch - '0'].length; i++) {
+            sb.append(board[ch - '0'][i]);
+            rBacktrack(board, res, sb, digits, index + 1);
+            sb.delete(sb.length() - 1, sb.length());
+        }
+    }
+
     public static List<String> res = new ArrayList<>();
-    public static char[][] board= {{'a','b','c'}, {'d','e','f'}, {'g','h','i'}, {'j','k','l'}, {'m','n','o'}, {'p','q','r','s'}, {'t','u','v'}, {'w','x','y','z'}};
+    public static char[][] board = {{'a', 'b', 'c'}, {'d', 'e', 'f'}, {'g', 'h', 'i'}, {'j', 'k', 'l'}, {'m', 'n', 'o'}, {'p', 'q', 'r', 's'}, {'t', 'u', 'v'}, {'w', 'x', 'y', 'z'}};
+
     public static List<String> letterCombinations(String digits) {
         if (digits.length() == 0)
             return res;
         backtrack(digits, 0, "");
         return res;
     }
+
     public static void backtrack(String digits, int index, String ans) {
         if (index == digits.length()) {
             res.add(ans);
@@ -33,7 +55,7 @@ public class A0017 {
         }
         int val = digits.charAt(index) - '0' - 2;
         for (int i = 0; i < board[val].length; i++) {
-            backtrack(digits, index +1, ans + board[val][i]);
+            backtrack(digits, index + 1, ans + board[val][i]);
         }
     }
 }

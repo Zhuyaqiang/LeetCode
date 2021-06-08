@@ -43,33 +43,35 @@ public class A0337 {
         return Math.max(rBacktrack(root, false),rBacktrack(root, true));
     }
     public int rBacktrack(TreeNode root, boolean flag) {
-        if (root == null)
+        if (root == null) {
             return 0;
-        int val;
+        }
+        int val = 0;
         if (flag) {
-            if (not.containsKey(root))
+            if (not.containsKey(root)) {
                 return not.get(root);
+            }
             val = rBacktrack(root.left, false) + rBacktrack(root.right, false);
             not.put(root, val);
             return val;
         } else {
-            if (is.containsKey(root) && not.containsKey(root))
+            if (is.containsKey(root) && not.containsKey(root)) {
                 return Math.max(is.get(root), not.get(root));
-            int isVal;
-            int notVal;
-            if (is.containsKey(root))
+            }
+            int isVal, notVal;
+            if (is.containsKey(root)) {
                 isVal = is.get(root);
-            else
-                isVal = rBacktrack(root.right, true) + rBacktrack(root.left, true) + root.val;
-            if (not.containsKey(root))
-                notVal = not.get(root);
-            else
-                notVal = rBacktrack(root.left, false) + rBacktrack(root.right, false);
-            if (isVal >= notVal)
+            } else {
+                isVal = rBacktrack(root.left, true) + rBacktrack(root.right, true) + root.val;
                 is.put(root, isVal);
-            else
+            }
+            if (not.containsKey(root)) {
+                notVal = not.get(root);
+            } else {
+                notVal = rBacktrack(root.left, false) + rBacktrack(root.right, false);
                 not.put(root, notVal);
-            return Math.max(rBacktrack(root.left, false) + rBacktrack(root.right, false), rBacktrack(root.right, true) + rBacktrack(root.left, true) + root.val);
+            }
+            return Math.max(isVal, notVal);
         }
     }
 

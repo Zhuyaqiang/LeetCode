@@ -15,10 +15,40 @@ public class A0363 {
     public static void main(String[] args) {
 //        int[][] matrix = {{2,2,-1}};
         int[][] matrix = {{2,2,-1}};
-        System.out.println(maxSumSubmatrix(matrix,0));
+        System.out.println(rMaxSumSubmatrix(matrix,0));
     }
 
-    // 动态规划, 超出内存限制,记录左上角和右下角
+    public static int rMaxSumSubmatrix(int[][] matrix, int k) {
+        int m = matrix.length;
+        if (m == 0)
+            return 0;
+        int n = matrix[0].length;
+        if (n == 0)
+            return 0;
+        int ans = Integer.MIN_VALUE;
+        for (int l = 0; l < n; l++) {
+            int[] rowSum = new int[m];
+            for (int r = l; r < n; r++) {
+                for (int i = 0; i < m; i++) {
+                    rowSum[i] += matrix[i][r];
+                }
+                for (int i = 0; i < m; i++) {
+                    int sum = 0;
+                    for (int j = i; j < m; j++) {
+                        sum += rowSum[j];
+                        if (sum < k) {
+                            ans = Math.max(ans, sum);
+                        }
+                        if (sum == k) {
+                            return k;
+                        }
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+        // 动态规划, 超出内存限制,记录左上角和右下角
     public static int maxSumSubmatrix(int[][] matrix, int k) {
         int m = matrix.length;
         if (m == 0)

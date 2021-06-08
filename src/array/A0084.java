@@ -2,6 +2,7 @@ package array;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Stack;
 
 /**
  * 柱状图中最大的矩形
@@ -14,9 +15,35 @@ import java.util.Deque;
 public class A0084 {
     public static void main(String[] args) {
         int[] heights = {2,1,5,6,2,3};
-        System.out.println(largestRectangleArea4(heights));
+        System.out.println(rLargestRectangleArea(heights));
     }
-    // 暴力法, 超时
+    public static int rLargestRectangleArea(int[] heights) {
+        int len = heights.length;
+        if (len == 0) {
+            return 0;
+        }
+        if (len == 1) {
+            return heights[0];
+        }
+        int[] newHeights = new int[len + 1];
+        for (int i = 0; i < len; i++) {
+            newHeights[i + 1] = heights[i];
+        }
+        len += 2;
+        Stack<Integer> stack = new Stack<>();
+        stack.push(0);
+        int res = 0;
+        for (int i = 1; i < len; i++) {
+            while (newHeights[i] < newHeights[stack.peek()]) {
+                int curr = newHeights[stack.pop()];
+                int wid = i - stack.peek() - 1;
+                res = Math.max(curr * wid, res);
+            }
+            stack.push(i);
+        }
+        return res;
+    }
+        // 暴力法, 超时
     public static int largestRectangleArea(int[] heights) {
         if (heights == null || heights.length == 0)
             return 0;

@@ -29,7 +29,7 @@ public class A0148 {
     }
 
     private static ListNode rMergeSort(ListNode head, ListNode tail) {
-        if (head == null) {
+        if (head == tail) {
             return null;
         }
         if (head.next == tail) {
@@ -38,17 +38,16 @@ public class A0148 {
         }
         ListNode slow = head, fast = head;
         while (fast != tail) {
+            fast = fast.next;
+            if (fast == tail) {
+                break;
+            }
             slow = slow.next;
             fast = fast.next;
-            if (fast != tail) {
-                fast = fast.next;
-            }
         }
-        ListNode mid = slow;
-        ListNode head1 = rMergeSort(head, mid);
-        ListNode head2 = rMergeSort(mid, tail);
-        ListNode merge = rMerge(head1, head2);
-        return merge;
+        ListNode left = rMergeSort(head, slow);
+        ListNode right = rMergeSort(slow, tail);
+        return rMerge(left, right);
     }
 
     private static ListNode rMerge(ListNode head1, ListNode head2) {

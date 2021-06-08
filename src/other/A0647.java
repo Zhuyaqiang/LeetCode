@@ -21,20 +21,21 @@ public class A0647 {
         System.out.println(rCountSubstrings("aaa"));
     }
     public static int rCountSubstrings(String s) {
+        int res = 0;
         int len = s.length();
         boolean[][] dp = new boolean[len][len];
-        int res = 0;
         for (int i = 0; i < len; i++) {
-            for (int j = i; j >= 0; j--) {
-                if (i == j) {
+            dp[i][i] = true;
+            res++;
+            for (int j = i - 1; j >= 0; j--) {
+                boolean equal = s.charAt(i) == s.charAt(j);
+                if (i == j + 1) {
+                    dp[j][i] = equal;
+                } else {
+                    dp[j][i] = equal && dp[j + 1][i - 1];
+                }
+                if (dp[j][i]) {
                     res++;
-                    dp[j][i] = true;
-                } else if (i == j + 1 && s.charAt(i) == s.charAt(j)) {
-                    res++;
-                    dp[j][i] = true;
-                } else if (s.charAt(i) == s.charAt(j) && dp[j + 1][i - 1]) {
-                    res++;
-                    dp[j][i] = true;
                 }
             }
         }

@@ -1,12 +1,7 @@
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author zhuyaqiang <zhuyaqiang@kuaishou.com>
@@ -14,9 +9,10 @@ import java.util.Map;
  */
 public class Test {
     public static void main(String[] args) {
-        int[] nums = {2,2,51,3,6,7,12,7,2};
-        quickSort(nums);
-        System.out.println(Arrays.toString(nums));
+        Stack<Integer> stack = new Stack<>();
+        stack.push(null);
+        System.out.println(stack.size());
+        System.out.println(stack.pop());
     }
     public static void quickSort(int[] nums) {
         qS(nums, 0, nums.length - 1);

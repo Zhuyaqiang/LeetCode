@@ -26,26 +26,30 @@ public class A0347 {
         }
     }
     public static int[] rTopKFrequent(int[] nums, int k) {
-        int len = nums.length;
         Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < len; i++) {
-            map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
         }
-        PriorityQueue<int[]> queue = new PriorityQueue<>(Comparator.comparingInt(o -> o[1]));
-        for (Map.Entry entry : map.entrySet()) {
-            int val = (int) entry.getKey(), count = (int) entry.getValue();
+        PriorityQueue<int[]> queue = new PriorityQueue<>(new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                return o1[1] - o2[1];
+            }
+        });
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
             if (queue.size() < k) {
-                queue.add(new int[] {val, count});
+                queue.offer(new int[] {entry.getKey(), entry.getValue()});
             } else {
-                if (queue.peek()[1] < count) {
+                if (entry.getValue() > queue.peek()[1]) {
                     queue.poll();
-                    queue.add(new int[] {val, count});
+                    queue.offer(new int[] {entry.getKey(),  entry.getValue()});
                 }
             }
         }
         int[] res = new int[k];
-        for (int i = 0; i < k; i++) {
-            res[i] = queue.poll()[0];
+        int index = 0;
+        while (!queue.isEmpty()) {
+            res[index++] = queue.poll()[0];
         }
         return res;
     }

@@ -27,10 +27,36 @@ public class A0075 {
 //        int[] nums2 = {1,2,0};
 //        sortColors2(nums2);
 //        System.out.println(Arrays.toString(nums2));
-        int[] nums3 = {2,0,1};
-        sortColors2(nums3);
+        int[] nums3 = {2, 0, 1};
+        rSortColors(nums3);
         System.out.println(Arrays.toString(nums3));
     }
+
+    public static void rSortColors(int[] nums) {
+        int len = nums.length;
+        if (len <= 1) {
+            return;
+        }
+        int index = 0, zeroIndex = 0, twoIndex = len - 1;
+        while (index <= twoIndex) {
+            if (nums[index] == 0) {
+                swap(nums, index, zeroIndex);
+                index++;
+                zeroIndex++;
+            } else if (nums[index] == 1) {
+                index++;
+            } else if (nums[index] == 2) {
+                swap(nums, index, twoIndex);
+                twoIndex--;
+            }
+        }
+    }
+    public static void swap(int[] nums, int x, int y) {
+        int temp = nums[x];
+        nums[x] = nums[y];
+        nums[y] = temp;
+    }
+
     public static void sortColors(int[] nums) {
         int[] count = new int[3];
         for (int i = 0; i < nums.length; i++) {
@@ -53,9 +79,10 @@ public class A0075 {
                 nums[index] = i;
         }
     }
+
     public static void sortColors2(int[] nums) {
         int len = nums.length;
-        int l = 0, r = len-1;
+        int l = 0, r = len - 1;
         for (int i = 0; i <= r; i++) {
             if (nums[i] == 0) {
                 nums[i] = nums[l];

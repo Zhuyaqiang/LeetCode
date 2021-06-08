@@ -22,9 +22,56 @@ import java.util.Arrays;
 public class A0034 {
     public static void main(String[] args) {
         int[] nums = {1};
-        System.out.println(Arrays.toString(searchRange2(nums, 1)));
+        System.out.println(Arrays.toString(rSearchRange(nums, 1)));
     }
-    // 二分查找1
+    public static int[] rSearchRange(int[] nums, int target) {
+        int len = nums.length;
+        if (len == 0 || target > nums[len - 1] || target < nums[0]) {
+            return new int[]{-1, -1};
+        }
+        int one = binary(nums, target, false);
+        int two = binary(nums, target, true);
+        System.out.println(one + " " + two);
+        if (one == -1 || two - 1 < one) {
+            return new int[] {-1, -1};
+        }
+        return new int[] {one, two - 1};
+    }
+    public static int binary(int[] nums, int target, boolean flag) {
+        int len = nums.length;
+        int l = 0, r = len - 1;
+        while (l <= r) {
+            int mid = l + (r - l) / 2;
+            // 查找第一个大于的
+            if (flag) {
+                if (nums[mid] < target) {
+                    l = mid + 1;
+                } else if (nums[mid] > target) {
+                    if (mid > 0 && nums[mid - 1] == target) {
+                        return mid;
+                    } else {
+                        r = mid - 1;
+                    }
+                } else {
+                    l = mid + 1;
+                }
+            } else {
+                if (nums[mid] < target) {
+                    l = mid + 1;
+                } else if (nums[mid] > target) {
+                    r = mid - 1;
+                } else {
+                    if (mid > 0 && nums[mid - 1] != target) {
+                        return mid;
+                    } else {
+                        r = mid - 1;
+                    }
+                }
+            }
+        }
+        return l;
+    }
+        // 二分查找1
     public static int[] searchRange(int[] nums, int target) {
         int len = nums.length;
         if (len == 0)

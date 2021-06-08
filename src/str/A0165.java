@@ -28,12 +28,74 @@ package str;
  */
 public class A0165 {
     public static void main(String[] args) {
-        System.out.println(compareVersion("0.1", "1.1"));
-        System.out.println(compareVersion("1.0.1", "1"));
-        System.out.println(compareVersion("7.5.2.4", "7.5.3"));
-        System.out.println(compareVersion("1.01", "1.001"));
-        System.out.println(compareVersion("1.0", "1.0.0"));
+        System.out.println(compareVersion2("0.1", "1.1"));
+        System.out.println(compareVersion2("1.0.1", "1"));
+        System.out.println(compareVersion2("7.5.2.4", "7.5.3"));
+        System.out.println(compareVersion2("1.01", "1.001"));
+        System.out.println(compareVersion2("1.0", "1.0.0"));
+        System.out.println(compareVersion2("1.1", "1.10"));
     }
+
+
+
+
+    public static int compareVersion2(String version1, String version2) {
+        String[] splits1 = version1.split("\\.");
+        String[] splits2 = version2.split("\\.");
+        int flag = 1;
+        if (splits1.length > splits2.length) {
+            String[] temp = splits2;
+            splits2 = splits1;
+            splits1 = temp;
+            flag = -1;
+        }
+        // splits1短
+        int index1 = 0, index2 = 0;
+        while (index1 < splits1.length && index2 < splits2.length) {
+            String v1 = splits1[index1];
+            String v2 = splits2[index2];
+            int tempIndex1 = 0, tempIndex2 = 0;
+            while (tempIndex1 < v1.length() - 1 && v1.charAt(tempIndex1) == '0') {
+                tempIndex1++;
+            }
+            while (tempIndex2 < v2.length() - 1 && v2.charAt(tempIndex2) == '0') {
+                tempIndex2++;
+            }
+            int one = Integer.parseInt(v1.substring(tempIndex1));
+            int two = Integer.parseInt(v2.substring(tempIndex2));
+            int res = Integer.compare(one, two);
+            if (res != 0) {
+                return flag * res;
+            }
+            index1++;
+            index2++;
+        }
+        while (index2 < splits2.length) {
+            int tempIndex = 0;
+            String v2 = splits2[index2];
+            while (tempIndex < v2.length() && v2.charAt(tempIndex) == '0') {
+                tempIndex++;
+            }
+            if (tempIndex != v2.length()) {
+                return -1 * flag;
+            }
+            index2++;
+        }
+        return 0;
+    }
+    public static int check(String str1, String str2) {
+        int len = str1.length();
+        for (int i = 0; i < len; i++) {
+            if (str1.charAt(i) > str2.charAt(i)) {
+                return 1;
+            } else if (str1.charAt(i) < str2.charAt(i)) {
+                return -1;
+            }
+        }
+        return 0;
+    }
+
+
     public static int compareVersion(String version1, String version2) {
         String[][] split = new String[2][];
         split[0] = version1.split("\\.");

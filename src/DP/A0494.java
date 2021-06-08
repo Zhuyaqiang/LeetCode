@@ -23,26 +23,44 @@ import java.util.*;
  */
 public class A0494 {
     public static void main(String[] args) {
-        System.out.println(rFindTargetSumWays(new int[]{0,0,0,0,0,0,0,0,1}, 1));
+        System.out.println(rFindTargetSumWays(new int[]{1,1,1,1,1}, 3));
     }
 
     public static int rFindTargetSumWays(int[] nums, int S) {
-        if (nums == null || nums.length == 0) {
-            return S == 0 ? 1 : 0;
-        }
-        int len = nums.length;
-        rBacktrack(nums, S, 0, 0, len);
+        Map<String, Integer> map = new HashMap<>();
+        int res = recursion(nums, map, 0, S);
         return res;
     }
-    public static void rBacktrack(int[] nums, int target, int sum, int index, int len) {
-        if (index == len) {
-            if (target == sum) {
-                res++;
-            }
-            return;
+    public static int recursion(int[] nums, Map<String, Integer> map, int index, int target) {
+        if (index >= nums.length) {
+            return 0;
         }
-        rBacktrack(nums, target, sum + nums[index], index + 1, len);
-        rBacktrack(nums, target, sum - nums[index], index + 1, len);
+        String key = index + "," + target;
+        if (map.containsKey(key)) {
+            return map.get(key);
+        }
+        int target1 = target + nums[index];
+        int target2 = target - nums[index];
+        if (index == nums.length - 1) {
+            int count = 0;
+            if (target1 == 0) {
+                count++;
+            }
+            if (target2 == 0) {
+                count++;
+            }
+            if (count > 0) {
+                map.put(key, count);
+            }
+            return count;
+        }
+        int add = recursion(nums, map, index + 1, target1);
+        int sub = recursion(nums, map, index + 1, target2);
+        int val = add + sub;
+        if (val > 0) {
+            map.put(key, val);
+        }
+        return val;
     }
 
         // 递归

@@ -41,12 +41,43 @@ public class A0008 {
 //        myAtoi("4193 with words");
 //        myAtoi("words and 987");
 //        myAtoi("-91283472332");
-        System.out.println(myAtoi("-2147483648"));
-        System.out.println(myAtoi("4193 with words"));
-        System.out.println(myAtoi("words and 987"));
-        System.out.println(myAtoi("-91283472332"));
-//        System.out.println(Integer.MIN_VALUE);
-//        System.out.println(Integer.MAX_VALUE);
+//        System.out.println(rMyAtoi("-2147483648"));
+//        System.out.println(rMyAtoi("4193 with words"));
+//        System.out.println(rMyAtoi("words and 987"));
+//        System.out.println(rMyAtoi("-91283472332"));
+        System.out.println(rMyAtoi("+-12"));
+    }
+    public static int rMyAtoi(String s) {
+        int index = 0, res = 0, len = s.length();
+        while (index < len && s.charAt(index) == ' ') {
+            index++;
+        }
+        int flag = 1;
+        for (int i = index; i < len; i++) {
+            char ch = s.charAt(i);
+            if (ch > '9' || ch < '0') {
+                if (ch == '+' && i == index) {
+                    flag = 1;
+                } else if (ch == '-' && i == index) {
+                    flag = -1;
+                } else {
+                    return res;
+                }
+            } else {
+                int val = ch - '0';
+                if (flag == 1) {
+                    if (res > Integer.MAX_VALUE / 10 || res * 10 > Integer.MAX_VALUE - val) {
+                        return Integer.MAX_VALUE;
+                    }
+                } else {
+                    if (res < Integer.MIN_VALUE / 10 || res * 10 < Integer.MIN_VALUE + val) {
+                        return Integer.MIN_VALUE;
+                    }
+                }
+                res = res * 10 + flag * val;
+            }
+        }
+        return res;
     }
 
     public static int myAtoi(String str) {

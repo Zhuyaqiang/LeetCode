@@ -32,6 +32,9 @@ public class A0130 {
                 {'X', 'X', 'O', 'X'},
                 {'X', 'O', 'X', 'X'}};
         rSolve(board);
+        for (char[] chars : board) {
+            System.out.println(Arrays.toString(chars));
+        }
     }
 
     public static void rSolve(char[][] board) {
@@ -42,36 +45,35 @@ public class A0130 {
         if (n == 0)
             return;
         for (int i = 0; i < m; i++) {
-            if (board[i][0] == 'O')
-                rBacktrack(board, i, 0);
-            if (board[i][n - 1] == 'O')
-                rBacktrack(board, i, n - 1);
+            rBacktrack(board, i, 0, m, n);
+            rBacktrack(board, i, n - 1, m, n);
         }
         for (int j = 0; j < n; j++) {
-            if (board[0][j] == 'O')
-                rBacktrack(board, 0, j);
-            if (board[m - 1][j] == 'O')
-                rBacktrack(board, m - 1, j);
+            rBacktrack(board, 0, j, m, n);
+            rBacktrack(board, m - 1, j, m, n);
         }
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (board[i][j] == 'X')
-                    continue;
-                else if (board[i][j] == 'O')
-                    board[i][j] = 'X';
-                else if (board[i][j] == 'A')
+                if (board[i][j] == '.') {
                     board[i][j] = 'O';
+                } else {
+                    board[i][j] = 'X';
+                }
             }
         }
     }
 
-    public static void rBacktrack(char[][] board, int x, int y) {
-        board[x][y] = 'A';
+    public static void rBacktrack(char[][] board, int x, int y, int m, int n) {
+        if (board[x][y] == 'X') {
+            return;
+        }
+        board[x][y] = '.';
         for (int i = 0; i < 4; i++) {
             int newX = x + dir[i][0];
             int newY = y + dir[i][1];
-            if (newX >= 0 && newX < m && newY >= 0 && newY < n && board[newX][newY] == 'O')
-                rBacktrack(board, newX, newY);
+            if (newX >= 0 && newX < m && newY >= 0 && newY < n) {
+                rBacktrack(board, newX, newY, m, n);
+            }
         }
     }
 

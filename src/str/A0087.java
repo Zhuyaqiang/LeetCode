@@ -43,9 +43,56 @@ import java.util.Map;
  */
 public class A0087 {
     public static void main(String[] args) {
-        System.out.println(isScramble2("great", "rgeat"));
+        System.out.println(rIsScramble("abc", "bca"));
     }
-    // 递归
+
+    public static boolean rIsScramble(String s1, String s2) {
+        return recursion(s1, s2, new HashMap<>());
+    }
+    public static boolean recursion(String s1, String s2, Map<String, Integer> map) {
+        String key = s1 + "," + s2;
+        int value = map.getOrDefault(key, -1);
+        if (value == 0) {
+            return false;
+        }
+        if (value == 1) {
+            return true;
+        }
+        if (s1.length() != s2.length()) {
+            map.put(key, 0);
+            return false;
+        }
+        if (s1.equals(s2)) {
+            map.put(key, 1);
+            return true;
+        }
+        int[] count = new int[26];
+        int len = s1.length();
+        for (int i = 0; i < len; i++) {
+            count[s1.charAt(i) - 'a']++;
+            count[s2.charAt(i) - 'a']--;
+        }
+        for (int i : count) {
+            if (i != 0) {
+                map.put(key, 0);
+                return false;
+            }
+        }
+        for (int i = 1; i < len; i++) {
+            if (recursion(s1.substring(0, i), s2.substring(0, i), map) && recursion(s1.substring(i, len), s2.substring(i, len), map)) {
+                map.put(key, 1);
+                return true;
+            }
+            System.out.println("--");
+            if (recursion(s1.substring(0, i), s2.substring(len - i, len), map) && recursion(s1.substring(i, len), s2.substring(0, len - i), map)) {
+                map.put(key, 1);
+                return true;
+            }
+        }
+        map.put(key, 0);
+        return false;
+    }
+        // 递归
     public boolean isScramble(String s1, String s2) {
         if (s1.length() != s2.length())
             return false;

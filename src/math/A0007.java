@@ -28,6 +28,30 @@ public class A0007 {
             x = x / 10;
             res = res * 10 + val;
         }
-        return (int)(flag ? (res > Integer.MAX_VALUE ? 0 : res) : (-res < Integer.MIN_VALUE ? 0 : -res));
+        return (int) (flag ? (res > Integer.MAX_VALUE ? 0 : res) : (-res < Integer.MIN_VALUE ? 0 : -res));
+    }
+
+    public static void main(String[] args) {
+        System.out.println(reverse2(-123));
+    }
+    public static int reverse2(int x) {
+        boolean flag = x > 0;
+        int res = 0;
+        while (x != 0) {
+            int mod = x % 10;
+            x = x / 10;
+            if (res > Integer.MAX_VALUE / 10 || res < Integer.MIN_VALUE / 10) {
+                return 0;
+            }
+            res = res * 10;
+            if (flag && res > Integer.MAX_VALUE - mod) {
+                return 0;
+            }
+            if (!flag && res < Integer.MIN_VALUE - mod) {
+                return 0;
+            }
+            res += mod;
+        }
+        return res;
     }
 }

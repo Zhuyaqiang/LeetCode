@@ -1,7 +1,6 @@
 package str;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 最小覆盖子串
@@ -17,7 +16,7 @@ public class A0076 {
     public static void main(String[] args) {
         System.out.println(minWindow("ADOBECODEBANC", "ABC"));
     }
-    // 思路: 外层循环右指针+1, 如果满足条件进入内层循环, 处理后左指针-1至不满足条件继续外层循环
+        // 思路: 外层循环右指针+1, 如果满足条件进入内层循环, 处理后左指针-1至不满足条件继续外层循环
     public static String minWindow(String s, String t) {
         int sLen = s.length(), tLen = t.length();
         if (sLen < tLen)

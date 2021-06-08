@@ -13,24 +13,29 @@ import java.util.Stack;
 public class A0042 {
     public static void main(String[] args) {
         int[] height = {2,0,2};
-        System.out.println(trap5(height));
+        System.out.println(rTrap(height));
     }
-    public int rTrap(int[] height) {
+    public static int rTrap(int[] height) {
         int len = height.length;
-        int res = 0;
         if (len == 0) {
             return 0;
         }
-        int maxLeft = height[0];
-        int[] maxRight = new int[len];
-        for (int i = len - 2; i >= 1; i--) {
-            maxRight[i] = Math.max(maxRight[i + 1], height[i]);
-        }
-        for (int i = 1; i < len - 1; i++) {
-            if (maxRight[i] > height[i] && maxLeft > height[i]) {
-                res += Math.min(maxLeft, maxRight[i]) - height[i];
+        int res = 0;
+        Stack<Integer> stack = new Stack<>();
+        int curr = 0;
+        while (curr < len) {
+            while (!stack.isEmpty() && height[curr] > stack.peek()) {
+                int h = height[stack.pop()];
+                if (stack.isEmpty()) {
+                    break;
+                }
+                int left = stack.peek();
+                int min = Math.min(height[left], height[curr]);
+                int distance = curr - left - 1;
+                res += distance * (min - h);
             }
-            maxLeft = Math.max(maxLeft, height[i]);
+            stack.push(curr);
+            curr++;
         }
         return res;
     }
@@ -120,6 +125,7 @@ public class A0042 {
         }
         return sum;
     }
+    // 单调栈
     public static int trap5(int[] height) {
         int sum = 0;
         Stack<Integer> stack = new Stack<>();

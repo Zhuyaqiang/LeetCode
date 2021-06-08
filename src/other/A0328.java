@@ -27,7 +27,32 @@ public class A0328 {
         head.next.next.next.next = new ListNode(6);
         head.next.next.next.next.next = new ListNode(4);
         head.next.next.next.next.next.next = new ListNode(7);
-        oddEvenList(head);
+        rOddEvenList(head);
+    }
+    public static ListNode rOddEvenList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode dummyOne = new ListNode(-1);
+        ListNode dummyTwo = new ListNode(-1);
+        ListNode tempOne = dummyOne, tempTwo = dummyTwo;
+        int count = 0;
+        ListNode next = head.next;
+        while (head != null) {
+            next = head.next;
+            if (count % 2 == 0) {
+                tempOne.next = head;
+                tempOne = tempOne.next;
+            } else {
+                tempTwo.next = head;
+                tempTwo = tempTwo.next;
+            }
+            count++;
+            head = next;
+        }
+        tempTwo.next = null;
+        tempOne.next = dummyTwo.next;
+        return dummyOne.next;
     }
     public static ListNode oddEvenList(ListNode head) {
         if (head == null || head.next == null)

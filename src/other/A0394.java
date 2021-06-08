@@ -18,7 +18,42 @@ import java.util.Stack;
 public class A0394 {
     public static void main(String[] args) {
         String s = "3[a]2[bc]";
-        System.out.println(decodeString(s));
+        System.out.println(rDecodeString(s));
+    }
+
+    public static String rDecodeString(String s) {
+        char[] chars = s.toCharArray();
+        Stack<Object> stack = new Stack<>();
+        int num = 0;
+        for (char aChar : chars) {
+            if (aChar >= '0' && aChar <= '9') {
+                num = num * 10 + aChar - '0';
+            } else if (aChar == '[') {
+                stack.push(num);
+                num = 0;
+            } else if (aChar == ']') {
+                // 字符串出栈， 计算次数
+                StringBuilder sb = popAndAppend(stack);
+                StringBuilder stringBuilder = new StringBuilder();
+                int times = (int) stack.pop();
+                for (int i = 0; i < times; i++) {
+                    stringBuilder.append(sb);
+                }
+                stack.push(stringBuilder.toString());
+            } else {
+                stack.push(String.valueOf(aChar));
+            }
+        }
+        StringBuilder stringBuilder = popAndAppend(stack);
+        return stringBuilder.reverse().toString();
+    }
+
+    public static StringBuilder popAndAppend(Stack<Object> stack) {
+        StringBuilder sb = new StringBuilder();
+        while (!stack.isEmpty() && stack.peek() instanceof String) {
+            sb.append(stack.pop());
+        }
+        return sb;
     }
 
     public static String decodeString(String s) {
@@ -60,7 +95,7 @@ public class A0394 {
 
     public static String reverse(String str) {
         char[] res = str.toCharArray();
-        int l = 0, r = res.length-1;
+        int l = 0, r = res.length - 1;
         while (l < r) {
             char temp = res[l];
             res[l] = res[r];

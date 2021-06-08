@@ -1,9 +1,6 @@
 package other;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * 根据身高重建队列
@@ -34,5 +31,15 @@ public class A0406 {
             list.add(person[1], person);
         }
         return list.toArray(new int[list.size()][]);
+    }
+
+    public static void main(String[] args) {
+        List<Integer> list = new ArrayList<>();
+        list.add(0, 1);
+        System.out.println(list);
+        list.add(0, 2);
+        System.out.println(list);
+        list.add(0, 3);
+        System.out.println(list);
     }
 }

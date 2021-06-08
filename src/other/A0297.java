@@ -36,12 +36,12 @@ import java.util.Queue;
 public class A0297 {
 
     public static void main(String[] args) {
-//        TreeNode root = new TreeNode(1);
-//        root.left = new TreeNode(2);
-//        root.right = new TreeNode(3);
-//        root.right.left = new TreeNode(4);
-//        root.right.right = new TreeNode(5);
-//        System.out.println(rSerialize(root));
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.right.left = new TreeNode(4);
+        root.right.right = new TreeNode(5);
+        System.out.println(rSerialize(root));
         String serialize = rSerialize(rDeserialize("[5,2,3,null,null,2,4,3,1]"));
         System.out.println(serialize);
     }
@@ -51,63 +51,72 @@ public class A0297 {
             return "[]";
         }
         StringBuilder sb = new StringBuilder();
-        Deque<TreeNode> queue = new LinkedList<>();
-        queue.addLast(root);
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
         while (!queue.isEmpty()) {
+            int index = -1;
+            boolean flag = false;
             int size = queue.size();
-            while (size > 0) {
-                if (queue.getLast() == null) {
-                    queue.removeLast();
-                    size--;
-                } else {
-                    break;
-                }
-            }
             for (int i = 0; i < size; i++) {
-                TreeNode node = queue.pollFirst();
-                if (node == null) {
+                TreeNode poll = queue.poll();
+                if (poll == null) {
                     sb.append("null,");
-                } else {
-                    sb.append(node.val).append(",");
-                    queue.addLast(node.left);
-                    queue.addLast(node.right);
+                    continue;
                 }
+                sb.append(poll.val + ",");
+                index = i;
+                if (poll.left != null || poll.right != null) {
+                    flag = true;
+                }
+                queue.offer(poll.left);
+                queue.offer(poll.right);
+            }
+            if (!flag) {
+                sb = sb.delete(sb.length() - (size - index - 1) * 5, sb.length());
             }
         }
-        sb.delete(sb.length() - 1, sb.length());
-        return "[" + sb.toString() + ']';
+        return "[" + sb.toString().substring(0, sb.length() - 1) + "]";
     }
 
     public static TreeNode rDeserialize(String data) {
-        if (data == null || data.length() == 0) {
+        if (data.length() <= 2) {
             return null;
         }
         data = data.substring(1, data.length() - 1);
-        if (data.length() == 0) {
-            return null;
-        }
-        String[] splits = data.split(",");
-        TreeNode root = new TreeNode(Integer.parseInt(splits[0]));
+        String[] split = data.split(",");
+        TreeNode root = new TreeNode(Integer.parseInt(split[0]));
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
-        int i = 1;
-        while (!queue.isEmpty()) {
-            TreeNode treeNode = queue.poll();
-            if (i == splits.length) {
+        for (int i = 1; i < split.length; i = i + 2) {
+            TreeNode node = queue.poll();
+            if (node.val == -1) {
+                node = null;
+                i -= 2;
+                continue;
+            }
+            if (!"null".equals(split[i])) {
+                TreeNode left = new TreeNode(Integer.parseInt(split[i]));
+                node.left = left;
+                queue.offer(left);
+            } else {
+                queue.offer(new TreeNode(-1));
+            }
+            if (i + 1 >= split.length) {
                 break;
             }
-            if (!"null".equals(splits[i])) {
-                TreeNode left = new TreeNode(Integer.parseInt(splits[i]));
-                queue.offer(left);
-                treeNode.left = left;
-            }
-            i++;
-            if (!"null".equals(splits[i])) {
-                TreeNode right = new TreeNode(Integer.parseInt(splits[i]));
+            if (!"null".equals(split[i + 1])) {
+                TreeNode right = new TreeNode(Integer.parseInt(split[i + 1]));
+                node.right = right;
                 queue.offer(right);
-                treeNode.right = right;
+            } else {
+                queue.offer(new TreeNode(-1));
             }
-            i++;
+        }
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            if (node.val == -1){
+                node = null;
+            }
         }
         return root;
     }

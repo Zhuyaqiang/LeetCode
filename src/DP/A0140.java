@@ -38,18 +38,56 @@ import java.util.*;
 public class A0140 {
     public static void main(String[] args) {
         String s = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-        List<String> wordDict = new ArrayList<>(Arrays.asList("a","aa"));
+        List<String> wordDict = new ArrayList<>(Arrays.asList("a", "aa"));
         List<String> strings = wordBreak(s, wordDict);
         System.out.println(strings);
     }
+
+    public static List<String> rWordBreak(String s, List<String> wordDict) {
+        Set<String> set = new HashSet<>(wordDict);
+        int len = s.length();
+        // dp[i]表示s的第i个字母结尾的前缀传
+        boolean[] dp = new boolean[len + 1];
+        dp[0] = true;
+        for (int i = 1; i <= len; i++) {
+            for (int j = i - 1; j >= 0; j--) {
+                if (set.contains(s.substring(j, i)) && dp[j]) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        List<String> res = new ArrayList<>();
+        if (dp[len]) {
+            rRecursion(len, res, new LinkedList<>(), s, set);
+        }
+        return res;
+    }
+    public static void rRecursion(int len, List<String> res, Deque<String> path, String s, Set<String> set) {
+        if (len == 0) {
+            res.add(String.join(" ", path));
+            return;
+        }
+        for (int i = len - 1; i >= 0; i--) {
+            String str = s.substring(i, len);
+            if (set.contains(str)) {
+                path.addFirst(str);
+                rRecursion(i, res, path, s, set);
+                path.removeFirst();
+            }
+        }
+    }
+
+
+
     public static List<String> wordBreak(String s, List<String> wordDict) {
         Set<String> set = new HashSet<>(wordDict);
         int len = s.length();
         // dp[i]表示以第i个字母为结尾的前缀串是否能用字典中的单词表示
-        boolean[] dp = new boolean[len+1];
+        boolean[] dp = new boolean[len + 1];
         dp[0] = true;
         for (int i = 1; i <= len; i++) {
-            for (int j = i - 1; j >= 0; j --) {
+            for (int j = i - 1; j >= 0; j--) {
                 if (set.contains(s.substring(j, i)) && dp[j]) {
                     dp[i] = true;
                     break;
