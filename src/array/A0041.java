@@ -17,8 +17,37 @@ package array;
  */
 public class A0041 {
     public static void main(String[] args) {
-        int[] nums = {1,2,0};
-        System.out.println(firstMissingPositive(nums));
+        int[] nums = {7,8,9,11,12};
+        System.out.println(rFirstMissingPositive(nums));
+    }
+    public static int rFirstMissingPositive(int[] nums) {
+        // 范围只可能是[1, n + 1] -> [0, n]
+        int len = nums.length;
+        for (int i = 0; i < len; i++) {
+            if (nums[i] <= 0 || nums[i] > len) {
+                nums[i] = len + 2;
+            }
+        }
+        for (int i = 0; i < len; i++) {
+            int index = Math.abs(nums[i]);
+            if (index == len + 2) {
+                continue;
+            }
+            if (index == len) {
+                nums[0] = -Math.abs(nums[0]);
+            } else {
+                nums[index] = -Math.abs(nums[index]);
+            }
+        }
+        for (int i = 1; i < len; i++) {
+            if (nums[i] > 0) {
+                return i;
+            }
+        }
+        if (nums[0] > 0) {
+            return len;
+        }
+        return len + 1;
     }
     // 返回值一定在[1, nums.length+1]中
     // 先判断1有没有出现

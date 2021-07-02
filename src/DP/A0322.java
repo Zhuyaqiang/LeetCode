@@ -19,40 +19,26 @@ import java.util.Set;
  */
 public class A0322 {
     public static void main(String[] args) {
-        int[] coins = {2};
-        System.out.println(rCoinChange(coins, 3));
-        System.out.println(rCoinChange(new int[] {1, 2, 5}, 11));
+        int[] coins = {328,122,26,397,252,455,250,252};
+        System.out.println(rCoinChange(coins, 7121));
+//        System.out.println(rCoinChange(new int[] {1, 2, 5}, 11));
     }
 
     public static int rCoinChange(int[] coins, int amount) {
         if (amount == 0) {
             return 0;
         }
-        int len = coins.length;
-        if (len == 0) {
-            return -1;
-        }
-
         int[] dp = new int[amount + 1];
-        Arrays.fill(dp, -1);
+        Arrays.fill(dp, Integer.MAX_VALUE);
         dp[0] = 0;
-        for (int i = 0; i < len; i++) {
-            if (coins[i] <= amount) {
-                dp[coins[i]] = 1;
-            }
-        }
         for (int i = 1; i <= amount; i++) {
-            int min = Integer.MAX_VALUE;
-            for (int j = 0; j < len; j++) {
-                if (i - coins[j] >= 0 && dp[i - coins[j]] != -1) {
-                    min = Math.min(min, dp[i - coins[j]] + 1);
+            for (int j = 0; j < coins.length; j++) {
+                if (coins[j] <= i && dp[i - coins[j]] != Integer.MAX_VALUE) {
+                    dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1);
                 }
             }
-            if (min != Integer.MAX_VALUE) {
-                dp[i] = min;
-            }
         }
-        return dp[amount];
+        return dp[amount] == Integer.MAX_VALUE ? -1 : dp[amount];
     }
 
     public static int rBacktrack(int[] coins, int remain, int[] memo) {

@@ -15,7 +15,7 @@ package array;
  */
 public class A0153 {
     public static void main(String[] args) {
-        int nums[] = {4,5,1,2,3};
+        int nums[] = {2,1};
 //        int nums[] = {1};
 //        int nums[] = {3,4,5,1,2};
         System.out.println(rFineMin(nums));

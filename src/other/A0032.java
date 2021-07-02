@@ -16,9 +16,37 @@ import java.util.Stack;
  */
 public class A0032 {
     public static void main(String[] args) {
-//        String s = ")()())";
-        String s = "()(()";
-        System.out.println(longestValidParentheses(s));
+        String s = ")(((((()())()()))()(()))(";
+//        String s = "()(())";
+        System.out.println(rLongestValidParentheses(s));
+    }
+    public static int rLongestValidParentheses(String s) {
+        int len = s.length();
+        int[] dp = new int[len];
+        for (int i = 1; i < len; i++) {
+            if (s.charAt(i) == ')') {
+                if (s.charAt(i - 1) == '(') {
+                    if (i == 1) {
+                        dp[i] = 2;
+                    } else {
+                        dp[i] = dp[i - 2] + 2;
+                    }
+                } else {
+                    if (i - dp[i - 1] - 1 >= 0 && s.charAt(i - dp[i - 1] - 1) == '(') {
+                        if (i - dp[i - 1] - 1 > 0) {
+                            dp[i] = dp[i - dp[i - 1] - 2] + dp[i - 1] +2;
+                        } else {
+                            dp[i] = dp[i - 1] + 2;
+                        }
+                    }
+                }
+            }
+        }
+        int res = 0;
+        for (int i = 0; i < len; i++) {
+            res = Math.max(res, dp[i]);
+        }
+        return res;
     }
     public static int longestValidParentheses(String s) {
         int len = s.length();

@@ -37,9 +37,10 @@ public class A0114 {
         root.left = new TreeNode(2);
         root.right = new TreeNode(5);
         root.left.left = new TreeNode(3);
+        root.left.right = new TreeNode(4);
+        root.right.right = new TreeNode(6);
         flatten(root);
     }
-
     public static void flatten(TreeNode root) {
         TreeNode pre = new TreeNode(0);
         backtrack(root, pre, null, null);

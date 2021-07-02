@@ -21,13 +21,80 @@ import java.util.*;
  */
 public class A0227 {
     public static void main(String[] args) {
-        System.out.println(calculate2("3+2*2"));
-        System.out.println(calculate2(" 3/2 "));
-        System.out.println(calculate2(" 3+5 / 2 "));
-        System.out.println(calculate2("1-1+1"));
-        System.out.println(calculate2("1*2-3/4+5*6-7*8+9/10"));
+        System.out.println(calculate2("(1+(4+5+2)-3)+(6+8)"));
     }
 
+    public static int calculate3(String s) {
+        Deque<String> res = new LinkedList<>();
+        Stack<Character> op = new Stack<>();
+        Map<Character, Integer> map = new HashMap<>();
+        map.put('+', 1);
+        map.put('-', 1);
+        map.put('×', 3);
+        map.put('(', 5);
+        map.put('/', 3);
+        int index = 0, len = s.length();
+        while (index < len) {
+            char ch = s.charAt(index);
+            if (ch == ' ') {
+                index++;
+                continue;
+            }
+            if (ch == '+' || ch == '-' || ch == '×' || ch == '/' || ch == '(' || ch == ')') {
+                if (ch == ')') {
+                    while (op.peek() != '(') {
+                        res.push(op.pop() + "");
+                    }
+                    op.pop();
+                } else {
+                    if (op.isEmpty() || op.peek() == '(') {
+                        op.push(ch);
+                    } else {
+                        while (!op.isEmpty() && map.get(op.peek()) >= map.get(ch)) {
+                            res.push(op.pop() + "");
+                        }
+                        op.push(ch);
+                    }
+                }
+                index++;
+            } else {
+                int r = index, val = 0;
+                while (r < len && s.charAt(r) >= '0' && s.charAt(r) <= '9') {
+                    val = val * 10 + s.charAt(r) - '0';
+                    r++;
+                }
+                res.push(val + "");
+                index = r;
+            }
+        }
+        while (!op.isEmpty()) {
+            res.push(op.pop() + "");
+        }
+        Stack<Integer> stack = new Stack<>();
+        while (!res.isEmpty()) {
+            String str = res.pollLast();
+            if (str.equals("+") || str.equals("-") || str.equals("/") || str.equals("×")) {
+                int two = stack.pop();
+                int one = stack.pop();
+                switch (str) {
+                    case "+":
+                        stack.push(one + two);
+                        break;
+                    case "-":
+                        stack.push(one - two);
+                        break;
+                    case "×":
+                        stack.push(one * two);
+                        break;
+                    default:
+                        stack.push(one / two);
+                }
+            } else {
+                stack.push(Integer.parseInt(str));
+            }
+        }
+        return stack.pop();
+    }
     // 中缀表达式转后缀表达式, 通过栈计算
     public static int calculate2(String s) {
         Deque<String> deque = new ArrayDeque<>();

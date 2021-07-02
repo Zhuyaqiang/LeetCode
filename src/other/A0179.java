@@ -35,19 +35,36 @@ import java.util.Comparator;
  * 0 <= nums[i] <= 109
  */
 public class A0179 {
-    public String largestNumber(int[] nums) {
-        int len = nums.length;
-        if (len == 1) {
-            return nums[0] + "";
-        }
-        return "";
+    public static void main(String[] args) {
+        System.out.println(largestNumber(new int[]{10, 2}));
+        System.out.println(largestNumber(new int[]{3, 30, 34, 5, 9}));
+        System.out.println(largestNumber(new int[]{1}));
     }
-    public void quickSort(int[] nums, int start, int end) {
-        if (start >= end) {
-            return;
+    public static String largestNumber(int[] nums) {
+        Integer[] temp = new Integer[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            temp[i] = nums[i];
         }
-        int pivot = nums[start], left = start, right = end;
-        while (left < right) {
+        Arrays.sort(temp, (o1, o2) -> {
+            String one = o1 + "" + o2;
+            String two = o2 + "" + o1;
+            for (int i = 0; i < one.length(); i++) {
+                if (one.charAt(i) > two.charAt(i)) {
+                    return -1;
+                } else if (one.charAt(i) < two.charAt(i)) {
+                    return 1;
+                }
+            }
+            return 0;
+        });
+        StringBuilder sb = new StringBuilder();
+        int index = 0;
+        while (index < temp.length && temp[index] == 0) {
+            index++;
         }
+        for (int i = index; i < temp.length; i++) {
+            sb.append(temp[i]);
+        }
+        return sb.length() == 0 ? "0" : sb.toString();
     }
 }

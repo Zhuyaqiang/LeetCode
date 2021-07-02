@@ -18,68 +18,78 @@ package other;
  */
 public class A0043 {
     public static void main(String[] args) {
-        System.out.println(rMultiply("9133", "0"));
-        System.out.println(rMultiply("2", "3"));
-        System.out.println(rMultiply("123", "456"));
+//        System.out.println(multiply("9133", "0"));
+//        System.out.println(multiply("2", "3"));
+//        System.out.println(multiply("123", "456"));
+//        System.out.println(multiply("7967", "7067"));
     }
+
     public static String rMultiply(String num1, String num2) {
-        if (num1.equals("0") || num2.equals("0"))
-            return "0";
-        if (num1.length() > num2.length()) {
-            String temp = num1;
-            num1 = num2;
-            num2 = temp;
-        }
-        // nums1短
         int len1 = num1.length(), len2 = num2.length();
-        StringBuilder sb = new StringBuilder(), add = new StringBuilder(), res = new StringBuilder("0");
-        for (int i = len2 - 1; i >= 0; i --) {
-            StringBuilder mulRes = rSingleMul(num1, num2.charAt(i));
-            mulRes.append(add);
-            add.append("0");
-            res = rAdd(res, mulRes);
+        if (len1 < len2) {
+            String sTemp = num1;
+            num1 = num2;
+            num2 = sTemp;
+            len1 = num1.length();
+            len2 = num2.length();
+        }
+        String res = null;
+        String add = "0";
+        for (int i = len2 - 1; i >= 0; i--) {
+            char ch = num2.charAt(i);
+            String mulRes = strMul(num1, ch);
+            if (res == null) {
+                res = mulRes;
+            } else {
+                if (!mulRes.equals("0")) {
+                    res = strAdd(res, mulRes + add);
+                }
+                add = add + "0";
+            }
+        }
+        return res;
+    }
+    public static String strAdd(String num1, String num2) {
+        StringBuilder res = new StringBuilder();
+        int index2 = num2.length() - 1, index1 = num1.length() - 1;
+        int c = 0;
+        while (index1 >= 0) {
+            int val = num1.charAt(index1) - '0' + num2.charAt(index2) - '0' + c;
+            c = val / 10;
+            index1--;
+            index2--;
+            res.insert(0, (val % 10) + "");
+        }
+        while (index2 >= 0) {
+            int val = num2.charAt(index2) - '0' + c;
+            c = val / 10;
+            index2--;
+            res.insert(0, (val % 10) + "");
+        }
+        if (c > 0) {
+            res.insert(0, "1");
         }
         return res.toString();
     }
-    public static StringBuilder rAdd(StringBuilder res, StringBuilder add) {
-        // res长
-        if (res.length() < add.length()) {
-            StringBuilder temp = res;
-            res = add;
-            add = temp;
-        }
-        int c = 0, rIndex = res.length() - 1, aIndex = add.length() - 1;
-        while (aIndex >= 0) {
-            int val = (res.charAt(rIndex) - '0') + (add.charAt(aIndex) - '0') + c;
-            c = val / 10;
-            val = val % 10;
-            res.replace(rIndex, rIndex + 1, val + "");
-            rIndex --;
-            aIndex --;
-        }
-        while (rIndex >= 0) {
-            int val = res.charAt(rIndex) - '0' + c;
-            c = val / 10;
-            val = val % 10;
-            res.replace(rIndex, rIndex + 1, val + "");
-            rIndex --;
-        }
-        if (c > 0)
-            res.insert(0, c + "");
-        return res;
-    }
-    public static StringBuilder rSingleMul(String str, char ch) {
+    public static String strMul(String num1, char ch) {
         int c = 0;
-        StringBuilder res = new StringBuilder();
-        for (int i = str.length() - 1; i >= 0; i --) {
-            int val = (str.charAt(i) - '0') * (ch - '0') + c;
+        int num = ch - '0';
+        boolean flag = false;
+        StringBuilder sb = new StringBuilder();
+        for (int i = num1.length() - 1; i >= 0; i--) {
+            int val = num * (num1.charAt(i) - '0') + c;
             c = val / 10;
             val = val % 10;
-            res.insert(0, val + "");
+            sb.insert(0, val + "");
         }
-        if (c > 0)
-            res.insert(0, c + "");
-        return res;
+        if (c != 0) {
+            sb.insert(0, c + "");
+        }
+        int index = 0;
+        while (index < sb.length() - 1 && sb.charAt(index) == '0') {
+            index++;
+        }
+        return sb.substring(index);
     }
 
 

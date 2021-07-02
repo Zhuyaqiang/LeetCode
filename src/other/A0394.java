@@ -1,6 +1,5 @@
 package other;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Stack;
 
@@ -17,35 +16,56 @@ import java.util.Stack;
  */
 public class A0394 {
     public static void main(String[] args) {
-        String s = "3[a]2[bc]";
+        String s = "abc3[cd]xyz";
         System.out.println(rDecodeString(s));
     }
 
     public static String rDecodeString(String s) {
-        char[] chars = s.toCharArray();
-        Stack<Object> stack = new Stack<>();
-        int num = 0;
-        for (char aChar : chars) {
-            if (aChar >= '0' && aChar <= '9') {
-                num = num * 10 + aChar - '0';
-            } else if (aChar == '[') {
-                stack.push(num);
-                num = 0;
-            } else if (aChar == ']') {
-                // 字符串出栈， 计算次数
-                StringBuilder sb = popAndAppend(stack);
-                StringBuilder stringBuilder = new StringBuilder();
-                int times = (int) stack.pop();
-                for (int i = 0; i < times; i++) {
-                    stringBuilder.append(sb);
+        Stack<String> stack = new Stack<>();
+        int index = 0, len = s.length();
+        char[] chs = s.toCharArray();
+        while (index < len) {
+            char ch = chs[index];
+            if (isDigit(ch)) {
+                int r = index + 1;
+                while (r < len && isDigit(chs[r])) {
+                    r++;
                 }
-                stack.push(stringBuilder.toString());
+                stack.push(s.substring(index, r));
+                index = r;
+            } else if (ch == '['){
+                stack.push(ch + "");
+                index++;
+            } else if (ch == ']') {
+                StringBuilder sb = new StringBuilder();
+                while (!"[".equals(stack.peek())) {
+                    sb.insert(0, stack.pop());
+                }
+                stack.pop();
+                int count = Integer.parseInt(stack.pop());
+                StringBuilder newSb = new StringBuilder();
+                for (int i = 0; i < count; i++) {
+                    newSb.append(sb);
+                }
+                stack.push(newSb.toString());
+                index++;
             } else {
-                stack.push(String.valueOf(aChar));
+                int r = index + 1;
+                while (r < len && !isDigit(chs[r]) && chs[r] != '[' && chs[r] != ']') {
+                    r++;
+                }
+                stack.push(s.substring(index, r));
+                index = r;
             }
         }
-        StringBuilder stringBuilder = popAndAppend(stack);
-        return stringBuilder.reverse().toString();
+        StringBuilder res = new StringBuilder();
+        while (!stack.isEmpty()) {
+            res.insert(0, stack.pop());
+        }
+        return res.toString();
+    }
+    public static boolean isDigit(char ch) {
+        return ch >= '0' && ch <= '9';
     }
 
     public static StringBuilder popAndAppend(Stack<Object> stack) {
@@ -81,9 +101,6 @@ public class A0394 {
         return reverse(popAndGetString(stack));
     }
 
-    public static boolean isDigit(char c) {
-        return (c >= '0' && c <= '9');
-    }
 
     public static String popAndGetString(Stack<Object> stack) {
         StringBuilder sb = new StringBuilder();
